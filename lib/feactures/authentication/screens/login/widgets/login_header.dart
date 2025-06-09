@@ -1,0 +1,35 @@
+import 'package:flutter/material.dart';
+import 'package:registro_prestamos/utils/constants/dimensions.dart';
+import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
+import 'package:registro_prestamos/utils/manager/assets_manager.dart';
+
+class LoginHaeder extends StatelessWidget {
+  const LoginHaeder({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = THelperFuntions.isDarkMode(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Image(
+        //   height: 150,
+        //   image: AssetImage(AssetsManager.clashcycle)
+        // ),
+        Image.asset(AssetsManager.clashcycle,height: 120),
+        const SizedBox(height: 20),
+        Text(
+          'Login',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        const SizedBox(height: Dimensions.sm),
+        Text('Bienvenido', style: Theme.of(context).textTheme.bodyMedium),
+      ],
+    );
+  }
+}
+
+
