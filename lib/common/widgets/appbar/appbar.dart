@@ -6,6 +6,7 @@ import 'package:registro_prestamos/utils/device/device_utility.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
+  final Color color;
   final bool showBackArrow;
   final IconData? leadingIcon;
   final List<Widget>? actions;
@@ -13,6 +14,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   const AppBarWidget({super.key, 
    this.title, 
+   this.color= Colors.transparent,
    this.showBackArrow = false, 
    this.leadingIcon, 
    this.actions, 
@@ -21,16 +23,17 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Dimensions.md),
-      child: AppBar(
-        automaticallyImplyLeading: false,
-        leading: showBackArrow 
-        ? IconButton(onPressed: ()=> Get.back(), icon: const Icon(Iconsax.arrow_left)) 
-        : leadingIcon != null ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon)) : null,
-        title: title,
-        actions: actions,
-      ),
+    return AppBar(
+      automaticallyImplyLeading: false,
+      backgroundColor: color,
+      leading: showBackArrow 
+      ? IconButton(onPressed: ()=> Get.back(), icon: Padding(
+        padding: const EdgeInsets.only(left: 20),
+        child: const Icon(Iconsax.arrow_left),
+      )) 
+      : leadingIcon != null ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon)) : null,
+      title: title,
+      actions: actions,
     );
   }
 
