@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:registro_prestamos/data/repositories/authentication/authentication_repository.dart';
 import 'package:registro_prestamos/data/repositories/user/user_repository.dart';
@@ -15,8 +16,9 @@ import 'app.dart';
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   Get.put(NetworkManager());
-  await dotenv.load();
+  await dotenv.load(fileName: ".env");
   Get.lazyPut(() => AuthControllers());
   Get.lazyPut(() => ClientController());
   Get.lazyPut(() => RegistroDePrestamoController());

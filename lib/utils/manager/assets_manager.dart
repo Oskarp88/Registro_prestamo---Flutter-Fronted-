@@ -9,6 +9,9 @@ class AssetsManager {
   static const String clashcycle = "assets/logos/clashcycle.png";
   static const String clashcycleDark = "assets/logos/clashcycledark.png";
 
+  //icons
+  static const String iconArrowBack = 'assets/icons/iconArrowBack.png';
+
   //onboarding  images
   static const String onboardingImageSearching = 'assets/images/on_boarding_images/searching.gif';
   static const String onboardingImageShopping = 'assets/images/on_boarding_images/shopping.gif';

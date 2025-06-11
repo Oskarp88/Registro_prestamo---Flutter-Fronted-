@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:registro_prestamos/utils/device/device_utility.dart';
+import 'package:registro_prestamos/utils/manager/assets_manager.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
@@ -27,10 +26,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       backgroundColor: color,
       leading: showBackArrow 
-      ? IconButton(onPressed: ()=> Get.back(), icon: Padding(
-        padding: const EdgeInsets.only(left: 20),
-        child: const Icon(Iconsax.arrow_left),
-      )) 
+      ? IconButton(onPressed: ()=> Get.back(), icon: IconButton(
+          onPressed: ()=> Get.back(), 
+          icon: Image.asset(
+            AssetsManager.iconArrowBack,
+            color: Colors.white,
+            width: 100,
+          ),
+        )) 
       : leadingIcon != null ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon)) : null,
       title: title,
       actions: actions,

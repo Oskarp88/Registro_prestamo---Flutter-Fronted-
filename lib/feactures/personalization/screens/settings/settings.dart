@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
 import 'package:registro_prestamos/common/widgets/list_title/settings_menu_title.dart';
 import 'package:registro_prestamos/common/widgets/list_title/user_profile_title.dart';
 import 'package:registro_prestamos/common/widgets/texts/section_headig.dart';
+import 'package:registro_prestamos/controllers/theme_controller.dart';
+import 'package:registro_prestamos/data/repositories/authentication/authentication_repository.dart';
 import 'package:registro_prestamos/feactures/personalization/screens/profile/profile.dart';
+import 'package:registro_prestamos/provider/auth_provider.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -14,6 +18,9 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.read<AuthenticateProvider>().user!;
+    final themeController = Get.find<ThemeController>();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -31,7 +38,11 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 
                   ///user profile card
-                 OUserProfileTilte(onPressed: () => Get.to(() => const ProfileScreen()),),                 
+                 OUserProfileTilte(
+                  name: '${user.name} ${user.lastname}',
+                  email: user.email,
+                  onPressed: () => Get.to(() => const ProfileScreen()),
+                 ),                 
                  const SizedBox(height: Dimensions.spaceBtwSections,),
 
                 ],
@@ -47,37 +58,7 @@ class SettingsScreen extends StatelessWidget {
                     showActionButton: false,
                   ),
                   const SizedBox(height: Dimensions.spaceBtwItems,),
-
-                  OSettingsMenuTitle(
-                    icon: Iconsax.safe_home,
-                    title: 'My Address', 
-                    subTile: 'Set Shopping delivery address',
-                    onTap: (){},
-                  ),
-                   OSettingsMenuTitle(
-                    icon: Iconsax.shopping_cart,
-                    title: 'My Cart', 
-                    subTile: 'Add, remove products and move to checkout',
-                    onTap: (){},
-                  ),
-                   OSettingsMenuTitle(
-                    icon: Iconsax.bag_tick,
-                    title: 'My Orders', 
-                    subTile: 'In progress and Completed Orders',
-                    onTap: (){},
-                  ),
-                   OSettingsMenuTitle(
-                    icon: Iconsax.bank,
-                    title: 'Bank Account', 
-                    subTile: 'Withdraw balance to registered bank account',
-                    onTap: (){},
-                  ),
-                   OSettingsMenuTitle(
-                    icon: Iconsax.discount_shape,
-                    title: 'My Couppons', 
-                    subTile: 'List of all the discounted coupons',
-                    onTap: (){},
-                  ),
+                  
                    OSettingsMenuTitle(
                     icon: Iconsax.notification,
                     title: 'Notifications', 
@@ -95,35 +76,32 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(height: Dimensions.spaceBtwSections,),
                   const SectionHeading(title: 'App Settings', showActionButton: false,),
                   const SizedBox(height: Dimensions.spaceBtwItems,),
-                  const OSettingsMenuTitle(
-                    icon: Iconsax.document_upload1,
-                    title: 'Load Data', 
-                    subTile: 'Upload Data to your Cloud Firebase'
-                  ),
-                  OSettingsMenuTitle(
-                    icon: Iconsax.location,
-                    title: 'Geolocation', 
-                    subTile: 'Set recommendation based on location',
-                    trailing: Switch(value: true, onChanged: (value){}),
-                  ),
                   OSettingsMenuTitle(
                     icon: Iconsax.security_user,
                     title: 'Safe Mode', 
                     subTile: 'Search result is safe for all ages',
                     trailing: Switch(value: false, onChanged: (value){}),
                   ),
+                  const SizedBox(height: Dimensions.spaceBtwItems,),
                   OSettingsMenuTitle(
-                    icon: Iconsax.image,
-                    title: 'HD Image Quality', 
-                    subTile: 'Set Image quality to be seen',
-                    trailing: Switch(value: false, onChanged: (value){}),
-                  ),
+                  icon: Iconsax.moon,
+                  title: 'Dark Mode',
+                  subTile: 'Enable or disable dark theme',
+                  trailing: Obx(() => Switch(
+                        value: themeController.isDarkMode.value,
+                        onChanged: (value) {
+                          themeController.toggleTheme(value);
+                        },
+                      )),
+                ),
 
                   ///logout
                   const SizedBox(height: Dimensions.spaceBtwSections,),
                   SizedBox(
                     width: double.infinity,
-                    child: OutlinedButton(onPressed: (){}, child: const Text('Logout')),
+                    child: OutlinedButton(onPressed: (){
+                      AuthenticationRepository.instance.signOut();
+                    }, child: const Text('Logout')),
                   ),
                   const SizedBox(height: Dimensions.spaceBtwSections*2.5),
 

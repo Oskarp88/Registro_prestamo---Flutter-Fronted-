@@ -6,24 +6,20 @@ import 'package:registro_prestamos/utils/manager/assets_manager.dart';
 
 class OUserProfileTilte extends StatelessWidget {
   const OUserProfileTilte({
-    super.key, required this.onPressed,
+    super.key, required this.onPressed, required this.name, required this.email,
   });
+  final String name;
+  final String email;
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
     return ListTile(
-     leading: const CircularImage(
-       image: AssetsManager.userImagen,
-       height: 50, 
-       width: 50,
-       padding: 0,
-     ),
      title: Text(
-       'Oscar burgos',
+       name,
        style: Theme.of(context).textTheme.headlineSmall!.apply(color: MyColors.white),
      ),
      subtitle: Text(
-       'burgos@gmail.com',
+       email,
        style: Theme.of(context).textTheme.bodyMedium!.apply(color: MyColors.white)
      ),
      trailing: IconButton(

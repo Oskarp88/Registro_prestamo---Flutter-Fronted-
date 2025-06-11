@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/data/services/api_service.dart';
 import 'package:registro_prestamos/model/client.dart';
+import 'package:registro_prestamos/utils/constants/my_colors.dart';
 import 'package:registro_prestamos/utils/helpers/methods.dart';
 
 class ClientListScreen extends StatefulWidget {
@@ -35,40 +37,84 @@ class _ClientListScreenState extends State<ClientListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Lista de Clientes')),
-      body: FutureBuilder<List<ClientWithLoan>>(
-        future: _clientsWithLoan,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No hay clientes registrados'));
-          }
-
-          final items = snapshot.data!;
-          return ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              final item = items[index];
-              return Card(
-                margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                child: ListTile(
-                  title: Text('${item.client.name} ${item.client.lastname}'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Deuda total: ${formatCurrency(item.totalLoan)}'),
-                      Text('Estado de pago de interés: ${item.loanStatus}'),
-                    ],
+      appBar: AppBarWidget(
+        color: MyColors.primary,
+        showBackArrow: true,
+        title: Text(
+          'Lista de Clientes', 
+          style: Theme.of(context).textTheme.headlineMedium,
+        )
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: FutureBuilder<List<ClientWithLoan>>(
+          future: _clientsWithLoan,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text('No hay clientes registrados'));
+            }
+        
+            final items = snapshot.data!;
+            return ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                final item = items[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: ListTile(
+                    title: Text(
+                      '${item.client.name} ${item.client.lastname}',
+                      style: Theme.of(context).textTheme.titleLarge
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Deuda total: ',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            Text(
+                              formatCurrency(item.totalLoan),
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Estado de pago de interés: ',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            Text(
+                              item.loanStatus,
+                              style: Theme.of(context).textTheme.bodyMedium!.apply(
+                                color: item.loanStatus == 'pendiente' 
+                                  ? Colors.orangeAccent
+                                  : item.loanStatus == 'atrasado'
+                                    ? Colors.deepOrange
+                                    :  item.loanStatus == 'no pago'
+                                      ? Colors.red
+                                      : Colors.green
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    leading: const Icon(Icons.person),
+                    
                   ),
-                  leading: const Icon(Icons.person),
-                ),
-              );
-            },
-          );
-        },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
