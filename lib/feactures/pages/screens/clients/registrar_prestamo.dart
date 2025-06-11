@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -8,9 +9,12 @@ import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/common/widgets/button/elevated_button_widget.dart';
 import 'package:registro_prestamos/feactures/pages/controllers/registro_de_prestamo_controller.dart';
 import 'package:registro_prestamos/provider/client_provider.dart';
+import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:registro_prestamos/utils/constants/my_colors.dart';
 import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
+import 'package:registro_prestamos/utils/local_storage/storage_utility.dart';
+import 'package:registro_prestamos/utils/validators/validation.dart';
 
 class RegistrarPrestamo extends StatelessWidget {
   RegistrarPrestamo({super.key});
@@ -46,9 +50,8 @@ class RegistrarPrestamo extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final clientProvider = context.read<ClientProvider>();
-
+  Widget build(BuildContext context){
+    final clientProvider = context.watch<ClientProvider>();
     return Scaffold(
       appBar: AppBarWidget(
         showBackArrow: true,
@@ -67,8 +70,12 @@ class RegistrarPrestamo extends StatelessWidget {
                   Text(clientProvider.clientModel!.name, style: MyTextStyle.headlineSmall),
                   SizedBox(height: Dimensions.spaceBtwSections),
                   TextFormField(
-                    controller: totalLoan,
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    controller: totalLoan,
+                    validator: (value) => Validator.validateOnlyNumbers(value),
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Iconsax.money),
                       labelText: 'Cantidad total del préstamo',
@@ -89,8 +96,9 @@ class RegistrarPrestamo extends StatelessWidget {
                     text: 'Guardar',
                     onTap: () {
                       prestamoController.createPrestamo(
+                        id: clientProvider.clientModel!.id,
                         totalLoan: int.parse(totalLoan.text),
-                        dueDate: dueDate.text,
+                        dueDate: dueDate.text.toString(),
                       );
                     },
                   ),

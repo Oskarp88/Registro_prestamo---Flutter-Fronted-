@@ -8,15 +8,19 @@ import 'package:registro_prestamos/feactures/pages/controllers/client_controller
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:registro_prestamos/utils/constants/my_colors.dart';
 import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
+import 'package:registro_prestamos/utils/validators/validation.dart';
 
 class ClientCreateScreen extends StatelessWidget {
   ClientCreateScreen({super.key});
+
   final clientControllers = Get.find<ClientController>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController lastnameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController cedulaController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  final nameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final emailController = TextEditingController();
+  final cedulaController = TextEditingController();
+  final phoneNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class ClientCreateScreen extends StatelessWidget {
       appBar: AppBarWidget(
         showBackArrow: true,
         color: MyColors.primary,
-        title: Text('Crear Cliente'),
+        title: const Text('Crear Cliente'),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -32,64 +36,75 @@ class ClientCreateScreen extends StatelessWidget {
             width: THelperFuntions.screenWidth() > 450 ? 450 : double.infinity,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-              child: Column(
-                children: [
-                  Text('Crea tu cliente', style: MyTextStyle.titleLarge,),
-                  SizedBox(height: Dimensions.spaceBtwSections,),
-                  TextFormField(
-                    controller: nameController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Iconsax.direct_right),
-                      labelText: 'Nombres',
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Text('Crea tu cliente', style: MyTextStyle.titleLarge),
+                    SizedBox(height: Dimensions.spaceBtwSections),
+                    TextFormField(
+                      controller: nameController,
+                      validator: (value) => Validator.validateText(value!, 'Nombre'),
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Iconsax.direct_right),
+                        labelText: 'Nombres',
+                      ),
                     ),
-                  ),
-                  SizedBox(height: Dimensions.spaceBtwInputFields,),
-                  TextFormField(
-                    controller: lastnameController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Iconsax.direct_right),
-                      labelText: 'Apellidos',
+                    SizedBox(height: Dimensions.spaceBtwInputFields),
+                    TextFormField(
+                      controller: lastnameController,
+                      validator: (value) => Validator.validateText(value!, 'Apellido'),
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Iconsax.direct_right),
+                        labelText: 'Apellidos',
+                      ),
                     ),
-                  ),
-                  SizedBox(height: Dimensions.spaceBtwInputFields,),
-                  TextFormField(
-                    controller: emailController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Iconsax.direct_right),
-                      labelText: 'Correo',
+                    SizedBox(height: Dimensions.spaceBtwInputFields),
+                    TextFormField(
+                      controller: emailController,
+                      validator: (value) => Validator.validateEmail(value!),
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Iconsax.direct_right),
+                        labelText: 'Correo',
+                      ),
                     ),
-                  ),
-                  SizedBox(height: Dimensions.spaceBtwInputFields,),
-                  TextFormField(
-                    controller: cedulaController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Iconsax.direct_right),
-                      labelText: 'Numero de Cedula',
+                    SizedBox(height: Dimensions.spaceBtwInputFields),
+                    TextFormField(
+                      controller: cedulaController,
+                      validator: (value) => Validator.validateCedula(value!),
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Iconsax.direct_right),
+                        labelText: 'Número de Cédula',
+                      ),
                     ),
-                  ),
-                  SizedBox(height: Dimensions.spaceBtwInputFields,),
-                   TextFormField(
-                    controller: phoneNumberController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Iconsax.direct_right),
-                      labelText: 'Numero de Telefono',
+                    SizedBox(height: Dimensions.spaceBtwInputFields),
+                    TextFormField(
+                      controller: phoneNumberController,
+                      validator: (value) => Validator.validatePhoneNumber(value!),
+                      keyboardType: TextInputType.phone,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Iconsax.direct_right),
+                        labelText: 'Número de Teléfono',
+                      ),
                     ),
-                  ),
-                  SizedBox(height: Dimensions.spaceBtwInputFields,),
-                  ElevatedButtonWidget(
-                    text: 'Registrar Cliente', 
-                    onTap: ()async{
-                      await clientControllers.createClient(
-                        name: nameController.text.toString(), 
-                        lastname: lastnameController.text.toString(), 
-                        cedula: int.parse(cedulaController.text), 
-                        email: emailController.text.toString(), 
-                        phoneNumber: phoneNumberController.text.toString()
-                      );
-                    }
-                  )
-
-                ],
+                    SizedBox(height: Dimensions.spaceBtwInputFields),
+                    ElevatedButtonWidget(
+                      text: 'Registrar Cliente',
+                      onTap: () async {
+                        if (_formKey.currentState!.validate()) {
+                          await clientControllers.createClient(
+                            name: nameController.text.trim(),
+                            lastname: lastnameController.text.trim(),
+                            cedula: int.parse(cedulaController.text.trim()),
+                            email: emailController.text.trim(),
+                            phoneNumber: phoneNumberController.text.trim(),
+                          );
+                        }
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
           ),

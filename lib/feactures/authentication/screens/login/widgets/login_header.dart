@@ -13,13 +13,18 @@ class LoginHaeder extends StatelessWidget {
     final dark = THelperFuntions.isDarkMode(context);
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // Image(
         //   height: 150,
         //   image: AssetImage(AssetsManager.clashcycle)
         // ),
-        Image.asset(AssetsManager.clashcycle,height: 120),
+        Image.asset(
+          dark 
+           ? AssetsManager.clashcycleDark 
+           : AssetsManager.clashcycle,
+          height: 100
+        ),
         const SizedBox(height: 20),
         Text(
           'Login',

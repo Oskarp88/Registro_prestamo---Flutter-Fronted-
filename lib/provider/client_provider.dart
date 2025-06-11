@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:registro_prestamos/model/client.dart';
 
-class ClientProvider extends ChangeNotifier{
+class ClientProvider with ChangeNotifier{
   static final ClientProvider _instance = ClientProvider._internal();
   factory ClientProvider() => _instance;
   ClientProvider._internal();

@@ -28,7 +28,7 @@ class ClientModel {
   
   Map<String, dynamic> toJson() {
     return {
-      '_id': id, // Asegúrate de incluir el campo id
+      'id': id, // Asegúrate de incluir el campo id
       Constants.name: name,
       Constants.lastname: lastname,
       Constants.cedula: cedula,
@@ -39,7 +39,7 @@ class ClientModel {
 
  factory ClientModel.fromJson(Map<String, dynamic> json) {
   return ClientModel(
-    id: json['_id'] ?? '',
+    id: json['id'] ?? '',
     name: json[Constants.name] ?? '',
     lastname: json[Constants.lastname] ?? '',
     cedula: json[Constants.cedula] ?? 0,

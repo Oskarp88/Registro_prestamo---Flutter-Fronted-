@@ -35,7 +35,7 @@ class _LoginFormState extends State<LoginForm> {
               controller: emailOrUsernameController,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.direct_right),
-                labelText: 'Email o Username',
+                labelText: 'Email o Usuario',
               ),
             ),
             const SizedBox(height: Dimensions.spaceBtwInputFields,),
@@ -44,7 +44,7 @@ class _LoginFormState extends State<LoginForm> {
               obscureText: !isPasswordVisible.value,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Iconsax.password_check),
-                labelText: 'Password',
+                labelText: 'Contraseña',
                 suffixIcon: IconButton(
                   icon: Icon(
                     isPasswordVisible.value ? Iconsax.eye : Iconsax.eye_slash,

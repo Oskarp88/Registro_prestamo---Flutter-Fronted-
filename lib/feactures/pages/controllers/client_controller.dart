@@ -49,14 +49,16 @@ class ClientController {
     
     if(response.statusCode == 200){
       final Map<String, dynamic> clientData = jsonDecode(response.body);
-      ClientModel clientModel = ClientModel.fromJson(clientData);
+      ClientModel clientModel = ClientModel.fromJson(clientData[Constants.user]);
       clientProvider.setClient(clientModel);
-      await UtilLocalStorage().saveData('clientModel', clientModel);
+      print("llegue hasta registrar el cliente $clientData");
+      await UtilLocalStorage().saveData(Constants.clientModel, clientData[Constants.user]);
       OFullScreenLoader.stopLoading();
+      Loaders.successSnackBar(title: 'Registro exitoso', message: clientData[Constants.message]);
       Get.offAll(()=> RegistrarPrestamo());
     }else {
         final Map<String, dynamic> errorResponse = jsonDecode(response.body);
-        final String errorMessage = errorResponse['detail'] ?? 'Error desconocido';
+        final errorMessage = errorResponse['detail'] ?? 'Error desconocido';
 
         if (response.statusCode == 401) {
           Loaders.errorSnackBar(title: errorMessage);

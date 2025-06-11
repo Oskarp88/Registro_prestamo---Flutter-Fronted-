@@ -17,7 +17,6 @@ void main()async{
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(NetworkManager());
   await dotenv.load();
-  Get.lazyPut(()=>AuthenticateProvider());
   Get.lazyPut(() => AuthControllers());
   Get.lazyPut(() => ClientController());
   Get.lazyPut(() => RegistroDePrestamoController());

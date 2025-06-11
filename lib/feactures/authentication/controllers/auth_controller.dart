@@ -35,13 +35,13 @@ class AuthControllers {
           Constants.password: password 
         })
       );
-      print('response login ***************: ${response.statusCode}');
-      print('************************************************************');
+      // print('response login ***************: ${response.statusCode}');
+      // print('************************************************************');
       if (response.statusCode == 200) {
         final setAuth = AuthenticateProvider.instance;
         final Map<String, dynamic> userData = jsonDecode(response.body);
-        print('response login ***************: $userData');
-      print('************************************************************');
+      //   print('response login ***************: $userData');
+      // print('************************************************************');
         UserModel userModel = UserModel.fromJson(userData['user']);
         setAuth.setUser(userModel);
         await UtilLocalStorage().saveData(Constants.userCredentials, userData);

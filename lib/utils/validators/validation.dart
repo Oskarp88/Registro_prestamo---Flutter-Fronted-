@@ -1,4 +1,4 @@
-class TValidator {
+class Validator {
   static String? validateEmail(String? value){
     if(value == null || value.isEmpty){
       return 'Email is required.';
@@ -37,17 +37,46 @@ class TValidator {
     return null;
   }
 
-  static String? validatePhoneNumber(String? value){
-    if(value == null || value.isEmpty){
-      return 'Phone number is required';
+  static String? validateOnlyNumbers(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Este campo es obligatorio';
+    }
+
+    final numberRegExp = RegExp(r'^\d+$'); // solo números
+
+    if (!numberRegExp.hasMatch(value)) {
+      return 'Solo se permiten números';
+    }
+
+    return null;
+  }
+
+  static String? validatePhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'El número de teléfono es obligatorio';
     }
 
     final phoneRegExp = RegExp(r'^\d{10}$');
 
-    if(phoneRegExp.hasMatch(value)){
-      return 'Invalid phone number format (10 digits required).';
+    if (!phoneRegExp.hasMatch(value)) {
+      return 'Formato inválido (se requieren 10 dígitos)';
     }
 
+    return null; 
+  }
+
+
+  static String? validateText(String value, String label) {
+    if (value.trim().isEmpty) return '$label es obligatorio';
+    return null;
+  }
+
+    static String? validateCedula(String value) {
+    if (value.trim().isEmpty) return 'La cédula es obligatoria';
+    if (!RegExp(r'^\d+$').hasMatch(value.trim())) return 'Solo se permiten números';
+    if (value.trim().length < 6 || value.trim().length > 11) {
+      return 'La cédula debe tener entre 6 y 11 dígitos';
+    }
     return null;
   }
 }
