@@ -42,9 +42,9 @@ class AuthControllers {
         final Map<String, dynamic> userData = jsonDecode(response.body);
       //   print('response login ***************: $userData');
       // print('************************************************************');
-        UserModel userModel = UserModel.fromJson(userData['user']);
+        UserModel userModel = UserModel.fromJson(userData[Constants.user]);
         setAuth.setUser(userModel);
-        await UtilLocalStorage().saveData(Constants.userCredentials, userData);
+        await UtilLocalStorage().saveData(Constants.userCredentials, userData[Constants.user]);
         await UtilLocalStorage().saveData(Constants.isLogin, true);
         AuthenticationRepository.instance.screenRedirect();    
         return;

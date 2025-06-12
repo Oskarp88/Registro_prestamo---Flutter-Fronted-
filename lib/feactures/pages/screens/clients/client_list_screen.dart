@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/data/services/api_service.dart';
+import 'package:registro_prestamos/feactures/pages/screens/clients/client_details.dart';
 import 'package:registro_prestamos/model/client.dart';
 import 'package:registro_prestamos/utils/constants/my_colors.dart';
 import 'package:registro_prestamos/utils/helpers/methods.dart';
@@ -108,7 +110,14 @@ class _ClientListScreenState extends State<ClientListScreen> {
                       ],
                     ),
                     leading: const Icon(Icons.person),
-                    
+                    trailing: Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      Get.to(() => ClientDetails(
+                        clientId: item.client.id,
+                        name: item.client.name,
+                        lastname: item.client.lastname,
+                      ));
+                    },
                   ),
                 );
               },

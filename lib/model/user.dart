@@ -53,7 +53,7 @@ class UserModel {
     email: json[Constants.email] ?? '',
     password: json[Constants.password] ?? '',
     isAdmin: json[Constants.isAdmin] ?? false,
-    isActive: json[Constants.isActive]
+    isActive: json[Constants.isActive] ?? false,
   );
 }
 

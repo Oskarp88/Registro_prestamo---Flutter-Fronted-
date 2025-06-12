@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:registro_prestamos/common/screen/full_screen_loader.dart';
 import 'package:registro_prestamos/feactures/authentication/screens/login/login.dart';
+import 'package:registro_prestamos/model/user.dart';
 import 'package:registro_prestamos/navigation_menu.dart';
 import 'package:registro_prestamos/provider/auth_provider.dart';
 import 'package:registro_prestamos/utils/constants/constants.dart';
@@ -29,9 +30,11 @@ class AuthenticationRepository extends GetxController{
       Get.offAll(() => const LoginScreen());
     } else {
         print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx $userCredentials');
+
+        user.setUser(UserModel.fromJson(userCredentials));
         // Redirigir al BottomHomeNavigationBar
         if (kDebugMode) {
-          print("Sesión activa detectada. Redirigiendo a BottomHomeNavigationBar.");
+          print("Sesión activa de ${user.user!.username} detectada. Redirigiendo a BottomHomeNavigationBar.");
         }
       
         if(isLogin){

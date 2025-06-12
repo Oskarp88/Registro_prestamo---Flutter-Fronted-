@@ -19,12 +19,12 @@ void main()async{
   await GetStorage.init();
   Get.put(NetworkManager());
   await dotenv.load(fileName: ".env");
-  Get.lazyPut(() => AuthControllers());
+  Get.put(AuthControllers());
   Get.lazyPut(() => ClientController());
   Get.lazyPut(() => RegistroDePrestamoController());
   Get.lazyPut(() => UserRepository());
   Get.put(AuthenticationRepository());
-   await SystemChrome.setPreferredOrientations([
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp, // Permite solo modo vertical
   ]);
   runApp(

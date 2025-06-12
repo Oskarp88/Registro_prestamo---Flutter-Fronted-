@@ -53,7 +53,7 @@ class AuthenticateProvider with ChangeNotifier {
       );
     }
   }
-
+  
   Future<void> fetchUserRecord(String? id)async{
     print('llegue a fetchUserRecord ');
     try {

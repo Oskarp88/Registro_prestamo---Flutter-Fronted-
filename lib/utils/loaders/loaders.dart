@@ -36,10 +36,10 @@ class Loaders {
       message,
       isDismissible: false,
       shouldIconPulse: true,
-      colorText: MyColors.white1,
+      colorText: MyColors.white,
       backgroundColor: Colors.orange.shade600,
       snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 13),
       margin: const EdgeInsets.all(20),
       icon: const Icon(Iconsax.warning_2, color: Colors.white,)
     );

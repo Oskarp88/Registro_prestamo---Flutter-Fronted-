@@ -77,13 +77,6 @@ class SettingsScreen extends StatelessWidget {
                   const SectionHeading(title: 'App Settings', showActionButton: false,),
                   const SizedBox(height: Dimensions.spaceBtwItems,),
                   OSettingsMenuTitle(
-                    icon: Iconsax.security_user,
-                    title: 'Safe Mode', 
-                    subTile: 'Search result is safe for all ages',
-                    trailing: Switch(value: false, onChanged: (value){}),
-                  ),
-                  const SizedBox(height: Dimensions.spaceBtwItems,),
-                  OSettingsMenuTitle(
                   icon: Iconsax.moon,
                   title: 'Dark Mode',
                   subTile: 'Enable or disable dark theme',
