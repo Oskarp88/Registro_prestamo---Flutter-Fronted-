@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
 import 'package:registro_prestamos/data/services/api_service.dart';
+import 'package:registro_prestamos/feactures/pages/screens/clients/dialog/show_pay_amount_dialog.dart';
+import 'package:registro_prestamos/feactures/pages/screens/clients/dialog/show_pay_full.dart';
 import 'package:registro_prestamos/feactures/pages/screens/clients/dialog/show_pay_interest_dialog.dart';
 import 'package:registro_prestamos/model/loan.dart';
+import 'package:registro_prestamos/provider/client_provider.dart';
 import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:registro_prestamos/utils/constants/my_colors.dart';
@@ -40,17 +44,17 @@ class _ClientDetailsState extends State<ClientDetails> {
   }
 
   Future<void> fetchLoans() async {
+    final providerLoan = context.read<ClientProvider>(); 
     final result = await ApiService().getLoanByClientId(widget.clientId);
-    setState(() {
-      loans = result;
-    });
+    providerLoan.setLoan(result!);
   }
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic>? time = loans != null ? loans!.dueDate?.split('-') : [];
+    final loanModel = context.watch<ClientProvider>().loanModel!;
+    List<dynamic>? time = loanModel.isNotEmpty() ? loanModel.dueDate?.split('-') : [];
     return Scaffold(
-      body: loans == null
+      body: loanModel.isEmpty()
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Column(
@@ -93,7 +97,7 @@ class _ClientDetailsState extends State<ClientDetails> {
                           _buildInfoRow(
                             context,
                             label: 'Deuda Total:',
-                            value: formatCurrency(loans!.totalLoan),
+                            value: formatCurrency(loanModel.totalLoan),
                           ),
                           _buildInfoRow(
                             context,
@@ -103,24 +107,24 @@ class _ClientDetailsState extends State<ClientDetails> {
                            _buildInfoRow(
                             context,
                             label: 'Estado del pago de interés:',
-                            value: loans!.status.toString(),
+                            value: loanModel.status.toString(),
                           ),
                           const SizedBox(height: 16),
                           _buildInfoRow(
                             context,
                             label: 'Interés a pagar:',
-                            value: formatCurrency(loans!.interest),
+                            value: formatCurrency(loanModel.interest),
                             buttonLabel: 'Pagar interés',
                             onButtonPressed: () {
                               
-                              if(loans!.status == Constants.pagoCompletado){
+                              if(loanModel.status == Constants.pagoCompletado){
                                 Loaders.successSnackBar(
                                   title: 'Ya has pagado el interes correspondiente.',
-                                  message: 'Para pagar el proximo interés debes esperar despues de esta fecha: ${time![2]} de ${meses[(int.parse(time[1])-1)-1]}'
+                                  message: 'Para pagar el proximo interés debes esperar despues de esta fecha: ${time[2]} de ${meses[(int.parse(time[1])-1)-1]}'
                                 );
                                 return;
                               }
-                              showPayInterestDialog(context, loans!, widget.name, widget.lastname);
+                              showPayInterestDialog(context, loanModel);
                             },
                           ),
                           const SizedBox(height: 30),
@@ -144,20 +148,84 @@ class _ClientDetailsState extends State<ClientDetails> {
                             child: ElevatedButton.icon(
                               icon: const Icon(Iconsax.money_send),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: loans!.status != 'pago completado' ? Colors.grey[700] : MyColors.primary, 
+                                backgroundColor: loanModel.status != 'pago completado' ? Colors.grey[700] : MyColors.primary, 
                                 // foregroundColor: Colors.white, // color del texto e ícono
                               ),
                               onPressed: () {
-                                if(loans!.status != 'pago'){
+                                print('*************************Status: ${loanModel.status}***********************');
+                                if(loanModel.status.toString() != Constants.pagoCompletado){
                                   Loaders.warningSnackBar(
                                     title: 'Estatus de pago',
-                                    message: 'Aun no has pagado el interés correspondiente, primero paga el interés de ${formatCurrency(loans!.interest)} que tienes pendiente. Luego si puedes pagar o abonar a la deuda.'
+                                    message: 'Aun no has pagado el interés correspondiente, primero paga el interés de ${formatCurrency(loanModel.interest)} que tienes pendiente. Luego si puedes pagar o abonar a la deuda.'
                                   );
+                                  return;
                                 }
-                              },
+
+                                if (paymentController.text.isEmpty) {
+                                  Loaders.errorSnackBar(
+                                    title: 'Campo vacío',
+                                    message: 'Por favor ingresa una cantidad a abonar.',
+                                  );
+                                  return;
+                                }
+
+                                // Verificar que sea un número válido y mayor a 0
+                                double? amount = double.tryParse(paymentController.text);
+                                if (amount == null || amount <= 0) {
+                                  Loaders.errorSnackBar(
+                                    title: 'Cantidad inválida',
+                                    message: 'Por favor ingresa una cantidad válida mayor a 0.',
+                                  );
+                                  return;
+                                }
+                                showPayAmountDialog(context, loanModel, double.parse(paymentController.text));
+
+                             },
                               label: const Text('Pagar deuda'),
                             ),
                           ),
+
+                          ///pagar el 10 % antes de los 15 dias 
+                          const SizedBox(height: 30),
+                          loanModel.interest10 
+                            ? Column(
+                            children: [
+                              Text(
+                                'Pagar toda tu deuda con 10% de interés:',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Text(
+                                '*Solo aplica a los primeros 15 dias de tener la deuda.',
+                                style: Theme.of(context).textTheme.labelSmall!.apply(color: Colors.red),
+                              ),
+                              const SizedBox(height: 8),
+                              TextFormField(
+                                controller: TextEditingController(text: formatCurrency(loanModel.totalLoan + loanModel.totalLoan * 0.1).toString()),
+                                keyboardType: TextInputType.number,
+                                validator: (value) => Validator.validateOnlyNumbers(value),
+                                decoration: const InputDecoration(
+                                  prefixIcon: Icon(Iconsax.direct_right),
+                                  labelText: 'Monto a pagar',
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton.icon(
+                                  icon: const Icon(Iconsax.money_send),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: MyColors.primary, 
+                                    // foregroundColor: Colors.white, // color del texto e ícono
+                                  ),
+                                  onPressed: () {
+                                    showPayFullDialog(context, loanModel);
+
+                                },
+                                  label: const Text('Pagar deuda'),
+                                ),
+                              ),
+                            ],
+                          ): SizedBox.shrink()
                         ],
                       ),
                     ),

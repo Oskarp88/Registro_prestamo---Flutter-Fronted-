@@ -20,4 +20,5 @@ class Constants {
   static const String clientId = 'client_id';
   static const String paidInterest = 'paid_interest';
   static const String pagoCompletado = 'pago completado';
+  static const String paymentAmount = 'payment_amount';
 }

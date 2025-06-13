@@ -9,8 +9,6 @@ import 'package:registro_prestamos/utils/loaders/loaders.dart';
 void showPayInterestDialog(
   BuildContext context, 
    LoanModel loans,
-   String name,
-   String lastname,
 ) {
   final TextEditingController interestController =
       TextEditingController(text: loans.interest.toInt().toString());
@@ -100,7 +98,7 @@ void showPayInterestDialog(
                 Navigator.pop(context);
                 // Aquí lógica para pago completo
                 // processInterestPayment(enteredAmount);
-                await registrarPago.payInterest(id: loans.clientId, interest: enteredAmount, name: name, lastname: lastname);
+                await registrarPago.payInterest(id: loans.clientId, interest: enteredAmount);
                 Loaders.successSnackBar(
                   title: 'Pago realizado',
                   message: 'Has pagado ${formatCurrency(enteredAmount)} de interés.',

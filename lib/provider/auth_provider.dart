@@ -14,7 +14,7 @@ class AuthenticateProvider with ChangeNotifier {
 
   static AuthenticateProvider get instance => _instance;
 
-  final userRepository = Get.find<UserRepository>();
+  late UserRepository userRepository;
 
   UserModel? _user = UserModel.empty();
   bool _isProfileLoading = false;

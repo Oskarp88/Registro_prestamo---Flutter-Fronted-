@@ -6,7 +6,8 @@ class LoanModel {
   final double paymentAmount;
   final String status;
   final List<dynamic> history;
-  final String? dueDate;     
+  final String? dueDate;  
+  final bool interest10;   
 
   LoanModel({
     required this.id,
@@ -17,7 +18,28 @@ class LoanModel {
     required this.status,
     required this.history,
     this.dueDate,
+    required this.interest10,
   });
+
+  static LoanModel empty () => LoanModel(
+    id: '',
+    clientId: '',
+    interest: 0,
+    paymentAmount: 0,
+    totalLoan: 0,
+    dueDate: '',
+    history: [],
+    status: '',
+    interest10: false
+  );
+  
+    bool isEmpty() {
+    return id.isEmpty;
+  }
+
+  bool isNotEmpty() {
+    return !isEmpty();
+  }
 
   factory LoanModel.fromJson(Map<String, dynamic> json) {
     return LoanModel(
@@ -28,7 +50,8 @@ class LoanModel {
       paymentAmount: (json['payment_amount'] as num).toDouble(),
       status: json['status'] ?? 'pendiente',
       history: json['history'] ?? [],
-      dueDate: json['due_date'], // Puede ser null si no está presente
+      dueDate: json['due_date'], 
+      interest10: json['interest10']
     );
   }
 
@@ -42,6 +65,34 @@ class LoanModel {
       'status': status,
       'history': history,
       'due_date': dueDate,
+      'interest10' : interest10
     };
   }
 }
+
+extension LoanModelCopy on LoanModel {
+  LoanModel copyWith({
+    String? id,
+    String? clientId,
+    double? totalLoan,
+    double? interest,
+    double? paymentAmount,
+    String? status,
+    List<dynamic>? history,
+    String? dueDate, 
+    bool? interest10
+  }) {
+    return LoanModel(
+      id: id ?? this.id,
+      clientId: clientId ?? this.clientId,
+      totalLoan: totalLoan ?? this.totalLoan,
+      interest: interest ?? this.interest,
+      paymentAmount: paymentAmount ?? this.paymentAmount,
+      status: status ?? this.status,
+      history: history ?? this.history,
+      dueDate: dueDate ?? this.dueDate,
+      interest10: interest10 ?? this.interest10
+    );
+  }
+}
+

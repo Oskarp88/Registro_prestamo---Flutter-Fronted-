@@ -14,7 +14,7 @@ import 'package:registro_prestamos/utils/manager/assets_manager.dart';
 import 'package:http/http.dart' as http;
 
 class ClientController {
-  final clientProvider = ClientProvider.istance;
+  final clientProvider = ClientProvider.instance;
   Future<void> createClient({
     required String name,
     required String lastname,
