@@ -3,7 +3,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
 import 'package:registro_prestamos/data/services/api_service.dart';
+import 'package:registro_prestamos/feactures/pages/screens/clients/dialog/show_pay_interest_dialog.dart';
 import 'package:registro_prestamos/model/loan.dart';
+import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:registro_prestamos/utils/constants/my_colors.dart';
 import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
@@ -46,6 +48,7 @@ class _ClientDetailsState extends State<ClientDetails> {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic>? time = loans != null ? loans!.dueDate?.split('-') : [];
     return Scaffold(
       body: loans == null
           ? const Center(child: CircularProgressIndicator())
@@ -95,7 +98,12 @@ class _ClientDetailsState extends State<ClientDetails> {
                           _buildInfoRow(
                             context,
                             label: 'Fecha limite a pagar el interés:',
-                            value: loans!.dueDate.toString(),
+                            value: '${time![2]} de ${meses[(int.parse(time[1])-1)]}',
+                          ),
+                           _buildInfoRow(
+                            context,
+                            label: 'Estado del pago de interés:',
+                            value: loans!.status.toString(),
                           ),
                           const SizedBox(height: 16),
                           _buildInfoRow(
@@ -104,7 +112,15 @@ class _ClientDetailsState extends State<ClientDetails> {
                             value: formatCurrency(loans!.interest),
                             buttonLabel: 'Pagar interés',
                             onButtonPressed: () {
-                              // lógica de pago de interés
+                              
+                              if(loans!.status == Constants.pagoCompletado){
+                                Loaders.successSnackBar(
+                                  title: 'Ya has pagado el interes correspondiente.',
+                                  message: 'Para pagar el proximo interés debes esperar despues de esta fecha: ${time![2]} de ${meses[(int.parse(time[1])-1)-1]}'
+                                );
+                                return;
+                              }
+                              showPayInterestDialog(context, loans!, widget.name, widget.lastname);
                             },
                           ),
                           const SizedBox(height: 30),
@@ -128,7 +144,7 @@ class _ClientDetailsState extends State<ClientDetails> {
                             child: ElevatedButton.icon(
                               icon: const Icon(Iconsax.money_send),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: loans!.status != 'pago' ? Colors.grey[700] : MyColors.primary, 
+                                backgroundColor: loans!.status != 'pago completado' ? Colors.grey[700] : MyColors.primary, 
                                 // foregroundColor: Colors.white, // color del texto e ícono
                               ),
                               onPressed: () {
@@ -151,7 +167,7 @@ class _ClientDetailsState extends State<ClientDetails> {
             ),
     );
   }
-
+  
   Widget _buildInfoRow(
     BuildContext context, {
     required String label,

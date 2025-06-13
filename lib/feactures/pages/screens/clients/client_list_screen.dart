@@ -87,7 +87,8 @@ class _ClientListScreenState extends State<ClientListScreen> {
                             ),
                           ],
                         ),
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Estado de pago de interés: ',
@@ -95,6 +96,7 @@ class _ClientListScreenState extends State<ClientListScreen> {
                             ),
                             Text(
                               item.loanStatus,
+                              overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.bodyMedium!.apply(
                                 color: item.loanStatus == 'pendiente' 
                                   ? Colors.orangeAccent

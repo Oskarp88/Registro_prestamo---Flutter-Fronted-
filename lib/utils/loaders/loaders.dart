@@ -54,7 +54,7 @@ class Loaders {
       colorText: MyColors.white1,
       backgroundColor: Colors.green.shade600,
       snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 10),
       margin: const EdgeInsets.all(20),
       icon: const Icon(Iconsax.copy_success, color: Colors.white,)
     );

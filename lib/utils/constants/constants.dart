@@ -17,5 +17,7 @@ class Constants {
   static const String clientModel = 'clientModel';
   static const String message = 'message';
   static const String user = 'user';
-  static const String  clientId = 'client_id';
+  static const String clientId = 'client_id';
+  static const String paidInterest = 'paid_interest';
+  static const String pagoCompletado = 'pago completado';
 }
