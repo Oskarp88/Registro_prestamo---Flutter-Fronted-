@@ -1,6 +1,7 @@
 class LoanModel {
   final String id;
   final String clientId;
+  final String name;
   final double totalLoan;
   final double interest;
   final double paymentAmount;
@@ -17,6 +18,7 @@ class LoanModel {
     required this.paymentAmount,
     required this.status,
     required this.history,
+    required this.name,
     this.dueDate,
     required this.interest10,
   });
@@ -24,6 +26,7 @@ class LoanModel {
   static LoanModel empty () => LoanModel(
     id: '',
     clientId: '',
+    name: '',
     interest: 0,
     paymentAmount: 0,
     totalLoan: 0,
@@ -51,7 +54,8 @@ class LoanModel {
       status: json['status'] ?? 'pendiente',
       history: json['history'] ?? [],
       dueDate: json['due_date'], 
-      interest10: json['interest10']
+      interest10: json['interest10'],
+      name: json['name']
     );
   }
 
@@ -65,7 +69,8 @@ class LoanModel {
       'status': status,
       'history': history,
       'due_date': dueDate,
-      'interest10' : interest10
+      'interest10' : interest10,
+      'name': name,
     };
   }
 }
@@ -80,7 +85,8 @@ extension LoanModelCopy on LoanModel {
     String? status,
     List<dynamic>? history,
     String? dueDate, 
-    bool? interest10
+    bool? interest10,
+    String? name,
   }) {
     return LoanModel(
       id: id ?? this.id,
@@ -91,7 +97,8 @@ extension LoanModelCopy on LoanModel {
       status: status ?? this.status,
       history: history ?? this.history,
       dueDate: dueDate ?? this.dueDate,
-      interest10: interest10 ?? this.interest10
+      interest10: interest10 ?? this.interest10,
+      name: name ?? this.name,
     );
   }
 }

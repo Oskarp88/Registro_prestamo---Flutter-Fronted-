@@ -4,7 +4,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:registro_prestamos/feactures/pages/controllers/registro_de_prestamo_controller.dart';
 import 'package:registro_prestamos/model/loan.dart';
 import 'package:registro_prestamos/utils/helpers/methods.dart';
-import 'package:registro_prestamos/utils/loaders/loaders.dart';
 
 void showPayFullDialog(
   BuildContext context, 
@@ -76,10 +75,9 @@ void showPayFullDialog(
               padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
             ),     
            onPressed:() {
-              // registrarPago.paymentAmount(
-              //   id: loans.clientId, 
-              //   paymentAmount: payAmount, 
-              // );
+              registrarPago.paymentFull(
+                id: loans.clientId,  
+              );
               Navigator.pop(context);
             },
             child: const Text('Sí, Pagar'),

@@ -13,6 +13,7 @@ class Constants {
   static const String baseUrl = 'BASE_URL';
   static const String usernameOrEmail ='username_or_email';
   static const String totalLoan = 'total_loan';
+  static const String capital = 'capital';
   static const String dueDate = 'due_date';
   static const String clientModel = 'clientModel';
   static const String message = 'message';
@@ -21,4 +22,5 @@ class Constants {
   static const String paidInterest = 'paid_interest';
   static const String pagoCompletado = 'pago completado';
   static const String paymentAmount = 'payment_amount';
+  static const String deudaCompletaPagada = 'Deuda completa pagada';
 }

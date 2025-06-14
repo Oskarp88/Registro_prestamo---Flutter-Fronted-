@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
+import 'package:registro_prestamos/common/widgets/button/elevated_button_widget.dart';
 import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
 import 'package:registro_prestamos/data/services/api_service.dart';
 import 'package:registro_prestamos/feactures/pages/screens/clients/dialog/show_pay_amount_dialog.dart';
 import 'package:registro_prestamos/feactures/pages/screens/clients/dialog/show_pay_full.dart';
 import 'package:registro_prestamos/feactures/pages/screens/clients/dialog/show_pay_interest_dialog.dart';
+import 'package:registro_prestamos/feactures/pages/screens/clients/registrar_prestamo.dart';
 import 'package:registro_prestamos/model/loan.dart';
 import 'package:registro_prestamos/provider/client_provider.dart';
 import 'package:registro_prestamos/utils/constants/constants.dart';
@@ -86,12 +89,29 @@ class _ClientDetailsState extends State<ClientDetails> {
                       ],
                     ),
                   ),
-              
+                  
                   SizedBox(
                     width: THelperFuntions.screenWidth() > 700 ? 700 : double.infinity,
                     child: Padding(
                       padding: const EdgeInsets.all(10),
-                      child: Column(
+                      child: loanModel.status == Constants.deudaCompletaPagada 
+                      ? Column(
+                          children: [
+                            SizedBox(height: 30),
+                            Text(
+                              'No tiene deuda pendiente',
+                              style: Theme.of(context).textTheme.titleLarge                            ),
+                            SizedBox(height: 30),
+                            ElevatedButtonWidget(
+                              text: 'Crear nuevo prestamo', 
+                              onTap: () => Get.to(() => RegistrarPrestamo(
+                                isCreate: false,
+                                clientId: widget.clientId,
+                              ))
+                            )
+                          ],   
+                        )
+                      :  Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildInfoRow(
@@ -152,7 +172,6 @@ class _ClientDetailsState extends State<ClientDetails> {
                                 // foregroundColor: Colors.white, // color del texto e ícono
                               ),
                               onPressed: () {
-                                print('*************************Status: ${loanModel.status}***********************');
                                 if(loanModel.status.toString() != Constants.pagoCompletado){
                                   Loaders.warningSnackBar(
                                     title: 'Estatus de pago',

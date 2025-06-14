@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:registro_prestamos/common/styles/my_text_style.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/data/services/api_service.dart';
 import 'package:registro_prestamos/feactures/pages/screens/clients/client_details.dart';
@@ -24,7 +25,7 @@ class _ClientListScreenState extends State<ClientListScreen> {
   }
 
   Future<List<ClientWithLoan>> _loadClientsWithLoanStatus() async {
-    final clients = await ApiService().fetchClassicalRatings();
+    final clients = await ApiService().fetchClient();
 
     final futures = clients.map((client) async {
       final loan = await ApiService().getLoanByClientId(client.id);
@@ -44,7 +45,7 @@ class _ClientListScreenState extends State<ClientListScreen> {
         showBackArrow: true,
         title: Text(
           'Lista de Clientes', 
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: MyTextStyle.headlineMedium,
         )
       ),
       body: Padding(

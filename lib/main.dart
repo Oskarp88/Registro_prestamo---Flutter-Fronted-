@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:registro_prestamos/data/repositories/authentication/authentication_repository.dart';
 import 'package:registro_prestamos/data/repositories/user/user_repository.dart';
 import 'package:registro_prestamos/feactures/authentication/controllers/auth_controller.dart';
+import 'package:registro_prestamos/feactures/pages/controllers/capital_controller.dart';
 import 'package:registro_prestamos/feactures/pages/controllers/client_controller.dart';
 import 'package:registro_prestamos/feactures/pages/controllers/registro_de_prestamo_controller.dart';
 import 'package:registro_prestamos/provider/auth_provider.dart';
@@ -22,6 +23,7 @@ void main()async{
   Get.put(AuthControllers());
   Get.put(ClientController());
   Get.put(RegistroDePrestamoController());
+  Get.put(CapitalController());
   Get.put(UserRepository());
   Get.put(AuthenticationRepository());
   await SystemChrome.setPreferredOrientations([

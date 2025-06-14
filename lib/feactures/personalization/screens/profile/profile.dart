@@ -24,24 +24,6 @@ class ProfileScreen extends StatelessWidget {
           padding: const EdgeInsets.all(Dimensions.defaultSpace),
           child: Column(
             children: [
-              ///profile picture
-              SizedBox(
-                width: double.infinity,
-                child: Column(
-                   children: [
-                      const CircularImage(
-                        image: AssetsManager.userImagen,
-                        width: 80,
-                        height: 80,
-                      ),
-                      TextButton(
-                        onPressed: (){}, 
-                        child: const Text('Change Profile Picture')
-                      )
-                   ],
-                ),
-              ),
-              ////details
               const SizedBox(height: Dimensions.spaceBtwItems / 2),
               const Divider(),
               const SizedBox(height: Dimensions.spaceBtwItems),

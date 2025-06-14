@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:registro_prestamos/data/repositories/user/user_repository.dart';
+import 'package:registro_prestamos/model/capital.dart';
 import 'package:registro_prestamos/model/user.dart';
 import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/loaders/loaders.dart';
@@ -22,6 +23,9 @@ class AuthenticateProvider with ChangeNotifier {
   UserModel? get user => _user;
   bool get isProfileLoading => _isProfileLoading;
 
+  CapitalModel? _capital = CapitalModel.empty();
+  CapitalModel? get capital => _capital;
+
   void setIsProfileLoading(bool value){
     _isProfileLoading = value;
     notifyListeners();
@@ -29,6 +33,11 @@ class AuthenticateProvider with ChangeNotifier {
 
   void setUser(UserModel user){
     _user = user;
+    notifyListeners();
+  }
+
+  void setCapital(CapitalModel capital){
+    _capital = capital;
     notifyListeners();
   }
 
