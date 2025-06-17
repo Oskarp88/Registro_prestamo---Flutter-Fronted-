@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:registro_prestamos/data/repositories/authentication/authentication_repository.dart';
 import 'package:registro_prestamos/data/repositories/user/user_repository.dart';
@@ -17,6 +18,8 @@ import 'app.dart';
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('es_ES', null);
+
   await GetStorage.init();
   Get.put(NetworkManager());
   await dotenv.load(fileName: ".env");

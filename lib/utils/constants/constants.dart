@@ -1,4 +1,7 @@
 class Constants {
+  static const String amount = 'amount';
+  static const String admin = 'admin';
+  static const String totalInterest = 'total_interest';
   static const String name = 'name';
   static const String lastname = 'lastname';
   static const String email = 'email';
@@ -14,6 +17,7 @@ class Constants {
   static const String usernameOrEmail ='username_or_email';
   static const String totalLoan = 'total_loan';
   static const String capital = 'capital';
+  static const String ganancias = 'ganancias';
   static const String dueDate = 'due_date';
   static const String clientModel = 'clientModel';
   static const String message = 'message';

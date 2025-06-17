@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/gestion_de_fondos.dart';
 import 'package:registro_prestamos/feactures/pages/screens/home/home.dart';
 import 'package:registro_prestamos/feactures/personalization/screens/settings/settings.dart';
 import 'package:registro_prestamos/utils/constants/my_colors.dart';
@@ -17,7 +18,7 @@ class NavigationMenu extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: Obx(
         () => NavigationBar(
-          backgroundColor: darkMode ? MyColors.black : Colors.white,
+          backgroundColor: darkMode ? MyColors.black : MyColors.white5,
           indicatorColor: darkMode ? MyColors.white.withValues(alpha: 0.1) : MyColors.black.withValues(alpha: 0.1),
           height: 80,
           elevation: 0,
@@ -28,10 +29,10 @@ class NavigationMenu extends StatelessWidget {
             icon: Icon(Iconsax.home), 
             label: 'Home'
            ),
-          //  NavigationDestination(
-          //   icon: Icon(Iconsax.shop), 
-          //   label: 'Store'
-          //  ),
+           NavigationDestination(
+            icon: Icon(Iconsax.money_send), 
+            label: 'Gestión'
+           ),
           //  NavigationDestination(
           //   icon: Icon(Iconsax.heart), 
           //   label: 'Wishlist'
@@ -52,7 +53,7 @@ class NavigationController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
   final screens = [
     const HomeScreen(),
-    // const StoreScreen(),
+    const GestionDeFondos(),
     // const Wishlist(),
     const SettingsScreen(),
   ];

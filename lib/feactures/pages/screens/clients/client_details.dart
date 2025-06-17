@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
+import 'package:registro_prestamos/common/styles/my_text_style.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/common/widgets/button/elevated_button_widget.dart';
 import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
@@ -67,22 +68,17 @@ class _ClientDetailsState extends State<ClientDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppBarWidget(
+                          showBackArrow: true,
                           title: Text(
-                            'CLIENTE',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .apply(color: Colors.white),
+                            'Prestamo del cliente:',
+                            style: MyTextStyle.headlineMedium
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          padding: const EdgeInsets.symmetric(horizontal: 80),
                           child: Text(
-                            '${widget.name} ${widget.lastname}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .apply(color: Colors.white),
+                            '${widget.name[0].toUpperCase()}${widget.name.substring(1)} ${widget.lastname[0].toUpperCase()}${widget.lastname.substring(1)}',
+                            style: MyTextStyle.titleLarge,
                           ),
                         ),
                         const SizedBox(height: Dimensions.spaceBtwSections),

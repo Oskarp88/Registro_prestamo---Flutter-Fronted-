@@ -19,7 +19,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<AuthenticateProvider>().user!;
+    final authProvider = context.watch<AuthenticateProvider>();
+    final user = authProvider.user!;
+    final capitalModel = authProvider.capital!;
 
     return  Scaffold(
       body: SingleChildScrollView(
@@ -43,41 +45,79 @@ class HomeScreen extends StatelessWidget {
                               'Hola,', 
                               style: MyTextStyle.headlineMedium, 
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Capital:',
-                                  style: MyTextStyle.titleLarge,
-                                ),
-                                SizedBox(height: 5),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 2,
-                                    horizontal: 5
-                                  ),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 1, color: Colors.white),
-                                    borderRadius: BorderRadius.circular(5)
-                                  ),
-                                  child: Text(
-                                    formatCurrency(10000000).toString(),
-                                    style: MyTextStyle.bodyLarge,
-                                  ),
-                                )
-                              ],
-                            )
                           ],
                         ),
                       ),
                     
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Text(
-                        '${user.name} ${user.lastname}',
-                        style: MyTextStyle.titleMedium,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${user.name} ${user.lastname}',
+                            style: MyTextStyle.titleMedium,
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                           crossAxisAlignment: CrossAxisAlignment.center,
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Capital:',
+                                    style: MyTextStyle.titleLarge,
+                                  ),
+                                   Text(
+                                    'Interés ganado:',
+                                    style: MyTextStyle.titleLarge,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.white, width: 1.5),
+                                ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(Icons.account_balance_wallet, color: Colors.white, size: 20),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            formatCurrency(capitalModel.capital),
+                                            style: MyTextStyle.bodyLarge,
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.account_balance_wallet, color: Colors.white, size: 20),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            formatCurrency(capitalModel.ganancias),
+                                            style: MyTextStyle.bodyLarge,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                              )
+                            ],
+                          ),
+                    
+                        ],
                       ),
                     ),
+              
                     const SizedBox(height: Dimensions.spaceBtwSections,),
                           
                     ],

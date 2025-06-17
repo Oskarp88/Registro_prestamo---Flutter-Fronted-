@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:registro_prestamos/common/styles/my_text_style.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
+import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
+import 'package:registro_prestamos/common/widgets/custom_shapes/container/search_container.dart';
 import 'package:registro_prestamos/data/services/api_service.dart';
 import 'package:registro_prestamos/feactures/pages/screens/clients/client_details.dart';
 import 'package:registro_prestamos/model/client.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
+import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:registro_prestamos/utils/helpers/methods.dart';
 
 class ClientListScreen extends StatefulWidget {
@@ -17,11 +19,20 @@ class ClientListScreen extends StatefulWidget {
 
 class _ClientListScreenState extends State<ClientListScreen> {
   late Future<List<ClientWithLoan>> _clientsWithLoan;
+  final TextEditingController _searchController = TextEditingController();
+  List<ClientWithLoan> _allClients = [];
+  List<ClientWithLoan> _filteredClients = [];
 
   @override
   void initState() {
     super.initState();
     _clientsWithLoan = _loadClientsWithLoanStatus();
+    _clientsWithLoan.then((value) {
+      setState(() {
+        _allClients = value;
+        _filteredClients = value;
+      });
+    });
   }
 
   Future<List<ClientWithLoan>> _loadClientsWithLoanStatus() async {
@@ -37,96 +48,154 @@ class _ClientListScreenState extends State<ClientListScreen> {
     return Future.wait(futures);
   }
 
+  void _filterClients(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        _filteredClients = _allClients;
+      });
+    } else {
+      final lowerQuery = query.toLowerCase();
+      setState(() {
+        _filteredClients = _allClients.where((client) {
+          final name = client.client.name.toLowerCase();
+          final lastname = client.client.lastname.toLowerCase();
+          final cedula = client.client.cedula.toString();
+          final phone = client.client.phoneNumber;
+
+          return name.contains(lowerQuery) ||
+                 lastname.contains(lowerQuery) ||
+                 cedula.contains(lowerQuery) ||
+                 phone.contains(lowerQuery);
+        }).toList();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(
-        color: MyColors.primary,
-        showBackArrow: true,
-        title: Text(
-          'Lista de Clientes', 
-          style: MyTextStyle.headlineMedium,
-        )
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: FutureBuilder<List<ClientWithLoan>>(
-          future: _clientsWithLoan,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('No hay clientes registrados'));
-            }
-        
-            final items = snapshot.data!;
-            return ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                final item = items[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  child: ListTile(
+      body: Column(
+        children: [
+          PrimaryHeaderContainer(
+            child: Padding(
+              padding: const EdgeInsets.only(top: Dimensions.defaultSpace),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppBarWidget(
+                    showBackArrow: true,
                     title: Text(
-                      '${item.client.name} ${item.client.lastname}',
-                      style: Theme.of(context).textTheme.titleLarge
+                      'Lista de Clientes',
+                      style: MyTextStyle.headlineMedium,
                     ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Deuda total: ',
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            Text(
-                              formatCurrency(item.totalLoan),
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Estado de pago de interés: ',
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            Text(
-                              item.loanStatus,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.bodyMedium!.apply(
-                                color: item.loanStatus == 'pendiente' 
-                                  ? Colors.orangeAccent
-                                  : item.loanStatus == 'atrasado'
-                                    ? Colors.deepOrange
-                                    :  item.loanStatus == 'no pago'
-                                      ? Colors.red
-                                      : Colors.green
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    leading: const Icon(Icons.person),
-                    trailing: Icon(Icons.arrow_forward_ios, size: 16),
-                    onTap: () {
-                      Get.to(() => ClientDetails(
-                        clientId: item.client.id,
-                        name: item.client.name,
-                        lastname: item.client.lastname,
-                      ));
-                    },
                   ),
-                );
-              },
-            );
-          },
-        ),
+                  SearchContainer(
+                    hintText: 'Buscar cliente',
+                    onChanged: _filterClients,
+                  ),
+                  const SizedBox(height: Dimensions.spaceBtwSections),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: FutureBuilder<List<ClientWithLoan>>(
+                future: _clientsWithLoan,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(child: Text('No hay clientes registrados'));
+                  }
+
+                  //validación si no hay coincidencias
+                  if (_filteredClients.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'Cliente no encontrado',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                    );
+                  }
+
+                  return ListView.builder(
+                    itemCount: _filteredClients.length,
+                    itemBuilder: (context, index) {
+                      final item = _filteredClients[index];
+                      return Card(
+                        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        child: ListTile(
+                          title: Text(
+                            '${item.client.name[0].toUpperCase()}${item.client.name.substring(1)} ${item.client.lastname[0].toUpperCase()}${item.client.lastname.substring(1)}',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    'Deuda total: ',
+                                    style: Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    formatCurrency(item.totalLoan),
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Estado de pago de interés: ',
+                                    style: Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  Text(
+                                    item.loanStatus,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context).textTheme.bodyMedium!.apply(
+                                          color: item.loanStatus == 'pendiente'
+                                              ? Colors.orangeAccent
+                                              : item.loanStatus == 'atrasado'
+                                                  ? Colors.deepOrange
+                                                  : item.loanStatus == 'no pago'
+                                                      ? Colors.red
+                                                      : Colors.green,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          leading: const Icon(Icons.person),
+                          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                          onTap: () {
+                            Get.to(() => ClientDetails(
+                                  clientId: item.client.id,
+                                  name: item.client.name,
+                                  lastname: item.client.lastname,
+                                ));
+                          },
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -136,5 +205,11 @@ class ClientWithLoan {
   final ClientModel client;
   final String loanStatus;
   final double totalLoan;
-  ClientWithLoan( {required this.client, required this.loanStatus, required this.totalLoan});
+
+  ClientWithLoan({
+    required this.client,
+    required this.loanStatus,
+    required this.totalLoan,
+  });
 }
+

@@ -6,6 +6,7 @@ import 'package:registro_prestamos/common/widgets/custom_shapes/container/primar
 import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/details_accounts_client.dart';
 import 'package:registro_prestamos/model/loan.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
+import 'package:registro_prestamos/utils/helpers/methods.dart';
 
 class InteresAccountsScreen extends StatelessWidget {
   const InteresAccountsScreen({super.key, required this.loanModel});
@@ -60,13 +61,14 @@ Widget build(BuildContext context) {
                           child: ListTile(
                             leading: const Icon(Icons.monetization_on),
                             title: Text(
-                              'Usuario ${loan.name} debe \$${loan.interest.toStringAsFixed(2)} de interés.',
+                              'Usuario ${loan.name[0].toUpperCase()}${loan.name.substring(1)} debe \$${formatCurrency(loan.interest)} de interés.',
                               style: const TextStyle(fontSize: 16),
                             ),
                             subtitle: Text(
                               'Plazo de pago hasta el ${loan.dueDate}',
                               style: const TextStyle(fontSize: 14, color: Colors.grey),
                             ),
+                            trailing: const Icon(Icons.arrow_forward_ios, size: 18),
                           ),
                         ),
                       );

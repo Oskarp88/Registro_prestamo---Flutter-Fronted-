@@ -27,11 +27,11 @@ class LoginHaeder extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         Text(
-          'Login',
+          'Inicia sesión',
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         const SizedBox(height: Dimensions.sm),
-        Text('Bienvenido', style: Theme.of(context).textTheme.bodyMedium),
+        Text('Bienvenido de nuevo', style: Theme.of(context).textTheme.bodyMedium),
       ],
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:registro_prestamos/common/screen/full_screen_loader.dart';
+import 'package:registro_prestamos/data/services/api_service.dart';
 import 'package:registro_prestamos/feactures/authentication/screens/login/login.dart';
 import 'package:registro_prestamos/model/user.dart';
 import 'package:registro_prestamos/navigation_menu.dart';
@@ -35,6 +36,13 @@ class AuthenticationRepository extends GetxController{
         // Redirigir al BottomHomeNavigationBar
         if (kDebugMode) {
           print("Sesión activa de ${user.user!.username} detectada. Redirigiendo a BottomHomeNavigationBar.");
+        }
+         try {
+          await ApiService().fetchCapital();
+        } catch (e) {
+          if (kDebugMode) {
+            print('Error cargando capital: $e');
+          }
         }
       
         if(isLogin){

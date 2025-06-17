@@ -5,17 +5,20 @@ class CapitalModel {
   final String admin;
   final double totalInterest;
   final double totalLoan;
+  final double ganancias;
   CapitalModel({
     required this.capital,
     required this.admin,
     required this.totalInterest,
-    required this.totalLoan
+    required this.totalLoan,
+    required this.ganancias
   });
 
   static CapitalModel empty () => CapitalModel(
     capital: 0.0,
     totalInterest: 0.0,
     totalLoan: 0.0,
+    ganancias: 0.0,
     admin: '',
   );
   
@@ -32,16 +35,18 @@ class CapitalModel {
       capital: json['capital'] ?? 0.0,
       admin: json['admin'] ?? '',
       totalInterest: json['total_interest'] ?? 0.0,
-      totalLoan: json[Constants.totalLoan] ?? 0.0
+      totalLoan: json[Constants.totalLoan] ?? 0.0,
+      ganancias: json[Constants.ganancias] ?? 0.0
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'capital': capital,
-      'admin': admin,
-      'total_interest': totalInterest,
-      Constants.totalLoan : totalLoan
+      Constants.capital: capital,
+      Constants.admin: admin,
+      Constants.totalInterest: totalInterest,
+      Constants.totalLoan : totalLoan,
+      Constants.ganancias: ganancias
     };
   }
 }
@@ -51,13 +56,15 @@ extension CopitalModelCopy on CapitalModel {
     double? capital,
     String? admin,
     double? totalInterest,
-    double? totalLoan
+    double? totalLoan,
+    double? ganancias,
   }) {
     return CapitalModel(
       capital: capital ?? this.capital,
       admin: admin ?? this.admin,
       totalInterest: totalInterest ?? this.totalInterest,
-      totalLoan: totalLoan ?? this.totalLoan
+      totalLoan: totalLoan ?? this.totalLoan,
+      ganancias: ganancias ?? this.ganancias,
     );
   }
 }

@@ -3,8 +3,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:registro_prestamos/model/capital.dart';
 import 'package:registro_prestamos/model/client.dart';
+import 'package:registro_prestamos/model/history_capital.dart';
 import 'package:registro_prestamos/model/loan.dart';
 import 'package:registro_prestamos/provider/auth_provider.dart';
+import 'package:registro_prestamos/utils/classes/search_result.dart';
 import 'package:registro_prestamos/utils/constants/constants.dart';
  
 
@@ -35,7 +37,7 @@ class ApiService {
       throw 'Something went wrong while fetching and sorting users. Please try again. Error: $e';
     }
   }
-
+   
   Future<ClientModel> fetchClientById(String clientId) async {
     try {
       final Uri url = Uri.parse('${dotenv.env['BASE_URL']}/user/client?client_id=$clientId');
@@ -60,6 +62,27 @@ class ApiService {
       throw 'Something went wrong while fetching and sorting users. Please try again. Error: $e';
     }
   }
+
+  Future<SearchResult<List<ClientModel>>> searchClients(String query) async {
+  try {
+    final Uri url = Uri.parse('${dotenv.env['BASE_URL']}/user/clients/search?query=$query');
+
+    final response = await http.get(url, headers: {'Content-Type': 'application/json'});
+
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = jsonDecode(response.body);
+      final clients = jsonList.map((json) => ClientModel.fromJson(json)).toList();
+      return SearchResult(data: clients);
+    } else {
+      final Map<String, dynamic> errorJson = jsonDecode(response.body);
+      return SearchResult(error: errorJson['detail'] ?? 'Error desconocido.');
+    }
+
+  } catch (e) {
+    return SearchResult(error: 'Error buscando clientes: $e');
+  }
+}
+
 
   Future<LoanModel?> getLoanByClientId(String clientId) async {
     try {
@@ -141,6 +164,31 @@ class ApiService {
       throw 'Something went wrong while fetching and sorting users. Please try again. Error: $e';
     }
   }
-    
+  
+   Future<List<CapitalHistoryModel>> fetchCapitalHistory({String value = 'history-capital'}) async {
+    try {
+      final Uri url = Uri.parse('${dotenv.env['BASE_URL']}/user/$value');
+
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        final history = jsonDecode(response.body);
+        List<dynamic> jsonList = history["historial"];
+      
+        List<CapitalHistoryModel> clients = jsonList.map((json) => CapitalHistoryModel.fromJson(json)).toList();
+
+        return clients;
+      } else {
+        return []; // Retorna una lista vacía si la respuesta no es exitosa
+      }
+    } catch (e) {
+      throw 'Something went wrong while fetching and sorting users. Please try again. Error: $e';
+    }
+  }
+   
 }
 

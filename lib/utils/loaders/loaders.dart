@@ -30,7 +30,7 @@ class Loaders {
     );
   }
   
-  static warningSnackBar({required title, message = ''}){
+  static warningSnackBar({required title, message = '', int seconds = 13}){
     Get.snackbar(
       title, 
       message,
@@ -39,7 +39,7 @@ class Loaders {
       colorText: MyColors.white,
       backgroundColor: Colors.orange.shade600,
       snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 13),
+      duration: Duration(seconds: seconds),
       margin: const EdgeInsets.all(20),
       icon: const Icon(Iconsax.warning_2, color: Colors.white,)
     );

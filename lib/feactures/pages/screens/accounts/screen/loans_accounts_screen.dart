@@ -61,9 +61,10 @@ class LoansAccountsScreen extends StatelessWidget {
                           child: ListTile(
                             leading: const Icon(Icons.monetization_on),
                             title: Text(
-                              'Usuario ${loan.name} tiene un prestamo de \$${formatCurrency(loan.totalLoan)}.',
+                              'Usuario ${loan.name[0].toUpperCase()}${loan.name.substring(1)} tiene un prestamo de \$${formatCurrency(loan.totalLoan)}.',
                               style: const TextStyle(fontSize: 16),
                             ),
+                            trailing: const Icon(Icons.arrow_forward_ios, size: 18),
                           ),
                         ),
                       );

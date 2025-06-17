@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
       body:  SingleChildScrollView(
         child: Center(
           child: SizedBox(
-            width: THelperFuntions.screenWidth() > 350 ? 350 : double.infinity,
+            width: THelperFuntions.screenWidth() > 550 ? 550 : double.infinity,
             child: Padding(
               padding: TSpacingStyle.paddingWithAppBarHeight,
               child:  Column(

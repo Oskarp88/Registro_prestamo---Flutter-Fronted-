@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:registro_prestamos/utils/constants/my_colors.dart';
 import 'custom_themes/text_theme.dart';
 import 'custom_themes/elevated_button_theme.dart';
 import 'custom_themes/appbar_theme.dart';
@@ -17,7 +18,7 @@ class TAppTheme {
     fontFamily: 'Poppins',
     brightness: Brightness.light,
     primaryColor: Colors.blue,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: MyColors.white5,
     textTheme:  TTextTheme.lightTextTheme,
     chipTheme: TChipTheme.lightChipTheme,
     appBarTheme: TAppBarTheme.lightAppBarTheme,

@@ -10,6 +10,8 @@ import 'package:registro_prestamos/model/loan.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
 import 'package:registro_prestamos/utils/helpers/methods.dart';
+import 'package:registro_prestamos/utils/loaders/loaders.dart';
+import 'package:registro_prestamos/utils/manager/assets_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailsAccountsClient extends StatefulWidget {
@@ -47,21 +49,40 @@ class _DetailsAccountsClientState extends State<DetailsAccountsClient> {
     }
   }
 
-  Future<void> _launchWhatsApp() async {
-    final phone = clientModel?.phoneNumber ?? '';
-    final message = Uri.encodeFull(
-        "Hola ${clientModel?.name}, recuerda que tienes un interés pendiente de \$${widget.loanModel.interest.toStringAsFixed(2)}. "
-        "Fecha límite de pago: ${widget.loanModel.dueDate ?? 'sin definir'}.");
-    final url = Uri.parse("https://wa.me/$phone?text=$message");
-
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      if (kDebugMode) {
-        print('No se pudo abrir WhatsApp');
-      }
-    }
+ Future<void> _launchWhatsApp() async {
+  final phone = clientModel?.phoneNumber ?? '';
+  if (phone.isEmpty) {
+    Loaders.warningSnackBar(title: 'Número de teléfono no disponible.');
+    return;
   }
+
+  final dia = widget.loanModel.dueDate!.split('-')[2];
+  final mes = widget.loanModel.dueDate!.split('-')[1].toString();
+  final anio = widget.loanModel.dueDate!.split('-')[0];
+
+  final message = Uri.encodeFull(
+      "Hola ${clientModel?.name}, recuerda que tienes un interés de 15% pendiente de \$${formatCurrency(widget.loanModel.interest)}. "
+      "Tu fecha limite para pagar el interes es el $dia de ${meses[int.parse(mes)]} de $anio.\n"
+      "\n"
+      "Recuerda que si te pasas de la fecha el interés aumenta a 18%.");
+
+  final whatsappUrl = Uri.parse("whatsapp://send?phone=57$phone&text=$message");
+  final url = Uri.parse("https://wa.me/57$phone?text=$message");
+
+  if (await canLaunchUrl(whatsappUrl)) {
+    await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication);
+    if (kDebugMode) print('WhatsApp intent directo abierto.');
+  } else if (await canLaunchUrl(url)) {
+    await launchUrl(url, mode: LaunchMode.externalApplication);
+    if (kDebugMode) print('URL wa.me abierta en navegador o app compatible.');
+  } else {
+    if (kDebugMode) {
+      print('No se pudo abrir WhatsApp ni wa.me URL');
+    }
+    Loaders.warningSnackBar(
+        title: 'No se pudo abrir WhatsApp. Verifica que esté instalado.');
+  }
+}
 
   Widget _buildInfoRow(IconData icon, String title, String value) {
     return Padding(
@@ -153,7 +174,7 @@ class _DetailsAccountsClientState extends State<DetailsAccountsClient> {
                           width: double.infinity,
                           child: ElevatedButton.icon(
                             onPressed: _launchWhatsApp,
-                            icon: const Icon(Iconsax.activity),
+                            icon: Image.asset(AssetsManager.iconWhatsApp, width: 30,),
                             label: const Text(
                               'Enviar recordatorio por WhatsApp',
                               style: TextStyle(fontSize: 16),
@@ -164,6 +185,7 @@ class _DetailsAccountsClientState extends State<DetailsAccountsClient> {
                                   vertical: 14, horizontal: 20),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
+                                side: BorderSide.none
                               ),
                             ),
                           ),

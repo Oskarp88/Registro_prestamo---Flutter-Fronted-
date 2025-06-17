@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:registro_prestamos/common/styles/my_text_style.dart';
 import 'package:registro_prestamos/common/widgets/images/circular_image.dart';
 import 'package:registro_prestamos/utils/constants/my_colors.dart';
 import 'package:registro_prestamos/utils/manager/assets_manager.dart';
@@ -16,11 +17,11 @@ class OUserProfileTilte extends StatelessWidget {
     return ListTile(
      title: Text(
        name,
-       style: Theme.of(context).textTheme.headlineSmall!.apply(color: MyColors.white),
+       style: MyTextStyle.headlineSmall,
      ),
      subtitle: Text(
        email,
-       style: Theme.of(context).textTheme.bodyMedium!.apply(color: MyColors.white)
+       style: MyTextStyle.bodyMedium
      ),
      trailing: IconButton(
        onPressed: onPressed, 

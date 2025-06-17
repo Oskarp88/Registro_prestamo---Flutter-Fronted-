@@ -10,14 +10,16 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIcon;
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
-
+  final double height;
+  
   const AppBarWidget({super.key, 
    this.title, 
    this.color= Colors.transparent,
    this.showBackArrow = false, 
    this.leadingIcon, 
    this.actions, 
-   this.leadingOnPressed
+   this.leadingOnPressed,
+   this.height = 0,
   });
 
   @override
@@ -41,5 +43,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(TDeviceUtility.getAppBarHeight());
+  Size get preferredSize => Size.fromHeight(
+    height == 0 
+      ? TDeviceUtility.getAppBarHeight()
+      : height
+  );
 }

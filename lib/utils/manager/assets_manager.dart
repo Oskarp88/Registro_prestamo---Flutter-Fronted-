@@ -8,9 +8,11 @@ class AssetsManager {
   static const String facebook = "assets/logos/facebook.png";
   static const String clashcycle = "assets/logos/clashcycle.png";
   static const String clashcycleDark = "assets/logos/clashcycledark.png";
+  
 
   //icons
   static const String iconArrowBack = 'assets/icons/iconArrowBack.png';
+  static const String iconWhatsApp = 'assets/icons/iconWhatsApp.png';
 
   //onboarding  images
   static const String onboardingImageSearching = 'assets/images/on_boarding_images/searching.gif';

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
-import 'package:registro_prestamos/common/widgets/images/circular_image.dart';
 import 'package:registro_prestamos/common/widgets/texts/section_headig.dart';
 import 'package:registro_prestamos/feactures/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/manager/assets_manager.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -35,12 +33,12 @@ class ProfileScreen extends StatelessWidget {
               ProfileMenu(
                 onPressed: (){},
                 title: 'Name',
-                value: 'Oscar William',
+                value: Text('Oscar William'),
               ),
                ProfileMenu(
                 onPressed: (){},
                 title: 'Username',
-                value: 'Oskarp88',
+                value: Text('Oskarp88'),
               ),
               const SizedBox(height: Dimensions.spaceBtwItems),
               const Divider(),
@@ -53,28 +51,28 @@ class ProfileScreen extends StatelessWidget {
               ProfileMenu(
                 onPressed: (){},
                 title: 'User ID',
-                value: '12837474',
+                value: Text('12837474'),
                 icon: Iconsax.copy,
               ),
               ProfileMenu(
                 onPressed: (){},
                 title: 'E-mail',
-                value: 'burgos@gmail.com',
+                value: Text('burgos@gmail.com'),
               ),
               ProfileMenu(
                 onPressed: (){},
                 title: 'Phone number',
-                value: '319.........',
+                value: Text('319.........'),
               ),
               ProfileMenu(
                 onPressed: (){},
                 title: 'Gender',
-                value: 'Male',
+                value: Text('Male'),
               ),
               ProfileMenu(
                 onPressed: (){},
                 title: 'Date of Birth',
-                value: '21 agosto 1990',
+                value: Text('21 agosto 1990'),
               ),
               const SizedBox(height: Dimensions.spaceBtwItems),
 
