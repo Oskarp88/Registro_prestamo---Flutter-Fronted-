@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:registro_prestamos/common/styles/my_text_style.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
 import 'package:registro_prestamos/data/services/api_service.dart';
+import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/loan_history_client_screen.dart';
 import 'package:registro_prestamos/model/client.dart';
 import 'package:registro_prestamos/model/loan.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
@@ -136,62 +138,101 @@ class _DetailsAccountsClientState extends State<DetailsAccountsClient> {
               padding: const EdgeInsets.all(Dimensions.defaultSpace),
               child: _isLoading
                   ? const Center(child: CircularProgressIndicator())
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Información del Cliente',
-                            style: MyTextStyle.titleLarge),
-                        const SizedBox(height: 12),
-                        _buildInfoRow(Iconsax.user, 'Nombre',
-                            '${clientModel!.name} ${clientModel!.lastname}'),
-                        _buildInfoRow(Iconsax.card, 'Cédula',
-                            clientModel!.cedula.toString()),
-                        _buildInfoRow(Iconsax.sms, 'Correo',
-                            clientModel!.email),
-                        _buildInfoRow(Iconsax.call, 'Teléfono',
-                            clientModel!.phoneNumber),
-
-                        const Divider(height: 30),
-
-                        Text('Información del Préstamo',
-                            style: MyTextStyle.titleLarge),
-                        const SizedBox(height: 12),
-                        _buildInfoRow(Iconsax.dollar_circle, 'Monto total',
-                            '\$${formatCurrency(widget.loanModel.totalLoan)}'),
-                        _buildInfoRow(Iconsax.money_2, 'Interés',
-                            '\$${formatCurrency(widget.loanModel.interest)}'),
-                        _buildInfoRow(Iconsax.money_recive, 'Pago mensual',
-                            '\$${formatCurrency(widget.loanModel.paymentAmount)}'),
-                        _buildInfoRow(Iconsax.status_up, 'Estado',
-                            widget.loanModel.status),
-                        _buildInfoRow(Iconsax.calendar, 'Fecha límite',
-                            widget.loanModel.dueDate ?? 'Sin definir'),
-
-                        const SizedBox(height: 30),
-
-                        /// Botón WhatsApp
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton.icon(
-                            onPressed: _launchWhatsApp,
-                            icon: Image.asset(AssetsManager.iconWhatsApp, width: 30,),
-                            label: const Text(
-                              'Enviar recordatorio por WhatsApp',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 14, horizontal: 20),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                side: BorderSide.none
+                  : SizedBox(
+                    width: THelperFuntions.screenWidth() > 700 ? 700 : double.infinity,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Información del Cliente',
+                              style: MyTextStyle.titleLarge),
+                          const SizedBox(height: 12),
+                          _buildInfoRow(Iconsax.user, 'Nombre',
+                              '${clientModel!.name} ${clientModel!.lastname}'),
+                          _buildInfoRow(Iconsax.card, 'Cédula',
+                              clientModel!.cedula.toString()),
+                          _buildInfoRow(Iconsax.sms, 'Correo',
+                              clientModel!.email),
+                          _buildInfoRow(Iconsax.call, 'Teléfono',
+                              clientModel!.phoneNumber),
+                    
+                          const Divider(height: 30),
+                    
+                          Text('Información del Préstamo',
+                              style: MyTextStyle.titleLarge),
+                          const SizedBox(height: 12),
+                          _buildInfoRow(Iconsax.dollar_circle, 'Monto total',
+                              '\$${formatCurrency(widget.loanModel.totalLoan)}'),
+                          _buildInfoRow(Iconsax.money_2, 'Interés',
+                              '\$${formatCurrency(widget.loanModel.interest)}'),
+                          _buildInfoRow(Iconsax.money_recive, 'Pago mensual',
+                              '\$${formatCurrency(widget.loanModel.paymentAmount)}'),
+                          _buildInfoRow(Iconsax.status_up, 'Estado',
+                              widget.loanModel.status),
+                          _buildInfoRow(Iconsax.calendar, 'Fecha límite',
+                              widget.loanModel.dueDate ?? 'Sin definir'),
+                    
+                          const SizedBox(height: 30),
+                    
+                          /// Botón WhatsApp
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton.icon(
+                              onPressed: _launchWhatsApp,
+                              icon: Image.asset(AssetsManager.iconWhatsApp, width: 30,),
+                              label: const Text(
+                                'Enviar recordatorio por WhatsApp',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 14, horizontal: 20),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  side: BorderSide.none
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(height: 10),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: (){
+                                print('______________historial de pago_________________');
+                                print(widget.loanModel.history);
+                                print('______________fin_________________');
+                                Get.to(() => LoanHistoryClientScreen(
+                                  historyList: widget.loanModel.history,
+                                  client: clientModel!,
+                                ));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 14, horizontal: 20),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  side: BorderSide.none
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.history, color: Colors.blueAccent, size: 30,),
+                                  SizedBox(width: 10),
+                                  const Text(
+                                    'Historial de pagos',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+  
+                        ],
+                      ),
+                  ),
             ),
           ),
         ],

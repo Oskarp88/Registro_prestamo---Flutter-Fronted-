@@ -7,10 +7,12 @@ import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/common/widgets/button/elevated_button_widget.dart';
 import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
 import 'package:registro_prestamos/data/services/api_service.dart';
+import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/loan_history_client_screen.dart';
 import 'package:registro_prestamos/feactures/pages/screens/clients/dialog/show_pay_amount_dialog.dart';
 import 'package:registro_prestamos/feactures/pages/screens/clients/dialog/show_pay_full.dart';
 import 'package:registro_prestamos/feactures/pages/screens/clients/dialog/show_pay_interest_dialog.dart';
 import 'package:registro_prestamos/feactures/pages/screens/clients/registrar_prestamo.dart';
+import 'package:registro_prestamos/model/client.dart';
 import 'package:registro_prestamos/model/loan.dart';
 import 'package:registro_prestamos/provider/client_provider.dart';
 import 'package:registro_prestamos/utils/constants/constants.dart';
@@ -26,9 +28,10 @@ class ClientDetails extends StatefulWidget {
     super.key,
     required this.clientId,
     required this.name,
-    required this.lastname,
+    required this.lastname, required this.client,
   });
-
+ 
+  final ClientModel client;
   final String clientId;
   final String name;
   final String lastname;
@@ -90,7 +93,11 @@ class _ClientDetailsState extends State<ClientDetails> {
                     width: THelperFuntions.screenWidth() > 700 ? 700 : double.infinity,
                     child: Padding(
                       padding: const EdgeInsets.all(10),
-                      child: loanModel.status == Constants.deudaCompletaPagada 
+                      child:
+                      Column(
+                        children: [
+                          loanModel.status == Constants.deudaCompletaPagada 
+                      
                       ? Column(
                           children: [
                             SizedBox(height: 30),
@@ -240,9 +247,48 @@ class _ClientDetailsState extends State<ClientDetails> {
                                 ),
                               ),
                             ],
-                          ): SizedBox.shrink()
+                          ): SizedBox.shrink(),
+                          
                         ],
                       ),
+                          SizedBox(height: 10),
+                          SizedBox(
+                            width: THelperFuntions.screenWidth() > 350 ? 350 : double.infinity,
+                            child: ElevatedButton(
+                              onPressed: (){
+                                print('______________historial de pago_________________');
+                                print(loanModel.history);
+                                print('______________fin_________________');
+                                Get.to(() => LoanHistoryClientScreen(
+                                  historyList: loanModel.history,
+                                  client: widget.client,
+                                ));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 14, horizontal: 20),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  side: BorderSide.none
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.history, color: Colors.blueAccent, size: 30,),
+                                  SizedBox(width: 10),
+                                  const Text(
+                                    'Historial de pagos',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                 
+                        ],
+                      )     
                     ),
                   ),
                 ],

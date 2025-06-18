@@ -181,7 +181,13 @@ class _ClientListScreenState extends State<ClientListScreen> {
                           leading: const Icon(Icons.person),
                           trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                           onTap: () {
+                            final ClientModel client = item.client.copyWith(
+                              name: item.client.name,
+                              lastname: item.client.lastname,
+                              cedula: item.client.cedula,
+                            );
                             Get.to(() => ClientDetails(
+                                  client: client,
                                   clientId: item.client.id,
                                   name: item.client.name,
                                   lastname: item.client.lastname,

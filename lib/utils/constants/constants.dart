@@ -27,4 +27,10 @@ class Constants {
   static const String pagoCompletado = 'pago completado';
   static const String paymentAmount = 'payment_amount';
   static const String deudaCompletaPagada = 'Deuda completa pagada';
+  static const String interesPagado = 'Interes pagado';
+  static const String status = 'status';
+  static const String deudafinalizada = 'Deuda finalizada';
+  static const String abono = ' Abono';
+
+ 
 }
