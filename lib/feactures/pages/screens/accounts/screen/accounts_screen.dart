@@ -9,11 +9,9 @@ import 'package:registro_prestamos/common/widgets/custom_shapes/container/primar
 import 'package:registro_prestamos/common/widgets/texts/section_headig.dart';
 import 'package:registro_prestamos/data/services/api_service.dart';
 import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/ganancias_history_screen.dart';
-import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/gestion_de_fondos.dart';
 import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/interes_accounts_screen.dart';
 import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/loans_accounts_screen.dart';
 import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/transaction_history_screen.dart';
-import 'package:registro_prestamos/feactures/pages/screens/accounts/widgets/show_update_capital.dart';
 import 'package:registro_prestamos/feactures/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:registro_prestamos/model/loan.dart';
 import 'package:registro_prestamos/provider/auth_provider.dart';
@@ -91,146 +89,165 @@ class _AccountsScreenState extends State<AccountsScreen> {
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.only(bottom: 20),
-              child: SizedBox(
-                width: THelperFuntions.screenWidth() > 700 ? 700 : double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.all(Dimensions.defaultSpace),
-                  child: capitalModel.isEmpty()
-                    ? const Center(child: CircularProgressIndicator())              
-                    : Column(
-                        children: [
-                          const SectionHeading(
-                            title: 'Información de tu capital',
-                            showActionButton: false,
-                          ),
-                          const SizedBox(height: Dimensions.spaceBtwItems),
-                          ProfileMenu(
-                            onPressed: ()=> Get.to(() => TransactionHistoryScreen()),
-                            leading: Icons.monetization_on,
-                            title: 'Capital disponible',
-                            value: Text(formatCurrency(capitalModel.capital)),
-                          ),
-                          const SizedBox(height: Dimensions.spaceBtwItems),
-                          ProfileMenu(
-                            onPressed: ()=> Get.to(() => InteresAccountsScreen(loanModel: loanModel)),
-                            leading: Icons.monetization_on,
-                            title: 'Total interés por cobrar',
-                            value: _isLoadingInterest 
-                              ? Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Container(
-                                    height: 20,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              : Text(formatCurrency(capitalModel.totalInterest)),
-                          ),
-                          const SizedBox(height: Dimensions.spaceBtwItems),
-                          ProfileMenu(
-                            onPressed: ()=> Get.to(()=>LoansAccountsScreen(loanModel: loanModel)),
+              child: Padding(
+                padding: const EdgeInsets.all(Dimensions.defaultSpace),
+                child: capitalModel.isEmpty()
+                  ? const Center(child: CircularProgressIndicator())              
+                  : Center(
+                    child: SizedBox(
+                      width: THelperFuntions.screenWidth() > 700 ? 700 : double.infinity,
+                      child: Column(
+                          children: [
+                            const SectionHeading(
+                              title: 'Información de tu capital',
+                              showActionButton: false,
+                            ),
+                            const SizedBox(height: Dimensions.spaceBtwItems),
+                            ProfileMenu(
+                              onPressed: ()=> Get.to(() => TransactionHistoryScreen()),
+                              leading: Icons.monetization_on,
+                              title: 'Capital disponible',
+                              value: Text(formatCurrency(capitalModel.capital)),
+                            ),
+                            const SizedBox(height: Dimensions.spaceBtwItems),
+                            ProfileMenu(
+                              onPressed: ()=> Get.to(() => InteresAccountsScreen(loanModel: loanModel)),
+                              leading: Icons.monetization_on,
+                              title: 'Total interés por cobrar',
+                              value: _isLoadingInterest 
+                                ? Shimmer.fromColors(
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      height: 20,
+                                      width: 100, // no lo pongas en infinity aquí porque puede romper layout
+                                      decoration: BoxDecoration(
+                                        color: Colors.white, // importante: que sea blanco o un gris claro
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  )
+                                : Text(formatCurrency(capitalModel.totalInterest)),
+                            ),
+                            const SizedBox(height: Dimensions.spaceBtwItems),
+                           ProfileMenu(
+                            onPressed: () => Get.to(() => LoansAccountsScreen()),
                             leading: Icons.monetization_on,
                             title: 'Total dinero prestado',
-                            value: _isLoadingInterest 
-                              ? Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Container(
-                                    height: 20,
-                                    color: Colors.white,
+                            value: _isLoadingInterest
+                                ? Shimmer.fromColors(
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      height: 20,
+                                      width: 100, // no lo pongas en infinity aquí porque puede romper layout
+                                      decoration: BoxDecoration(
+                                        color: Colors.white, // importante: que sea blanco o un gris claro
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  )
+                                : Text(formatCurrency(capitalModel.totalLoan)),
+                          ),
+                      
+                            const SizedBox(height: Dimensions.spaceBtwItems),
+                            ProfileMenu(
+                              onPressed: ()=> Get.to(()=>GananciasHistoryScreen()),
+                              leading: Icons.monetization_on,
+                              title: 'Tus Ganancias',
+                              value: _isLoadingInterest 
+                                ? Shimmer.fromColors(
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      height: 20,
+                                      width: 100, // no lo pongas en infinity aquí porque puede romper layout
+                                      decoration: BoxDecoration(
+                                        color: Colors.white, // importante: que sea blanco o un gris claro
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  )
+                                : Text(formatCurrency(capitalModel.ganancias)),
+                            ),
+                            const SizedBox(height: Dimensions.spaceBtwItems),
+                            ProfileMenu(
+                              onPressed: (){},
+                              leading: Icons.monetization_on,
+                              title: 'Total posible capital',
+                              value: _isLoadingInterest 
+                                ? Shimmer.fromColors(
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      height: 20,
+                                      width: 100, // no lo pongas en infinity aquí porque puede romper layout
+                                      decoration: BoxDecoration(
+                                        color: Colors.white, // importante: que sea blanco o un gris claro
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  )
+                                : Text(formatCurrency(capitalModel.totalLoan+capitalModel.totalInterest+capitalModel.capital)),
+                            ),
+                            const SizedBox(height: 20),
+                      
+                            Text(
+                              'Distribución de capital',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(height: 20),
+                      
+                            SizedBox(
+                            height: 250,
+                            child: PieChart(
+                              PieChartData(
+                                sections: [
+                                  PieChartSectionData(
+                                    color: Colors.blue,
+                                    value: capitalModel.capital.toDouble(),
+                                    title: formatCurrency(capitalModel.capital),
+                                    radius: 100,
+                                    titleStyle: MyTextStyle.labelMedium,
                                   ),
-                                )
-                              : Text(formatCurrency(capitalModel.totalLoan)),
-                          ),
-                          const SizedBox(height: Dimensions.spaceBtwItems),
-                          ProfileMenu(
-                            onPressed: ()=> Get.to(()=>GananciasHistoryScreen()),
-                            leading: Icons.monetization_on,
-                            title: 'Tus Ganancias',
-                            value: _isLoadingInterest 
-                              ? Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Container(
-                                    height: 20,
-                                    color: Colors.white,
+                                  PieChartSectionData(
+                                    color: Colors.green,
+                                    value: capitalModel.totalInterest.toDouble(),
+                                    title: formatCurrency(capitalModel.totalInterest),
+                                    radius: 100,
+                                    titleStyle: MyTextStyle.labelMedium,
                                   ),
-                                )
-                              : Text(formatCurrency(capitalModel.ganancias)),
-                          ),
-                          const SizedBox(height: Dimensions.spaceBtwItems),
-                          ProfileMenu(
-                            onPressed: (){},
-                            leading: Icons.monetization_on,
-                            title: 'Total posible capital',
-                            value: _isLoadingInterest 
-                              ? Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Container(
-                                    height: 20,
-                                    color: Colors.white,
+                                  PieChartSectionData(
+                                    color: Colors.orange,
+                                    value: capitalModel.totalLoan.toDouble(),
+                                    title: formatCurrency(capitalModel.totalLoan),
+                                    radius: 100,
+                                    titleStyle: MyTextStyle.labelMedium,
                                   ),
-                                )
-                              : Text(formatCurrency(capitalModel.totalLoan+capitalModel.totalInterest+capitalModel.capital)),
-                          ),
-                          const SizedBox(height: 20),
-                    
-                          Text(
-                            'Distribución de capital',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(height: 20),
-                    
-                          SizedBox(
-                          height: 250,
-                          child: PieChart(
-                            PieChartData(
-                              sections: [
-                                PieChartSectionData(
-                                  color: Colors.blue,
-                                  value: capitalModel.capital.toDouble(),
-                                  title: formatCurrency(capitalModel.capital),
-                                  radius: 100,
-                                  titleStyle: MyTextStyle.labelMedium,
-                                ),
-                                PieChartSectionData(
-                                  color: Colors.green,
-                                  value: capitalModel.totalInterest.toDouble(),
-                                  title: formatCurrency(capitalModel.totalInterest),
-                                  radius: 100,
-                                  titleStyle: MyTextStyle.labelMedium,
-                                ),
-                                PieChartSectionData(
-                                  color: Colors.orange,
-                                  value: capitalModel.totalLoan.toDouble(),
-                                  title: formatCurrency(capitalModel.totalLoan),
-                                  radius: 100,
-                                  titleStyle: MyTextStyle.labelMedium,
-                                ),
-                              ],
-                              sectionsSpace: 2,
-                              centerSpaceRadius: 30,
+                                ],
+                                sectionsSpace: 2,
+                                centerSpaceRadius: 30,
+                              ),
                             ),
                           ),
+                                      
+                          const SizedBox(height: 20),
+                                      
+                          /// Leyenda personalizada
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildLegendItem(Colors.blue, 'Capital'),
+                                _buildLegendItem(Colors.green, 'Interés'),
+                                _buildLegendItem(Colors.orange, 'Prestado'),
+                              ],
+                            ),
+                                      
+                          ],
                         ),
-                                    
-                        const SizedBox(height: 20),
-                                    
-                        /// Leyenda personalizada
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildLegendItem(Colors.blue, 'Capital'),
-                              _buildLegendItem(Colors.green, 'Interés'),
-                              _buildLegendItem(Colors.orange, 'Prestado'),
-                            ],
-                          ),
-                                    
-                        ],
-                      ),
+                    ),
                   ),
-              ),
+                ),
             ),
           ),
         ],

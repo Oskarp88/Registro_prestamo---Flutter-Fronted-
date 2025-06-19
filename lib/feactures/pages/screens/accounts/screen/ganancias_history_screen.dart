@@ -5,6 +5,7 @@ import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
 import 'package:registro_prestamos/data/services/api_service.dart'; // Asegúrate de importar aquí
 import 'package:registro_prestamos/model/history_capital.dart';
+import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:registro_prestamos/utils/helpers/methods.dart';
@@ -72,7 +73,13 @@ class _GananciasHistoryScreenState extends State<GananciasHistoryScreen> {
                     itemBuilder: (context, index) {
                       final history = historyList[index];
                       final creationDate = DateTime.parse(history.creationDate.toString()).subtract(const Duration(hours: 5));
-                      final dateFormatted = DateFormat('d \'de\' MMMM', 'es_ES').format(creationDate);
+                      final now = DateTime.now();
+                      final isToday = creationDate.year == now.year &&
+                                      creationDate.month == now.month &&
+                                      creationDate.day == now.day;
+                      final dateFormatted = isToday
+                        ? 'Hoy'
+                        : DateFormat('d \'de\' MMMM', 'es_ES').format(creationDate);
                       final timeFormatted = DateFormat('HH:mm:ss').format(creationDate);
 
                       // Si la fecha cambia, la mostramos
@@ -97,15 +104,13 @@ class _GananciasHistoryScreenState extends State<GananciasHistoryScreen> {
                             child: ListTile(
                               leading: const Icon(Iconsax.activity, color: Colors.blueAccent),
                               title: Text(
-                                history.state == "retiro"
+                                history.state == Constants.retiro
                                   ? 'Retiraste \$${formatCurrency(history.amount)} de tus ganancias.'
-                                  : history.state == "prestamo" 
-                                    ? 'Has prestado la cantidad de \$${formatCurrency(history.amount)} al cliente ${history.clientName}.'
-                                    : history.state == "transferencia a ganancias" 
-                                      ? 'Recibiste desde capital \$${formatCurrency(history.amount)} a tus ganancias.'
-                                      : history.state == "transferencia a capital"  
-                                        ? "Transferiste ${history.amount} desde ganancias a tu capital."
-                                        : "El cliente ${history.clientName} pago su interes de \$${formatCurrency(history.amount)} en total.",
+                                  : history.state == Constants.transferenciaAGanancias 
+                                    ? 'Recibiste una transferencia de \$${formatCurrency(history.amount)} desde tu capital a tus ganancias.'
+                                    : history.state == Constants.transferenciaACapital  
+                                      ? 'Transferiste \$${formatCurrency(history.amount)} desde tus ganancias a tu capital.'
+                                      : 'El cliente ${history.clientName} pagó \$${formatCurrency(history.amount)} en concepto de intereses.',
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
                               subtitle: Text(

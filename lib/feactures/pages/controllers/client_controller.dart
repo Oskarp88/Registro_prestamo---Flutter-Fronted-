@@ -19,7 +19,6 @@ class ClientController {
     required String name,
     required String lastname,
     required int cedula,
-    required String email,
     required String phoneNumber
   })async{
     OFullScreenLoader.openLoadingDialog('Creando nuevo cliente...', AssetsManager.clashcycle);
@@ -41,7 +40,6 @@ class ClientController {
       body: jsonEncode({
         Constants.name: name,
         Constants.lastname: lastname,
-        Constants.email: email,
         Constants.phoneNumber: phoneNumber,
         Constants.cedula: cedula,
       })

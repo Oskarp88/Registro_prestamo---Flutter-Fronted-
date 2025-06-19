@@ -5,6 +5,7 @@ import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
 import 'package:registro_prestamos/data/services/api_service.dart'; // Asegúrate de importar aquí
 import 'package:registro_prestamos/model/history_capital.dart';
+import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:registro_prestamos/utils/helpers/methods.dart';
@@ -97,21 +98,21 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                             child: ListTile(
                               leading: const Icon(Iconsax.activity, color: Colors.blueAccent),
                               title: Text(
-                                history.state == "deposito" 
-                                  ? 'Depositaste \$${formatCurrency(history.amount)} a tu capital.'
-                                  : history.state == "transferencia a ganancias"
-                                    ? "Transferiste \$${formatCurrency(history.amount)} a tus ganancias"
-                                    :  history.state == "transferencia a capital"
-                                    ? "Recibiste desde ganancias \$${formatCurrency(history.amount)} a tu capital"
-                                    : history.state == "retiro"
-                                      ? 'Retiraste \$${formatCurrency(history.amount)} de tu capital.'
-                                      : history.state == "prestamo" 
-                                        ? 'Has prestado la cantidad de \$${formatCurrency(history.amount)} al cliente ${history.clientName}.'
-                                        : history.state == "pago todo" 
-                                          ? 'El cliente ${history.clientName} pago toda el prestamo durante los primeros 15 dias: \$${formatCurrency(history.amount)}.'
-                                          : history.state == "pago completado"  
-                                            ? "El cliente ${history.clientName} abono \$${formatCurrency(history.amount)} a su deuda y termino de pagar toda su deuda."
-                                            : "El cliente ${history.clientName} abono \$${formatCurrency(history.amount)} a su deuda.",
+                                history.state == Constants.deposito 
+                                  ? 'Realizaste un depósito de \$${formatCurrency(history.amount)} a tu capital.'
+                                  : history.state == Constants.transferenciaAGanancias
+                                    ? 'Transferiste \$${formatCurrency(history.amount)} a tu cuenta de ganancias.'
+                                    : history.state == Constants.transferenciaACapital
+                                      ? 'Recibiste una transferencia de \$${formatCurrency(history.amount)} desde tu cuenta de ganancias a tu capital.'
+                                      : history.state == Constants.retiro
+                                        ? 'Realizaste un retiro de \$${formatCurrency(history.amount)} desde tu cuenta de ganancias.'
+                                        : history.state == Constants.prestamo
+                                          ? 'Prestaste \$${formatCurrency(history.amount)} al cliente ${history.clientName}.'
+                                          : history.state == Constants.pagoTodo 
+                                            ? 'El cliente ${history.clientName} liquidó la totalidad de su préstamo en los primeros 15 días con un pago de \$${formatCurrency(history.amount)}.'
+                                            : history.state == Constants.deudafinalizada  
+                                              ? 'El cliente ${history.clientName} abonó \$${formatCurrency(history.amount)} y completó el pago total de su deuda.'
+                                              : 'El cliente ${history.clientName} realizó un abono de \$${formatCurrency(history.amount)} a su deuda.',
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
                               subtitle: Text(

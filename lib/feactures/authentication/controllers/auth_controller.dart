@@ -56,6 +56,13 @@ class AuthControllers {
           Loaders.errorSnackBar(title: errorMessage);
           OFullScreenLoader.stopLoading();
           return;
+        }else if(response.statusCode == 403){
+          Loaders.warningSnackBar(
+            title: 'Asunto: ',
+            message: errorMessage
+          );
+          OFullScreenLoader.stopLoading();
+          return;
         } else {
           OFullScreenLoader.stopLoading();
           throw 'Server error: ${response.statusCode} - $errorMessage';

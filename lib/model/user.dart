@@ -34,7 +34,7 @@ class UserModel {
   
   Map<String, dynamic> toJson() {
     return {
-      '_id': id, // Asegúrate de incluir el campo id
+      'id': id, // Asegúrate de incluir el campo id
       'name': name,
       'lastname': lastname,
       'username': username,
@@ -46,7 +46,7 @@ class UserModel {
 
  factory UserModel.fromJson(Map<String, dynamic> json) {
   return UserModel(
-    id: json['_id'] ?? '',
+    id: json['id'] ?? '',
     name: json[Constants.name] ?? '',
     lastname: json[Constants.lastname] ?? '',
     username: json[Constants.username] ?? '',

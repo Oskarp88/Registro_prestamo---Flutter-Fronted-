@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:registro_prestamos/feactures/authentication/screens/signup/verify_email.dart';
+import 'package:registro_prestamos/provider/auth_provider.dart';
+import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:registro_prestamos/utils/constants/my_colors.dart';
 import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
@@ -169,9 +171,17 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate() && agreeToTerms) {
-                  Get.to(() => const VerifyEmailScreen());
+                  final userData = {
+                    Constants.name: nameController.text.trim(),
+                    Constants.lastname: lastNameController.text.trim(),
+                    Constants.username: usernameController.text.trim(),
+                    Constants.email: emailController.text.trim(),
+                    Constants.password: passwordController.text.trim(),
+                  };
+                  print("registrando*********************$userData");
+                  await  AuthenticateProvider.instance.userRegister(userData);
                 } else if (!agreeToTerms) {
                   Get.snackbar('Términos', 'Debes aceptar los términos y condiciones');
                 }

@@ -96,138 +96,72 @@ class _ClientDetailsState extends State<ClientDetails> {
                       child:
                       Column(
                         children: [
-                          loanModel.status == Constants.deudaCompletaPagada 
-                      
-                      ? Column(
-                          children: [
-                            SizedBox(height: 30),
-                            Text(
-                              'No tiene deuda pendiente',
-                              style: Theme.of(context).textTheme.titleLarge                            ),
-                            SizedBox(height: 30),
-                            ElevatedButtonWidget(
-                              text: 'Crear nuevo prestamo', 
-                              onTap: () => Get.to(() => RegistrarPrestamo(
-                                isCreate: false,
-                                clientId: widget.clientId,
-                              ))
+                          loanModel.status == Constants.deudaCompletaPagada || loanModel.status == Constants.deudafinalizada               
+                          ? Column(
+                              children: [
+                                SizedBox(height: 30),
+                                Text(
+                                  'No tiene deuda pendiente',
+                                  style: Theme.of(context).textTheme.titleLarge                            ),
+                                SizedBox(height: 30),
+                                ElevatedButtonWidget(
+                                  text: 'Crear nuevo prestamo', 
+                                  onTap: () => Get.to(() => RegistrarPrestamo(
+                                    isCreate: false,
+                                    clientId: widget.clientId,
+                                  ))
+                                )
+                              ],   
                             )
-                          ],   
-                        )
-                      :  Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildInfoRow(
-                            context,
-                            label: 'Deuda Total:',
-                            value: formatCurrency(loanModel.totalLoan),
-                          ),
-                          _buildInfoRow(
-                            context,
-                            label: 'Fecha limite a pagar el interés:',
-                            value: '${time![2]} de ${meses[(int.parse(time[1])-1)]}',
-                          ),
-                           _buildInfoRow(
-                            context,
-                            label: 'Estado del pago de interés:',
-                            value: loanModel.status.toString(),
-                          ),
-                          const SizedBox(height: 16),
-                          _buildInfoRow(
-                            context,
-                            label: 'Interés a pagar:',
-                            value: formatCurrency(loanModel.interest),
-                            buttonLabel: 'Pagar interés',
-                            onButtonPressed: () {
-                              
-                              if(loanModel.status == Constants.pagoCompletado){
-                                Loaders.successSnackBar(
-                                  title: 'Ya has pagado el interes correspondiente.',
-                                  message: 'Para pagar el proximo interés debes esperar despues de esta fecha: ${time[2]} de ${meses[(int.parse(time[1])-1)-1]}'
-                                );
-                                return;
-                              }
-                              showPayInterestDialog(context, loanModel);
-                            },
-                          ),
-                          const SizedBox(height: 30),
-                          Text(
-                            'Pagar o Abonar a la deuda:',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(height: 8),
-                          TextFormField(
-                            controller: paymentController,
-                            keyboardType: TextInputType.number,
-                            validator: (value) => Validator.validateOnlyNumbers(value),
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(Iconsax.direct_right),
-                              labelText: 'Monto a abonar',
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton.icon(
-                              icon: const Icon(Iconsax.money_send),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: loanModel.status != 'pago completado' ? Colors.grey[700] : MyColors.primary, 
-                                // foregroundColor: Colors.white, // color del texto e ícono
-                              ),
-                              onPressed: () {
-                                if(loanModel.status.toString() != Constants.pagoCompletado){
-                                  Loaders.warningSnackBar(
-                                    title: 'Estatus de pago',
-                                    message: 'Aun no has pagado el interés correspondiente, primero paga el interés de ${formatCurrency(loanModel.interest)} que tienes pendiente. Luego si puedes pagar o abonar a la deuda.'
-                                  );
-                                  return;
-                                }
-
-                                if (paymentController.text.isEmpty) {
-                                  Loaders.errorSnackBar(
-                                    title: 'Campo vacío',
-                                    message: 'Por favor ingresa una cantidad a abonar.',
-                                  );
-                                  return;
-                                }
-
-                                // Verificar que sea un número válido y mayor a 0
-                                double? amount = double.tryParse(paymentController.text);
-                                if (amount == null || amount <= 0) {
-                                  Loaders.errorSnackBar(
-                                    title: 'Cantidad inválida',
-                                    message: 'Por favor ingresa una cantidad válida mayor a 0.',
-                                  );
-                                  return;
-                                }
-                                showPayAmountDialog(context, loanModel, double.parse(paymentController.text));
-
-                             },
-                              label: const Text('Pagar deuda'),
-                            ),
-                          ),
-
-                          ///pagar el 10 % antes de los 15 dias 
-                          const SizedBox(height: 30),
-                          loanModel.interest10 
-                            ? Column(
+                          :  Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Pagar toda tu deuda con 10% de interés:',
-                                style: Theme.of(context).textTheme.titleMedium,
+                              _buildInfoRow(
+                                context,
+                                label: 'Deuda Total:',
+                                value: formatCurrency(loanModel.totalLoan),
                               ),
+                              _buildInfoRow(
+                                context,
+                                label: 'Fecha limite a pagar el interés:',
+                                value: '${time![2]} de ${meses[(int.parse(time[1])-1)]}',
+                              ),
+                              _buildInfoRow(
+                                context,
+                                label: 'Estado del pago de interés:',
+                                value: loanModel.status.toString(),
+                              ),
+                              const SizedBox(height: 16),
+                              _buildInfoRow(
+                                context,
+                                label: 'Interés a pagar:',
+                                value: formatCurrency(loanModel.interest),
+                                buttonLabel: 'Pagar interés',
+                                onButtonPressed: () {
+                                  
+                                  if(loanModel.status == Constants.pagoCompletado){
+                                    Loaders.successSnackBar(
+                                      title: 'Ya has pagado el interes correspondiente.',
+                                      message: 'Para pagar el proximo interés debes esperar despues de esta fecha: ${time[2]} de ${meses[(int.parse(time[1])-1)-1]}'
+                                    );
+                                    return;
+                                  }
+                                  showPayInterestDialog(context, loanModel);
+                                },
+                              ),
+                              const SizedBox(height: 30),
                               Text(
-                                '*Solo aplica a los primeros 15 dias de tener la deuda.',
-                                style: Theme.of(context).textTheme.labelSmall!.apply(color: Colors.red),
+                                'Pagar o Abonar a la deuda:',
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                               const SizedBox(height: 8),
                               TextFormField(
-                                controller: TextEditingController(text: formatCurrency(loanModel.totalLoan + loanModel.totalLoan * 0.1).toString()),
+                                controller: paymentController,
                                 keyboardType: TextInputType.number,
                                 validator: (value) => Validator.validateOnlyNumbers(value),
                                 decoration: const InputDecoration(
                                   prefixIcon: Icon(Iconsax.direct_right),
-                                  labelText: 'Monto a pagar',
+                                  labelText: 'Monto a abonar',
                                 ),
                               ),
                               const SizedBox(height: 16),
@@ -236,57 +170,127 @@ class _ClientDetailsState extends State<ClientDetails> {
                                 child: ElevatedButton.icon(
                                   icon: const Icon(Iconsax.money_send),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: MyColors.primary, 
+                                    backgroundColor: loanModel.status == Constants.interesPagado
+                                      ? MyColors.primary
+                                      : Colors.grey[700], 
                                     // foregroundColor: Colors.white, // color del texto e ícono
                                   ),
                                   onPressed: () {
-                                    showPayFullDialog(context, loanModel);
+                                    if(loanModel.status.toString() != Constants.pagoCompletado){
+                                      Loaders.warningSnackBar(
+                                        title: 'Estatus de pago',
+                                        message: 'Aun no has pagado el interés correspondiente, primero paga el interés de ${formatCurrency(loanModel.interest)} que tienes pendiente. Luego si puedes pagar o abonar a la deuda.'
+                                      );
+                                      return;
+                                    }
+
+                                    if (paymentController.text.isEmpty) {
+                                      Loaders.errorSnackBar(
+                                        title: 'Campo vacío',
+                                        message: 'Por favor ingresa una cantidad a abonar.',
+                                      );
+                                      return;
+                                    }
+
+                                    // Verificar que sea un número válido y mayor a 0
+                                    double? amount = double.tryParse(paymentController.text);
+                                    if (amount == null || amount <= 0) {
+                                      Loaders.errorSnackBar(
+                                        title: 'Cantidad inválida',
+                                        message: 'Por favor ingresa una cantidad válida mayor a 0.',
+                                      );
+                                      return;
+                                    }
+                                    showPayAmountDialog(context, loanModel, double.parse(paymentController.text));
 
                                 },
                                   label: const Text('Pagar deuda'),
                                 ),
                               ),
-                            ],
-                          ): SizedBox.shrink(),
-                          
-                        ],
-                      ),
-                          SizedBox(height: 10),
-                          SizedBox(
-                            width: THelperFuntions.screenWidth() > 350 ? 350 : double.infinity,
-                            child: ElevatedButton(
-                              onPressed: (){
-                                print('______________historial de pago_________________');
-                                print(loanModel.history);
-                                print('______________fin_________________');
-                                Get.to(() => LoanHistoryClientScreen(
-                                  historyList: loanModel.history,
-                                  client: widget.client,
-                                ));
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 14, horizontal: 20),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  side: BorderSide.none
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+
+                              ///pagar el 10 % antes de los 15 dias 
+                              const SizedBox(height: 30),
+                              loanModel.interest10 
+                                ? Column(
                                 children: [
-                                  Icon(Icons.history, color: Colors.blueAccent, size: 30,),
-                                  SizedBox(width: 10),
-                                  const Text(
-                                    'Historial de pagos',
-                                    style: TextStyle(fontSize: 16),
+                                  Text(
+                                    'Pagar toda tu deuda con 10% de interés:',
+                                    style: Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                  Text(
+                                    '*Solo aplica a los primeros 15 dias de tener la deuda.',
+                                    style: Theme.of(context).textTheme.labelSmall!.apply(color: Colors.red),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  TextFormField(
+                                    readOnly: true,
+                                    controller: TextEditingController(text: formatCurrency(loanModel.totalLoan + loanModel.totalLoan * 0.1).toString()),
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) => Validator.validateOnlyNumbers(value),
+                                    decoration: const InputDecoration(
+                                      prefixIcon: Icon(Iconsax.direct_right),
+                                      labelText: 'Monto a pagar',
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: ElevatedButton.icon(
+                                      icon: const Icon(Iconsax.money_send),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: MyColors.primary, 
+                                        // foregroundColor: Colors.white, // color del texto e ícono
+                                      ),
+                                      onPressed: () {
+                                        showPayFullDialog(context, loanModel);
+
+                                    },
+                                      label: const Text('Pagar deuda'),
+                                    ),
                                   ),
                                 ],
-                              ),
-                            ),
+                              ): SizedBox.shrink(),
+                              
+                            ],
                           ),
-                 
+                              SizedBox(height: 10),
+                              SizedBox(
+                                width: loanModel.status == Constants.deudaCompletaPagada || loanModel.status == Constants.deudafinalizada
+                                  ? THelperFuntions.screenWidth() > 350 ? 350 : double.infinity
+                                  : THelperFuntions.screenWidth() > 700 ? 700 : double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: (){
+                                    // print('______________historial de pago_________________');
+                                    // print(loanModel.history);
+                                    // print('______________fin_________________');
+                                    Get.to(() => LoanHistoryClientScreen(
+                                      historyList: loanModel.history,
+                                      client: widget.client,
+                                    ));
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 14, horizontal: 20),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      side: BorderSide.none
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.history, color: Colors.blueAccent, size: 30,),
+                                      SizedBox(width: 10),
+                                      const Text(
+                                        'Historial de pagos',
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                    
                         ],
                       )     
                     ),

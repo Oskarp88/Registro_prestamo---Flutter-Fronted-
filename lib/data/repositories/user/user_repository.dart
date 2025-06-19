@@ -6,15 +6,27 @@ import 'package:registro_prestamos/common/screen/full_screen_loader.dart';
 import 'package:registro_prestamos/data/repositories/authentication/authentication_repository.dart';
 import 'package:registro_prestamos/model/user.dart';
 import 'package:registro_prestamos/provider/auth_provider.dart';
+import 'package:registro_prestamos/utils/connects/network_manager.dart';
 import 'package:registro_prestamos/utils/constants/constants.dart';
+import 'package:registro_prestamos/utils/loaders/loaders.dart';
 import 'package:registro_prestamos/utils/local_storage/storage_utility.dart';
+import 'package:registro_prestamos/utils/manager/assets_manager.dart';
 
 class UserRepository extends GetxController {
  
   static UserRepository get instance => Get.find();
 
-Future<void> saveUserRecord(Map<String, dynamic> user) async {
+Future<void> userRegister(Map<String, dynamic> user) async {
   try {
+    OFullScreenLoader.openLoadingDialog('Creando nuevo cliente...', AssetsManager.clashcycle);
+    final isConnected = await NetworkManager.instance.isConnected();
+
+    if(!isConnected){
+      OFullScreenLoader.stopLoading();
+      Loaders.warningSnackBar(title: 'No hay conexión de internet');
+      return;
+    }
+    
     final Uri url = Uri.parse('${dotenv.env['BASE_URL']}/user/register');
 
     // Enviar solicitud POST con JSON
@@ -27,10 +39,6 @@ Future<void> saveUserRecord(Map<String, dynamic> user) async {
     );
 
      if (response.statusCode == 200) {
-      final setAuth = AuthenticateProvider.instance;
-      final Map<String, dynamic> userData = jsonDecode(response.body);
-      setAuth.setUser(UserModel.fromJson(userData));
-      UtilLocalStorage().saveData(Constants.userCredentials, userData[Constants.user]);
       OFullScreenLoader.stopLoading();
       AuthenticationRepository.instance.screenRedirect();
       return;
@@ -64,32 +72,4 @@ Future<void> saveUserRecord(Map<String, dynamic> user) async {
   }
 }
 
-Future<bool?> isUserAlreadyExist(String? id) async {
-  if (id == null || id.isEmpty) {
-    throw 'ID cannot be null or empty';
-  }
-
-  final Uri url = Uri.parse('${dotenv.env['BASE_URL']}/userExist/$id');
-
-  try {
-    final response = await http.get(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
-
-    print('Respuesta del servidor: ${response.body}');
-
-    if (response.statusCode == 200) {
-      return true; // Usuario existe
-    } else if (response.statusCode == 404) {
-      return null; // Usuario no encontrado
-    } else {
-      throw 'Server error: ${response.statusCode} - ${response.body}';
-    }
-  } catch (e) {
-    throw 'Something went wrong: $e';
-  }
-}
 }

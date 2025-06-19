@@ -150,8 +150,6 @@ class _DetailsAccountsClientState extends State<DetailsAccountsClient> {
                               '${clientModel!.name} ${clientModel!.lastname}'),
                           _buildInfoRow(Iconsax.card, 'Cédula',
                               clientModel!.cedula.toString()),
-                          _buildInfoRow(Iconsax.sms, 'Correo',
-                              clientModel!.email),
                           _buildInfoRow(Iconsax.call, 'Teléfono',
                               clientModel!.phoneNumber),
                     
@@ -199,9 +197,6 @@ class _DetailsAccountsClientState extends State<DetailsAccountsClient> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: (){
-                                print('______________historial de pago_________________');
-                                print(widget.loanModel.history);
-                                print('______________fin_________________');
                                 Get.to(() => LoanHistoryClientScreen(
                                   historyList: widget.loanModel.history,
                                   client: clientModel!,

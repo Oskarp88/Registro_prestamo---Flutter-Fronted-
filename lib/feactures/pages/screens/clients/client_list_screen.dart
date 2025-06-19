@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:registro_prestamos/common/styles/my_text_style.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
@@ -7,6 +8,7 @@ import 'package:registro_prestamos/common/widgets/custom_shapes/container/search
 import 'package:registro_prestamos/data/services/api_service.dart';
 import 'package:registro_prestamos/feactures/pages/screens/clients/client_details.dart';
 import 'package:registro_prestamos/model/client.dart';
+import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:registro_prestamos/utils/helpers/methods.dart';
 
@@ -149,7 +151,9 @@ class _ClientListScreenState extends State<ClientListScreen> {
                                     style: Theme.of(context).textTheme.bodySmall,
                                   ),
                                   Text(
-                                    formatCurrency(item.totalLoan),
+                                    item.totalLoan == 0
+                                      ? "Finalizado"
+                                      : formatCurrency(item.totalLoan),
                                     style: Theme.of(context).textTheme.bodyLarge,
                                   ),
                                 ],
@@ -161,18 +165,42 @@ class _ClientListScreenState extends State<ClientListScreen> {
                                     'Estado de pago de interés: ',
                                     style: Theme.of(context).textTheme.bodySmall,
                                   ),
-                                  Text(
-                                    item.loanStatus,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context).textTheme.bodyMedium!.apply(
-                                          color: item.loanStatus == 'pendiente'
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        item.loanStatus == Constants.interesPagado
+                                          ?  Iconsax.wallet_check
+                                          : item.loanStatus == Constants.enMora
+                                            ? Iconsax.warning_2
+                                            : item.loanStatus == Constants.pendiente
+                                              ? Iconsax.clock
+                                              : Iconsax.verify, 
+                                        color: item.loanStatus == Constants.interesPagado
+                                          ?  Colors.lightBlue
+                                          : item.loanStatus == Constants.enMora
+                                            ? Colors.deepOrange
+                                            : item.loanStatus == Constants.pendiente
                                               ? Colors.orangeAccent
-                                              : item.loanStatus == 'atrasado'
-                                                  ? Colors.deepOrange
-                                                  : item.loanStatus == 'no pago'
-                                                      ? Colors.red
-                                                      : Colors.green,
-                                        ),
+                                              : Colors.green,
+                                        size: 20,
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        item.loanStatus == Constants.interesPagado
+                                          ? 'Interés pagado al dia'
+                                          : item.loanStatus,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context).textTheme.bodyMedium!.apply(
+                                              color: item.loanStatus == Constants.pendiente
+                                                  ? Colors.orangeAccent
+                                                  : item.loanStatus == Constants.enMora
+                                                      ? Colors.deepOrange
+                                                      : item.loanStatus == Constants.interesPagado
+                                                          ? Colors.lightBlue
+                                                          : Colors.green,
+                                            ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),

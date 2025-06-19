@@ -151,7 +151,7 @@ class ApiService {
         final responseInterest = jsonDecode(response.body);
         final List<dynamic> jsonList = responseInterest['pending_loans'];
         final capitalModel = authProvider.capital!.copyWith(
-          totalInterest: responseInterest['total_interest'],
+          totalInterest: responseInterest[Constants.totalInterest],
           totalLoan: responseInterest[Constants.totalLoan]
         );
         List<LoanModel> loans = jsonList.map((json) => LoanModel.fromJson(json)).toList();       
@@ -189,6 +189,29 @@ class ApiService {
       throw 'Something went wrong while fetching and sorting users. Please try again. Error: $e';
     }
   }
+
+    Future <List<LoanModel>> fetchLoans() async {
+    try {
+      final Uri url = Uri.parse('${dotenv.env['BASE_URL']}/loan/get-all-loans');
+
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonList = jsonDecode(response.body);    
+        List<LoanModel> loans = jsonList.map((json) => LoanModel.fromJson(json)).toList();       
+        return loans;
+      } else {
+        return []; 
+      }
+    } catch (e) {
+      throw 'Something went wrong while fetching and sorting users. Please try again. Error: $e';
+    }
+  }
+   
    
 }
 

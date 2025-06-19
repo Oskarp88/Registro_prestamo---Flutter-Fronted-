@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
 import 'package:registro_prestamos/common/widgets/texts/section_headig.dart';
 import 'package:registro_prestamos/feactures/personalization/screens/profile/widgets/profile_menu.dart';
+import 'package:registro_prestamos/provider/auth_provider.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -10,6 +12,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userModel = context.watch<AuthenticateProvider>().user!;
     return  Scaffold(
       appBar: const AppBarWidget(
         showBackArrow: true,
@@ -32,13 +35,18 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: Dimensions.spaceBtwItems),
               ProfileMenu(
                 onPressed: (){},
-                title: 'Name',
-                value: Text('Oscar William'),
+                title: 'Nombres',
+                value: Text(userModel.name),
+              ),
+              ProfileMenu(
+                onPressed: (){},
+                title: 'Apellidos',
+                value: Text(userModel.lastname),
               ),
                ProfileMenu(
                 onPressed: (){},
-                title: 'Username',
-                value: Text('Oskarp88'),
+                title: 'Nombre de usuario',
+                value: Text(userModel.username),
               ),
               const SizedBox(height: Dimensions.spaceBtwItems),
               const Divider(),
@@ -51,28 +59,23 @@ class ProfileScreen extends StatelessWidget {
               ProfileMenu(
                 onPressed: (){},
                 title: 'User ID',
-                value: Text('12837474'),
+                value: Text(userModel.id),
                 icon: Iconsax.copy,
               ),
               ProfileMenu(
                 onPressed: (){},
                 title: 'E-mail',
-                value: Text('burgos@gmail.com'),
+                value: Text(userModel.email),
               ),
+              
               ProfileMenu(
                 onPressed: (){},
-                title: 'Phone number',
-                value: Text('319.........'),
-              ),
-              ProfileMenu(
-                onPressed: (){},
-                title: 'Gender',
-                value: Text('Male'),
-              ),
-              ProfileMenu(
-                onPressed: (){},
-                title: 'Date of Birth',
-                value: Text('21 agosto 1990'),
+                title: 'Rol',
+                value: Text(
+                  userModel.isAdmin 
+                    ? 'Administrador'
+                    : 'Usuario'
+                ),
               ),
               const SizedBox(height: Dimensions.spaceBtwItems),
 

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:registro_prestamos/data/repositories/user/user_repository.dart';
@@ -15,7 +16,7 @@ class AuthenticateProvider with ChangeNotifier {
 
   static AuthenticateProvider get instance => _instance;
 
-  late UserRepository userRepository;
+  final UserRepository userRepository = UserRepository();
 
   UserModel? _user = UserModel.empty();
   bool _isProfileLoading = false;
@@ -41,7 +42,7 @@ class AuthenticateProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> saveUserRecord(Map<String, dynamic>? userData) async{
+  Future<void> userRegister(Map<String, dynamic>? userData) async{
     try {
       if(userData != null){
         final user = {     
@@ -53,27 +54,28 @@ class AuthenticateProvider with ChangeNotifier {
           Constants.isAdmin: false,
           Constants.isActive: false,
         };
-        await userRepository.saveUserRecord(user);
+        await userRepository.userRegister(user);
       }
     } catch (e) {
+      print(e);
       Loaders.errorSnackBar(
         title: 'Data not saved',
-        message: 'Something went wrong while saving your instance information. You can re-save your data in your Profile.'
+        message: 'Something went wrong while saving your instance information. You can re-save your data in your Profile. $e'
       );
     }
   }
-  
+   
   Future<void> fetchUserRecord(String? id)async{
-    print('llegue a fetchUserRecord ');
     try {
       
       final userData = await userRepository.fetchUserDetails(id!);
-      print('<<<<<<<<<<<<<<<<<<<<<<<<<<<usermodel $userData');
       _user = userData;
       notifyListeners();
       
     } catch (e) {
-      print( 'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF$e');
+      if (kDebugMode) {
+        print( '$e');
+      }
     }  
   }
 

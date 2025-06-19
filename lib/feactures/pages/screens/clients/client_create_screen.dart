@@ -18,7 +18,6 @@ class ClientCreateScreen extends StatelessWidget {
 
   final nameController = TextEditingController();
   final lastnameController = TextEditingController();
-  final emailController = TextEditingController();
   final cedulaController = TextEditingController();
   final phoneNumberController = TextEditingController();
 
@@ -61,15 +60,6 @@ class ClientCreateScreen extends StatelessWidget {
                     ),
                     SizedBox(height: Dimensions.spaceBtwInputFields),
                     TextFormField(
-                      controller: emailController,
-                      validator: (value) => Validator.validateEmail(value!),
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Iconsax.direct_right),
-                        labelText: 'Correo',
-                      ),
-                    ),
-                    SizedBox(height: Dimensions.spaceBtwInputFields),
-                    TextFormField(
                       controller: cedulaController,
                       validator: (value) => Validator.validateCedula(value!),
                       keyboardType: TextInputType.number,
@@ -97,7 +87,6 @@ class ClientCreateScreen extends StatelessWidget {
                             name: nameController.text.trim(),
                             lastname: lastnameController.text.trim(),
                             cedula: int.parse(cedulaController.text.trim()),
-                            email: emailController.text.trim(),
                             phoneNumber: phoneNumberController.text.trim(),
                           );
                         }

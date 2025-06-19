@@ -5,7 +5,6 @@ class ClientModel {
   String name;
   String lastname;
   int cedula;
-  String email;
   String phoneNumber;
 
   ClientModel({
@@ -13,7 +12,6 @@ class ClientModel {
     required this.name, 
     required this.lastname, 
     required this.cedula, 
-    required this.email, 
     required this.phoneNumber, 
   });
 
@@ -22,7 +20,6 @@ class ClientModel {
     name: '',
     lastname: '',
     cedula: 0,
-    email: '',
     phoneNumber: '',
   );
   
@@ -32,7 +29,6 @@ class ClientModel {
       Constants.name: name,
       Constants.lastname: lastname,
       Constants.cedula: cedula,
-      Constants.email: email,
       Constants.phoneNumber: phoneNumber,
     };
   }
@@ -43,7 +39,6 @@ class ClientModel {
     name: json[Constants.name] ?? '',
     lastname: json[Constants.lastname] ?? '',
     cedula: json[Constants.cedula] ?? 0,
-    email: json[Constants.email] ?? '',
     phoneNumber: json[Constants.phoneNumber] ?? '',
   );
 }
@@ -56,7 +51,6 @@ extension UserClientCopy on ClientModel {
     String? name,
     String? lastname,
     int? cedula,
-    String? email,
     String? phoneNumber,
   }) {
     return ClientModel(
@@ -64,7 +58,6 @@ extension UserClientCopy on ClientModel {
       name: name ?? this.name,
       lastname: lastname ?? this.lastname,
       cedula: cedula ?? this.cedula,
-      email: email ?? this.email,
       phoneNumber: phoneNumber ?? this.phoneNumber,
     );
   }
