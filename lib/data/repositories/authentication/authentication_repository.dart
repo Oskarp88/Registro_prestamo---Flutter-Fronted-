@@ -6,6 +6,7 @@ import 'package:registro_prestamos/feactures/authentication/screens/login/login.
 import 'package:registro_prestamos/model/user.dart';
 import 'package:registro_prestamos/navigation_menu.dart';
 import 'package:registro_prestamos/provider/auth_provider.dart';
+import 'package:registro_prestamos/provider/notification_provider.dart';
 import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/local_storage/storage_utility.dart';
 
@@ -33,6 +34,8 @@ class AuthenticationRepository extends GetxController{
         print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx $userCredentials');
 
         user.setUser(UserModel.fromJson(userCredentials));
+        user.notificationsProvider = ProviderNotifications(user.user!.id); 
+
         // Redirigir al BottomHomeNavigationBar
         if (kDebugMode) {
           print("Sesión activa de ${user.user!.username} detectada. Redirigiendo a BottomHomeNavigationBar.");

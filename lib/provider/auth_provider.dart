@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:registro_prestamos/data/repositories/user/user_repository.dart';
 import 'package:registro_prestamos/model/capital.dart';
 import 'package:registro_prestamos/model/user.dart';
+import 'package:registro_prestamos/provider/notification_provider.dart';
 import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/loaders/loaders.dart';
 import 'package:registro_prestamos/utils/local_storage/storage_utility.dart';
@@ -17,6 +18,8 @@ class AuthenticateProvider with ChangeNotifier {
   static AuthenticateProvider get instance => _instance;
 
   final UserRepository userRepository = UserRepository();
+  ProviderNotifications? notificationsProvider; // ✅ Campo nuevo
+
 
   UserModel? _user = UserModel.empty();
   bool _isProfileLoading = false;
@@ -90,6 +93,7 @@ class AuthenticateProvider with ChangeNotifier {
   void clearUser(){
     UtilLocalStorage().removeData('User');
     _user = null;
+    notificationsProvider?.dispose();
     notifyListeners();
   }
 }

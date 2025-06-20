@@ -48,6 +48,7 @@ class Constants {
   
   static const String isLogin = 'isLogin';
   static const String baseUrl = 'BASE_URL';
+  static const String socketUrl = 'SOCKET_URL';
  
   
   static const String clientModel = 'clientModel';

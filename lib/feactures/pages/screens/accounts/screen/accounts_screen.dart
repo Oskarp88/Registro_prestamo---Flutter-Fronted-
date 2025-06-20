@@ -60,6 +60,7 @@ class _AccountsScreenState extends State<AccountsScreen> {
   @override
   Widget build(BuildContext context) {
     final capitalModel = context.watch<AuthenticateProvider>().capital!;
+
     return Scaffold(
       body: Column(
         children: [
@@ -155,40 +156,14 @@ class _AccountsScreenState extends State<AccountsScreen> {
                               onPressed: ()=> Get.to(()=>GananciasHistoryScreen()),
                               leading: Icons.monetization_on,
                               title: 'Tus Ganancias',
-                              value: _isLoadingInterest 
-                                ? Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Container(
-                                      height: 20,
-                                      width: 100, // no lo pongas en infinity aquí porque puede romper layout
-                                      decoration: BoxDecoration(
-                                        color: Colors.white, // importante: que sea blanco o un gris claro
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                  )
-                                : Text(formatCurrency(capitalModel.ganancias)),
+                              value: Text(formatCurrency(capitalModel.ganancias)),
                             ),
                             const SizedBox(height: Dimensions.spaceBtwItems),
                             ProfileMenu(
                               onPressed: (){},
                               leading: Icons.monetization_on,
                               title: 'Total posible capital',
-                              value: _isLoadingInterest 
-                                ? Shimmer.fromColors(
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[100]!,
-                                    child: Container(
-                                      height: 20,
-                                      width: 100, // no lo pongas en infinity aquí porque puede romper layout
-                                      decoration: BoxDecoration(
-                                        color: Colors.white, // importante: que sea blanco o un gris claro
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                  )
-                                : Text(formatCurrency(capitalModel.totalLoan+capitalModel.totalInterest+capitalModel.capital)),
+                              value: Text(formatCurrency(capitalModel.totalLoan+capitalModel.totalInterest+capitalModel.capital)),
                             ),
                             const SizedBox(height: 20),
                       

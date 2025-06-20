@@ -26,6 +26,10 @@ class _SignUpFormState extends State<SignUpForm> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+
+
   bool agreeToTerms = false;
 
   @override
@@ -88,7 +92,7 @@ class _SignUpFormState extends State<SignUpForm> {
           // Contraseña
           TextFormField(
             controller: passwordController,
-            obscureText: true,
+            obscureText: !_isPasswordVisible,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Contraseña requerida';
@@ -99,30 +103,48 @@ class _SignUpFormState extends State<SignUpForm> {
               }
               return null;
             },
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Contraseña',
-              prefixIcon: Icon(Iconsax.password_check),
-              suffixIcon: Icon(Iconsax.eye_slash),
+              prefixIcon: const Icon(Iconsax.password_check),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _isPasswordVisible ? Iconsax.eye : Iconsax.eye_slash,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isPasswordVisible = !_isPasswordVisible;
+                  });
+                },
+              ),
             ),
           ),
-          const SizedBox(height: Dimensions.inputFieldFieds),
+            const SizedBox(height: Dimensions.inputFieldFieds),
 
           // Confirmar Contraseña
           TextFormField(
-            controller: confirmPasswordController,
-            obscureText: true,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Confirme la contraseña';
-              } else if (value != passwordController.text) {
-                return 'Las contraseñas no coinciden';
-              }
-              return null;
-            },
-            decoration: const InputDecoration(
-              labelText: 'Confirmar contraseña',
-              prefixIcon: Icon(Iconsax.password_check),
-              suffixIcon: Icon(Iconsax.eye_slash),
+        controller: confirmPasswordController,
+        obscureText: !_isConfirmPasswordVisible,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Confirme la contraseña';
+          } else if (value != passwordController.text) {
+            return 'Las contraseñas no coinciden';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          labelText: 'Confirmar contraseña',
+          prefixIcon: const Icon(Iconsax.password_check),
+          suffixIcon: IconButton(
+            icon: Icon(
+              _isConfirmPasswordVisible ? Iconsax.eye : Iconsax.eye_slash,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                  });
+                },
+              ),
             ),
           ),
           const SizedBox(height: Dimensions.inputFieldFieds),

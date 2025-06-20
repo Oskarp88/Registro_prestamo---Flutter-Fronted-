@@ -69,11 +69,11 @@ class HomeScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Capital:',
-                                    style: MyTextStyle.titleLarge,
+                                    style: MyTextStyle.titleMedium,
                                   ),
                                    Text(
-                                    'Interés ganado:',
-                                    style: MyTextStyle.titleLarge,
+                                    'Ganancias:',
+                                    style: MyTextStyle.titleMedium,
                                   ),
                                 ],
                               ),

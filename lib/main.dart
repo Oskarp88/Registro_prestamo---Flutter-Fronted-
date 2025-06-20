@@ -32,6 +32,8 @@ void main()async{
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp, // Permite solo modo vertical
   ]);
+
+  ///AuthenticateProvider.instance.user!.id ---- asi puedes llamar el id
   runApp(
     MultiProvider(
       providers: [

@@ -176,7 +176,7 @@ class _ClientDetailsState extends State<ClientDetails> {
                                     // foregroundColor: Colors.white, // color del texto e ícono
                                   ),
                                   onPressed: () {
-                                    if(loanModel.status.toString() != Constants.pagoCompletado){
+                                    if(loanModel.status.toString() != Constants.interesPagado){
                                       Loaders.warningSnackBar(
                                         title: 'Estatus de pago',
                                         message: 'Aun no has pagado el interés correspondiente, primero paga el interés de ${formatCurrency(loanModel.interest)} que tienes pendiente. Luego si puedes pagar o abonar a la deuda.'
