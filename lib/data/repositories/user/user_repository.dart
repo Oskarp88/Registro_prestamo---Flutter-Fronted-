@@ -5,11 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:registro_prestamos/common/screen/full_screen_loader.dart';
 import 'package:registro_prestamos/data/repositories/authentication/authentication_repository.dart';
 import 'package:registro_prestamos/model/user.dart';
-import 'package:registro_prestamos/provider/auth_provider.dart';
 import 'package:registro_prestamos/utils/connects/network_manager.dart';
-import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/loaders/loaders.dart';
-import 'package:registro_prestamos/utils/local_storage/storage_utility.dart';
 import 'package:registro_prestamos/utils/manager/assets_manager.dart';
 
 class UserRepository extends GetxController {
@@ -59,10 +56,8 @@ Future<void> userRegister(Map<String, dynamic> user) async {
         'Content-Type': 'application/json',
       },
     );
-    print('Respuesta completa: ${response.body}');
     if (response.statusCode == 200) {
       final Map<String, dynamic> userData = jsonDecode(response.body);
-      print('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuus$userData');
       return UserModel.fromJson(userData); 
     } else {
       throw 'Error: ${response.statusCode} - ${response.body}';

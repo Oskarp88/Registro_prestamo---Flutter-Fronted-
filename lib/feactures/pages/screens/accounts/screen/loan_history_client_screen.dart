@@ -10,16 +10,16 @@ import 'package:iconsax/iconsax.dart';
 import 'package:registro_prestamos/utils/helpers/methods.dart';
 
 class LoanHistoryClientScreen extends StatelessWidget {
-  LoanHistoryClientScreen({super.key, required this.historyList, required this.client});
+  const LoanHistoryClientScreen({super.key, required this.historyList, required this.client});
 
   final List<dynamic> historyList;
   final ClientModel client;
-  String? lastDate;
+ 
 
   @override
   Widget build(BuildContext context) {
-    
-     lastDate = null;
+    String? lastDate; 
+   
     return Scaffold(
       body: Column(
         children: [

@@ -1,4 +1,6 @@
 // lib/socket/socket_service.dart
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'dart:convert';
 
@@ -10,10 +12,8 @@ class SocketService {
 
   SocketService(this.clientId) {
     _channel = WebSocketChannel.connect(
-      Uri.parse('ws://localhost:8000/ws/notifications/$clientId'), // Ajusta si estás en producción
+      Uri.parse('${dotenv.env[Constants.socketUrl]}/notifications/$clientId'), // Ajusta si estás en producción
     );
-
-    print("✅ Conectando WebSocket a: ws://localhost:8000/ws/notifications/$clientId");
 
 
     _channel.stream.listen((data) {

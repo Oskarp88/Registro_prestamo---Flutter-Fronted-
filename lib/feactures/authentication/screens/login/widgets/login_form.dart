@@ -4,7 +4,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:registro_prestamos/feactures/authentication/controllers/auth_controller.dart';
 import 'package:registro_prestamos/feactures/authentication/screens/password_configuration/forgot_password.dart';
 import 'package:registro_prestamos/feactures/authentication/screens/signup/signup.dart';
-import 'package:registro_prestamos/navigation_menu.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
 
 class LoginForm extends StatefulWidget {
@@ -86,7 +85,6 @@ class _LoginFormState extends State<LoginForm> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: ()async { 
-                  print('*********************llamando a login***************************');
                   await authController.singIn(
                     emailOrUsernameController.text.toString().trim(), 
                     passwordController.text.toString().trim()

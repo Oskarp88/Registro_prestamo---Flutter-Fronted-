@@ -1,6 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:registro_prestamos/data/repositories/user/user_repository.dart';
 import 'package:registro_prestamos/model/capital.dart';
 import 'package:registro_prestamos/model/user.dart';
@@ -60,7 +58,6 @@ class AuthenticateProvider with ChangeNotifier {
         await userRepository.userRegister(user);
       }
     } catch (e) {
-      print(e);
       Loaders.errorSnackBar(
         title: 'Data not saved',
         message: 'Something went wrong while saving your instance information. You can re-save your data in your Profile. $e'

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:registro_prestamos/feactures/authentication/screens/signup/verify_email.dart';
 import 'package:registro_prestamos/provider/auth_provider.dart';
 import 'package:registro_prestamos/utils/constants/constants.dart';
 import 'package:registro_prestamos/utils/constants/dimensions.dart';
