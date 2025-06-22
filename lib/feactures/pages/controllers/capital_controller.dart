@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:registro_prestamos/common/screen/full_screen_loader.dart';
-import 'package:registro_prestamos/model/capital.dart';
-import 'package:registro_prestamos/provider/auth_provider.dart';
-import 'package:registro_prestamos/utils/connects/network_manager.dart';
-import 'package:registro_prestamos/utils/constants/constants.dart';
-import 'package:registro_prestamos/utils/helpers/methods.dart';
-import 'package:registro_prestamos/utils/loaders/loaders.dart';
-import 'package:registro_prestamos/utils/manager/assets_manager.dart';
+import 'package:prestapp/common/screen/full_screen_loader.dart';
+import 'package:prestapp/model/capital.dart';
+import 'package:prestapp/provider/auth_provider.dart';
+import 'package:prestapp/utils/connects/network_manager.dart';
+import 'package:prestapp/utils/constants/constants.dart';
+import 'package:prestapp/utils/helpers/methods.dart';
+import 'package:prestapp/utils/loaders/loaders.dart';
+import 'package:prestapp/utils/manager/assets_manager.dart';
 
 class CapitalController {
   Future<void>addCapital({

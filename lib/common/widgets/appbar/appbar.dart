@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:registro_prestamos/utils/device/device_utility.dart';
-import 'package:registro_prestamos/utils/manager/assets_manager.dart';
+import 'package:prestapp/utils/device/device_utility.dart';
+import 'package:prestapp/utils/manager/assets_manager.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;

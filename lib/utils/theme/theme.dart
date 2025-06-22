@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
 import 'custom_themes/text_theme.dart';
 import 'custom_themes/elevated_button_theme.dart';
 import 'custom_themes/appbar_theme.dart';

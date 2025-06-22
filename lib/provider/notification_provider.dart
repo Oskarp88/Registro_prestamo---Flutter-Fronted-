@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:registro_prestamos/sockets/socket_service.dart';
-import 'package:registro_prestamos/utils/constants/constants.dart';
+import 'package:prestapp/sockets/socket_service.dart';
+import 'package:prestapp/utils/constants/constants.dart';
 
 class ProviderNotifications extends ChangeNotifier {
   final SocketService _socketService;

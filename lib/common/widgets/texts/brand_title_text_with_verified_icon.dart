@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:registro_prestamos/common/widgets/texts/brand_title_text.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/constants/enums.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
+import 'package:prestapp/common/widgets/texts/brand_title_text.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/constants/enums.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
 
 class BrandTitleTextWithVerifiedIcon extends StatelessWidget {
   const BrandTitleTextWithVerifiedIcon({

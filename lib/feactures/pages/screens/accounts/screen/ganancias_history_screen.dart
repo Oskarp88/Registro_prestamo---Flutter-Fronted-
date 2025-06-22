@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:registro_prestamos/common/styles/my_text_style.dart';
-import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
-import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
-import 'package:registro_prestamos/data/services/api_service.dart'; // Asegúrate de importar aquí
-import 'package:registro_prestamos/model/history_capital.dart';
-import 'package:registro_prestamos/utils/constants/constants.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:registro_prestamos/utils/helpers/methods.dart';
+import 'package:prestapp/common/styles/my_text_style.dart';
+import 'package:prestapp/common/widgets/appbar/appbar.dart';
+import 'package:prestapp/common/widgets/custom_shapes/container/primary_headers_container.dart';
+import 'package:prestapp/data/services/api_service.dart';
+import 'package:prestapp/model/history_capital.dart';
+import 'package:prestapp/utils/constants/constants.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/helpers/methods.dart';
 
 class GananciasHistoryScreen extends StatefulWidget {
   const GananciasHistoryScreen({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:registro_prestamos/common/widgets/custom_shapes/curved_edges/curved_edges.dart';
+import 'package:prestapp/common/widgets/custom_shapes/curved_edges/curved_edges.dart';
 
 class CurvedEdgeWidget extends StatelessWidget {
 

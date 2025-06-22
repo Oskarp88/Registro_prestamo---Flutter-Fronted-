@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prestapp/provider/auth_provider.dart';
+import 'package:prestapp/provider/notification_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:registro_prestamos/provider/auth_provider.dart';
-import 'package:registro_prestamos/provider/notification_provider.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:prestapp/common/widgets/appbar/appbar.dart';
+import 'package:prestapp/common/widgets/custom_shapes/container/primary_headers_container.dart';
+import 'package:prestapp/common/widgets/list_title/settings_menu_title.dart';
+import 'package:prestapp/common/widgets/list_title/user_profile_title.dart';
+import 'package:prestapp/common/widgets/texts/section_headig.dart';
+import 'package:prestapp/controllers/theme_controller.dart';
+import 'package:prestapp/data/repositories/authentication/authentication_repository.dart';
+import 'package:prestapp/feactures/personalization/screens/profile/profile.dart';
+import 'package:prestapp/provider/auth_provider.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
 import 'package:provider/provider.dart';
-import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
-import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
-import 'package:registro_prestamos/common/widgets/list_title/settings_menu_title.dart';
-import 'package:registro_prestamos/common/widgets/list_title/user_profile_title.dart';
-import 'package:registro_prestamos/common/widgets/texts/section_headig.dart';
-import 'package:registro_prestamos/controllers/theme_controller.dart';
-import 'package:registro_prestamos/data/repositories/authentication/authentication_repository.dart';
-import 'package:registro_prestamos/feactures/personalization/screens/profile/profile.dart';
-import 'package:registro_prestamos/provider/auth_provider.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

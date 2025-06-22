@@ -1,4 +1,5 @@
-import 'package:registro_prestamos/utils/constants/constants.dart';
+
+import 'package:prestapp/utils/constants/constants.dart';
 
 class CapitalModel {
   final double capital;
@@ -51,7 +52,7 @@ class CapitalModel {
   }
 }
 
-extension CopitalModelCopy on CapitalModel {
+extension CapitalModelCopy on CapitalModel {
   CapitalModel copyWith({
     double? capital,
     String? admin,

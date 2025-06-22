@@ -1,4 +1,4 @@
-name: registro_prestamos
+name: prestapp
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -47,6 +47,14 @@ dependencies:
   shimmer: ^3.0.0
   fl_chart: ^0.66.0
   web_socket_channel: ^2.4.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/launch_app.png"
+  remove_alpha_ios: true
 
 dev_dependencies:
   flutter_test:
@@ -74,7 +82,9 @@ flutter:
   assets:
     - assets/logos/
     - assets/icons/
+    - assets/icon/
     - assets/images/
+    - assets/icon/launch_app.png
     - .env
 
 

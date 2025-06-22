@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
 
 class RoundedImage extends StatelessWidget {
    final double? width, height;

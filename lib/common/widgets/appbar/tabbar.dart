@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
-import 'package:registro_prestamos/utils/device/device_utility.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/device/device_utility.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
 
 class TabBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const TabBarWidget({

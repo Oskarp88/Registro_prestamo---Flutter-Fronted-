@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:registro_prestamos/common/screen/full_screen_loader.dart';
-import 'package:registro_prestamos/data/repositories/authentication/authentication_repository.dart';
-import 'package:registro_prestamos/model/user.dart';
-import 'package:registro_prestamos/utils/connects/network_manager.dart';
-import 'package:registro_prestamos/utils/loaders/loaders.dart';
-import 'package:registro_prestamos/utils/manager/assets_manager.dart';
+import 'package:prestapp/common/screen/full_screen_loader.dart';
+import 'package:prestapp/data/repositories/authentication/authentication_repository.dart';
+import 'package:prestapp/model/user.dart';
+import 'package:prestapp/utils/connects/network_manager.dart';
+import 'package:prestapp/utils/loaders/loaders.dart';
+import 'package:prestapp/utils/manager/assets_manager.dart';
 
 class UserRepository extends GetxController {
  

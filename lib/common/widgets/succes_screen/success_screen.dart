@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:registro_prestamos/common/styles/spacing_styles.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
+import 'package:prestapp/common/styles/spacing_styles.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
 
 class SuccessScreen extends StatelessWidget {
   final String image, title, sutTitle;

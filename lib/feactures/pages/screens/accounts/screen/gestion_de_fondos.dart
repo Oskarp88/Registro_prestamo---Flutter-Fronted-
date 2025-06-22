@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prestapp/common/styles/my_text_style.dart';
+import 'package:prestapp/common/widgets/appbar/appbar.dart';
+import 'package:prestapp/common/widgets/custom_shapes/container/primary_headers_container.dart';
+import 'package:prestapp/feactures/pages/controllers/capital_controller.dart';
+import 'package:prestapp/feactures/pages/screens/accounts/widgets/show_update_capital.dart';
+import 'package:prestapp/provider/auth_provider.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
+import 'package:prestapp/utils/helpers/methods.dart';
+import 'package:prestapp/utils/loaders/loaders.dart';
+import 'package:prestapp/utils/validators/validation.dart';
 import 'package:provider/provider.dart';
-import 'package:registro_prestamos/common/styles/my_text_style.dart';
-import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
-import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
-import 'package:registro_prestamos/feactures/pages/controllers/capital_controller.dart';
-import 'package:registro_prestamos/feactures/pages/screens/accounts/widgets/show_update_capital.dart';
-import 'package:registro_prestamos/provider/auth_provider.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
-import 'package:registro_prestamos/utils/helpers/methods.dart';
-import 'package:registro_prestamos/utils/loaders/loaders.dart';
-import 'package:registro_prestamos/utils/validators/validation.dart';
 import 'package:iconsax/iconsax.dart';
 
 class GestionDeFondos extends StatefulWidget {
@@ -100,10 +101,8 @@ class _GestionDeFondosState extends State<GestionDeFondos> {
                       ),
                     ),
                     const SizedBox(height: Dimensions.spaceBtwItems),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
+                    GestureDetector(
+                      onTap: () {
                           if (_depositarFormKey.currentState!.validate()) {
                             final valor = double.tryParse(depositarController.text);
                               if (valor != null) {
@@ -122,7 +121,18 @@ class _GestionDeFondosState extends State<GestionDeFondos> {
                               }                          
                             }
                         },
-                        child: const Text('Depositar'),
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: MyColors.esmeralda5,
+                          borderRadius: BorderRadius.circular(15)
+                        ), 
+                        child: Text(
+                          'Depositar',
+                          textAlign: TextAlign.center,
+                          style: MyTextStyle.titleMedium,
+                        ),
                       ),
                     ),
                 
@@ -145,10 +155,8 @@ class _GestionDeFondosState extends State<GestionDeFondos> {
                       ),
                     ),
                     const SizedBox(height: Dimensions.spaceBtwItems),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
+                    GestureDetector(
+                      onTap: () {
                           if (_capitalToGananciasFormKey.currentState!.validate()) {
                              final valor = double.tryParse(capitalToGananciasController.text);
                           if(valor != null){
@@ -175,7 +183,18 @@ class _GestionDeFondosState extends State<GestionDeFondos> {
                             }
                           }
                         },
-                        child: const Text('Transferir a Ganancias'),
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: MyColors.esmeralda5,
+                          borderRadius: BorderRadius.circular(15)
+                        ), 
+                        child: Text(
+                          'Transferir a Ganancias',
+                          textAlign: TextAlign.center,
+                          style: MyTextStyle.titleMedium,
+                        ),
                       ),
                     ),
                 
@@ -198,10 +217,8 @@ class _GestionDeFondosState extends State<GestionDeFondos> {
                       ),
                     ),
                     const SizedBox(height: Dimensions.spaceBtwItems),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
+                    GestureDetector(
+                      onTap: () {
                           if (_gananciasToCapitalFormKey.currentState!.validate()) {
                             final valor = double.tryParse(gananciasToCapitalController.text);
                             if(valor == null){
@@ -228,7 +245,18 @@ class _GestionDeFondosState extends State<GestionDeFondos> {
                             gananciasToCapitalController.text = '';
                           }
                         },
-                        child: const Text('Transferir a Capital'),
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: MyColors.esmeralda5,
+                          borderRadius: BorderRadius.circular(15)
+                        ), 
+                        child: Text(
+                          'Transferir a Capital',
+                          textAlign: TextAlign.center,
+                          style: MyTextStyle.titleMedium,
+                        ),
                       ),
                     ),
                 
@@ -254,36 +282,46 @@ class _GestionDeFondosState extends State<GestionDeFondos> {
                       ),
                     ),
                     const SizedBox(height: Dimensions.spaceBtwItems),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_retiroFormKey.currentState!.validate()) {
-                            final valor = double.tryParse(retiroController.text);
-                            if(valor == null){
-                              Loaders.errorSnackBar(title: 'Campo invalido');
-                              return;
-                            }
-                            if(valor > capitalModel.ganancias){
-                               Loaders.warningSnackBar(
-                                title: 'Fondos insuficientes', 
-                                seconds: 3
-                              );
-                              return;
-                            }
-                            showUpdateCapitalDialog(
-                              context: context, 
-                              title: 'Confirmar retiro',
-                              text:  'Estás a punto de retirar ${formatCurrency(valor)} de tus ganancias',
-                              onPressed: () {
-                                capitalController.withdrawGanancias(amount: valor);
-                                Navigator.pop(context);                           
-                              },
-                            );
-                            retiroController.text = '';
+                    GestureDetector(
+                      onTap: () {
+                        if (_retiroFormKey.currentState!.validate()) {
+                          final valor = double.tryParse(retiroController.text);
+                          if(valor == null){
+                            Loaders.errorSnackBar(title: 'Campo invalido');
+                            return;
                           }
-                        },
-                        child: const Text('Retirar'),
+                          if(valor > capitalModel.ganancias){
+                              Loaders.warningSnackBar(
+                              title: 'Fondos insuficientes', 
+                              message: 'Solo tienes \$ ${formatCurrency(capitalModel.ganancias)} para retirar.',
+                              seconds: 3
+                            );
+                            return;
+                          }
+                          showUpdateCapitalDialog(
+                            context: context, 
+                            title: 'Confirmar retiro',
+                            text:  'Estás a punto de retirar ${formatCurrency(valor)} de tus ganancias',
+                            onPressed: () {
+                              capitalController.withdrawGanancias(amount: valor);
+                              Navigator.pop(context);                           
+                            },
+                          );
+                          retiroController.text = '';
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: MyColors.esmeralda5,
+                          borderRadius: BorderRadius.circular(15)
+                        ), 
+                        child: Text(
+                          'Retirar',
+                          textAlign: TextAlign.center,
+                          style: MyTextStyle.titleMedium,
+                        ),
                       ),
                     ),
                   ],

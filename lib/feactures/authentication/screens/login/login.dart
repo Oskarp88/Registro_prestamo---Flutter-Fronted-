@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:registro_prestamos/common/styles/spacing_styles.dart';
-import 'package:registro_prestamos/feactures/authentication/screens/login/widgets/login_form.dart';
-import 'package:registro_prestamos/feactures/authentication/screens/login/widgets/login_header.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
-
+import 'package:prestapp/common/styles/spacing_styles.dart';
+import 'package:prestapp/feactures/authentication/screens/login/widgets/login_form.dart';
+import 'package:prestapp/feactures/authentication/screens/login/widgets/login_header.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

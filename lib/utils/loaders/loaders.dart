@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
 
 class Loaders {
   static hideSnackbar() => ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();

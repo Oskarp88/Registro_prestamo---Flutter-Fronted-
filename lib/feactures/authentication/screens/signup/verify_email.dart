@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:registro_prestamos/common/widgets/succes_screen/success_screen.dart';
-import 'package:registro_prestamos/feactures/authentication/screens/login/login.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
-import 'package:registro_prestamos/utils/manager/assets_manager.dart';
+import 'package:prestapp/common/widgets/succes_screen/success_screen.dart';
+import 'package:prestapp/feactures/authentication/screens/login/login.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
+import 'package:prestapp/utils/manager/assets_manager.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
   const VerifyEmailScreen
@@ -29,10 +29,10 @@ class VerifyEmailScreen extends StatelessWidget {
           child: Column(
             children: [
                //image
-               Image(
-                image: const AssetImage(AssetsManager.verifyEmailImage),
-                width: THelperFuntions.screenWidth()*0.6,
-               ),
+              //  Image(
+              //   image: const AssetImage(AssetsManager.verifyEmailImage),
+              //   width: THelperFuntions.screenWidth()*0.6,
+              //  ),
                const SizedBox(height: Dimensions.spaceBtwSections),
                //title & subtitle
                Text(
@@ -58,13 +58,8 @@ class VerifyEmailScreen extends StatelessWidget {
                SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => Get.to(
-                    () => SuccessScreen(
-                    title: 'Your account successfully created',
-                    sutTitle: 'welcome to your ultimate shopping destination your account is created',
-                    image: AssetsManager.successImage,
-                    onPressed: () => Get.to(() => const LoginScreen())
-                  ), ),
+                  onPressed: () {},
+                  
                   child: const Text('Continue'),
                 ),
                ),

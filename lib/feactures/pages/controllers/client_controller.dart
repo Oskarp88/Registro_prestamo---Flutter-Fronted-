@@ -2,16 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:registro_prestamos/common/screen/full_screen_loader.dart';
-import 'package:registro_prestamos/feactures/pages/screens/clients/registrar_prestamo.dart';
-import 'package:registro_prestamos/model/client.dart';
-import 'package:registro_prestamos/provider/client_provider.dart';
-import 'package:registro_prestamos/utils/connects/network_manager.dart';
-import 'package:registro_prestamos/utils/constants/constants.dart';
-import 'package:registro_prestamos/utils/loaders/loaders.dart';
-import 'package:registro_prestamos/utils/local_storage/storage_utility.dart';
-import 'package:registro_prestamos/utils/manager/assets_manager.dart';
 import 'package:http/http.dart' as http;
+import 'package:prestapp/common/screen/full_screen_loader.dart';
+import 'package:prestapp/feactures/pages/screens/clients/registrar_prestamo.dart';
+import 'package:prestapp/model/client.dart';
+import 'package:prestapp/provider/client_provider.dart';
+import 'package:prestapp/utils/connects/network_manager.dart';
+import 'package:prestapp/utils/constants/constants.dart';
+import 'package:prestapp/utils/loaders/loaders.dart';
+import 'package:prestapp/utils/local_storage/storage_utility.dart';
+import 'package:prestapp/utils/manager/assets_manager.dart';
 
 class ClientController {
   final clientProvider = ClientProvider.instance;
@@ -49,7 +49,6 @@ class ClientController {
       final Map<String, dynamic> clientData = jsonDecode(response.body);
       ClientModel clientModel = ClientModel.fromJson(clientData[Constants.user]);
       clientProvider.setClient(clientModel);
-      print("llegue hasta registrar el cliente $clientData");
       await UtilLocalStorage().saveData(Constants.clientModel, clientData[Constants.user]);
       OFullScreenLoader.stopLoading();
       Loaders.successSnackBar(title: 'Registro exitoso', message: clientData[Constants.message]);

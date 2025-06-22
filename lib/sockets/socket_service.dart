@@ -1,6 +1,6 @@
 // lib/socket/socket_service.dart
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:registro_prestamos/utils/constants/constants.dart';
+import 'package:prestapp/utils/constants/constants.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'dart:convert';
 

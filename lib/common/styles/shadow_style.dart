@@ -1,4 +1,4 @@
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
 import 'package:flutter/material.dart';
 
 class OShadowStyle {

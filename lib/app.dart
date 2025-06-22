@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:registro_prestamos/controllers/theme_controller.dart';
-import 'package:registro_prestamos/init.dart';
-import 'package:registro_prestamos/utils/theme/theme.dart';
+import 'package:prestapp/controllers/theme_controller.dart';
+import 'package:prestapp/splash_screen.dart';
+import 'package:prestapp/utils/theme/theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
           themeMode: themeController.theme,
           theme: TAppTheme.lightTheme,
           darkTheme: TAppTheme.darkTheme,
-          home: const Init(),
+          home: const SplashScreen(),
         ));
   }
 }

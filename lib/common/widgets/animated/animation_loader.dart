@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:registro_prestamos/common/styles/my_text_style.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
+import 'package:prestapp/common/styles/my_text_style.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
 
 class OAnimationLoaderWidget extends StatelessWidget {
   const OAnimationLoaderWidget({

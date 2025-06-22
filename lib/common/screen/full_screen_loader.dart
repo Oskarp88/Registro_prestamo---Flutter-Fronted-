@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:registro_prestamos/common/widgets/animated/animation_loader.dart';
-
+import 'package:prestapp/common/widgets/animated/animation_loader.dart';
 
 class OFullScreenLoader {
   static void openLoadingDialog(String text, String animation){

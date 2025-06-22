@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:prestapp/common/styles/my_text_style.dart';
+import 'package:prestapp/common/widgets/appbar/appbar.dart';
+import 'package:prestapp/common/widgets/button/elevated_button_widget.dart';
+import 'package:prestapp/feactures/pages/controllers/registro_de_prestamo_controller.dart';
+import 'package:prestapp/feactures/pages/screens/clients/dialog/show_register_loan.dart';
+import 'package:prestapp/provider/client_provider.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
+import 'package:prestapp/utils/loaders/loaders.dart';
+import 'package:prestapp/utils/validators/validation.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart'; 
-import 'package:registro_prestamos/common/styles/my_text_style.dart';
-import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
-import 'package:registro_prestamos/common/widgets/button/elevated_button_widget.dart';
-import 'package:registro_prestamos/feactures/pages/controllers/registro_de_prestamo_controller.dart';
-import 'package:registro_prestamos/feactures/pages/screens/clients/dialog/show_register_loan.dart';
-import 'package:registro_prestamos/provider/client_provider.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
-import 'package:registro_prestamos/utils/loaders/loaders.dart';
-import 'package:registro_prestamos/utils/validators/validation.dart';
 
 class RegistrarPrestamo extends StatefulWidget {
   const RegistrarPrestamo({
@@ -69,7 +69,7 @@ class _RegistrarPrestamoState extends State<RegistrarPrestamo> {
     return Scaffold(
       appBar: AppBarWidget(
         showBackArrow: true,
-        color: MyColors.primary,
+        color: MyColors.esmeralda5,
         title: Text('Registro de préstamo'),
       ),
       body: SingleChildScrollView(

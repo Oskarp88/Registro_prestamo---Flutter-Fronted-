@@ -1,17 +1,16 @@
 import 'dart:convert';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:registro_prestamos/common/screen/full_screen_loader.dart';
-import 'package:registro_prestamos/model/loan.dart';
-import 'package:registro_prestamos/navigation_menu.dart';
-import 'package:registro_prestamos/provider/client_provider.dart';
-import 'package:registro_prestamos/utils/connects/network_manager.dart';
-import 'package:registro_prestamos/utils/constants/constants.dart';
-import 'package:registro_prestamos/utils/helpers/methods.dart';
-import 'package:registro_prestamos/utils/loaders/loaders.dart';
-import 'package:registro_prestamos/utils/manager/assets_manager.dart';
+import 'package:prestapp/common/screen/full_screen_loader.dart';
+import 'package:prestapp/model/loan.dart';
+import 'package:prestapp/navigation_menu.dart';
+import 'package:prestapp/provider/client_provider.dart';
+import 'package:prestapp/utils/connects/network_manager.dart';
+import 'package:prestapp/utils/constants/constants.dart';
+import 'package:prestapp/utils/helpers/methods.dart';
+import 'package:prestapp/utils/loaders/loaders.dart';
+import 'package:prestapp/utils/manager/assets_manager.dart';
 
 class RegistroDePrestamoController {
   Future<void>createPrestamo({
@@ -72,7 +71,6 @@ class RegistroDePrestamoController {
     required String dueDate,
   })async{
     
-    print('***********************updatePrestamo ${Constants.clientId}: $id, ${Constants.totalLoan}: $totalLoan, ${Constants.dueDate}: $dueDate');
     OFullScreenLoader.openLoadingDialog('Registrando prestamo...', AssetsManager.clashcycle);
     final isConnected = await NetworkManager.instance.isConnected();
 

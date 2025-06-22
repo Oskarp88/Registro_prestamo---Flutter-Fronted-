@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:registro_prestamos/provider/auth_provider.dart';
-import 'package:registro_prestamos/utils/constants/constants.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
-import 'package:registro_prestamos/utils/validators/validation.dart';
+import 'package:prestapp/provider/auth_provider.dart';
+import 'package:prestapp/utils/constants/constants.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
+import 'package:prestapp/utils/validators/validation.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -201,7 +201,6 @@ class _SignUpFormState extends State<SignUpForm> {
                     Constants.email: emailController.text.trim(),
                     Constants.password: passwordController.text.trim(),
                   };
-                  print("registrando*********************$userData");
                   await  AuthenticateProvider.instance.userRegister(userData);
                 } else if (!agreeToTerms) {
                   Get.snackbar('Términos', 'Debes aceptar los términos y condiciones');

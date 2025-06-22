@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
 
 class RoundedContainer extends StatelessWidget {
   final double? width;

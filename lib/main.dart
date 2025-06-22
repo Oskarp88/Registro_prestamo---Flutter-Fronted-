@@ -4,16 +4,16 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:prestapp/data/repositories/authentication/authentication_repository.dart';
+import 'package:prestapp/data/repositories/user/user_repository.dart';
+import 'package:prestapp/feactures/authentication/controllers/auth_controller.dart';
+import 'package:prestapp/feactures/pages/controllers/capital_controller.dart';
+import 'package:prestapp/feactures/pages/controllers/client_controller.dart';
+import 'package:prestapp/feactures/pages/controllers/registro_de_prestamo_controller.dart';
+import 'package:prestapp/provider/auth_provider.dart';
+import 'package:prestapp/provider/client_provider.dart';
+import 'package:prestapp/utils/connects/network_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:registro_prestamos/data/repositories/authentication/authentication_repository.dart';
-import 'package:registro_prestamos/data/repositories/user/user_repository.dart';
-import 'package:registro_prestamos/feactures/authentication/controllers/auth_controller.dart';
-import 'package:registro_prestamos/feactures/pages/controllers/capital_controller.dart';
-import 'package:registro_prestamos/feactures/pages/controllers/client_controller.dart';
-import 'package:registro_prestamos/feactures/pages/controllers/registro_de_prestamo_controller.dart';
-import 'package:registro_prestamos/provider/auth_provider.dart';
-import 'package:registro_prestamos/provider/client_provider.dart';
-import 'package:registro_prestamos/utils/connects/network_manager.dart';
 import 'app.dart';
 
 void main()async{

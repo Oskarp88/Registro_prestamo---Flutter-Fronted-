@@ -1,18 +1,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prestapp/common/styles/my_text_style.dart';
+import 'package:prestapp/common/widgets/appbar/appbar.dart';
+import 'package:prestapp/common/widgets/button/elevated_button_widget.dart';
+import 'package:prestapp/common/widgets/custom_shapes/container/primary_headers_container.dart';
+import 'package:prestapp/feactures/pages/screens/accounts/screen/accounts_screen.dart';
+import 'package:prestapp/feactures/pages/screens/clients/client_create_screen.dart';
+import 'package:prestapp/feactures/pages/screens/clients/client_list_screen.dart';
+import 'package:prestapp/provider/auth_provider.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/helpers/methods.dart';
 import 'package:provider/provider.dart';
-import 'package:registro_prestamos/common/styles/my_text_style.dart';
-import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
-import 'package:registro_prestamos/common/widgets/button/elevated_button_widget.dart';
-import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
-import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/accounts_screen.dart';
-import 'package:registro_prestamos/feactures/pages/screens/clients/client_create_screen.dart';
-import 'package:registro_prestamos/feactures/pages/screens/clients/client_list_screen.dart';
-import 'package:registro_prestamos/provider/auth_provider.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/helpers/methods.dart';
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

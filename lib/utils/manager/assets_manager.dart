@@ -19,11 +19,6 @@ class AssetsManager {
   static const String onboardingImageShopping = 'assets/images/on_boarding_images/shopping.gif';
   static const String onboardingImageDelivery = 'assets/images/on_boarding_images/delivery.gif';
 
-  static const String verifyEmailImage = 'assets/images/anim/verifyEmail.png';
-  static const String successImage = 'assets/images/anim/succes.png';
-  static const String sendEmailImage = 'assets/images/anim/sendEmail.png';
-  static const String zapatosImage = 'assets/images/anim/zapatos.png';
-
   static const String userImagen = 'assets/images/user/user.png';
 
   static const String zapatosProductImage = 'assets/images/products/zapatos.png';

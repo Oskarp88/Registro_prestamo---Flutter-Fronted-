@@ -13,6 +13,10 @@ class Constants {
   static const String user = 'user';
   static const String clientId = 'client_id';
   static const String usernameOrEmail ='username_or_email';
+  static const String emailOrUsername ='email_or_username';
+
+  static const authToken = 'authToken';
+  static const tokenExpiry = 'tokenExpiry';
 
   ///loan
   static const String totalLoan = 'total_loan';

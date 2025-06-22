@@ -1,4 +1,4 @@
-import 'package:registro_prestamos/utils/constants/constants.dart';
+import 'package:prestapp/utils/constants/constants.dart';
 
 class ClientModel {
   String id; // Campo nuevo para MongoDB ID

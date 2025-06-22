@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
-import 'package:registro_prestamos/utils/manager/assets_manager.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
+import 'package:prestapp/utils/manager/assets_manager.dart';
 
 class LoginHaeder extends StatelessWidget {
   const LoginHaeder({

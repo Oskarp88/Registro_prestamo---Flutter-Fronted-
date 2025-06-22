@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:registro_prestamos/feactures/authentication/screens/signup/widgets/signup_form.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
+import 'package:prestapp/feactures/authentication/screens/signup/widgets/signup_form.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});

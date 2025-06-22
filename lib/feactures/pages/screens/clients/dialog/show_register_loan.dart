@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:registro_prestamos/feactures/pages/controllers/registro_de_prestamo_controller.dart';
-import 'package:registro_prestamos/utils/helpers/methods.dart';
+import 'package:prestapp/feactures/pages/controllers/registro_de_prestamo_controller.dart';
+import 'package:prestapp/utils/helpers/methods.dart';
 
 void showRegisterLoan(
   BuildContext context, 

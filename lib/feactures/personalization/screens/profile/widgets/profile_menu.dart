@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({

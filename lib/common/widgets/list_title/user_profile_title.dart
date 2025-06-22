@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:registro_prestamos/common/styles/my_text_style.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
+import 'package:prestapp/common/styles/my_text_style.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
 
 class OUserProfileTilte extends StatelessWidget {
   const OUserProfileTilte({

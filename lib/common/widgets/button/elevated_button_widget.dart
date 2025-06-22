@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
+import 'package:prestapp/common/styles/my_text_style.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
 
 class ElevatedButtonWidget extends StatelessWidget {
   const ElevatedButtonWidget({
@@ -13,11 +15,20 @@ class ElevatedButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: THelperFuntions.screenWidth() > 350 ? 350 : double.infinity,
-      child: ElevatedButton(
-        onPressed: onTap, 
-        child: Text(text),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: THelperFuntions.screenWidth() > 350 ? 350 : double.infinity,
+        padding: EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          color: MyColors.esmeralda5,
+          borderRadius: BorderRadius.circular(15)
+        ),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: MyTextStyle.bodyLarge,
+        ),
       ),
     );
   }

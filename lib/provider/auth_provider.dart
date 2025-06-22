@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
-import 'package:registro_prestamos/data/repositories/user/user_repository.dart';
-import 'package:registro_prestamos/model/capital.dart';
-import 'package:registro_prestamos/model/user.dart';
-import 'package:registro_prestamos/provider/notification_provider.dart';
-import 'package:registro_prestamos/utils/constants/constants.dart';
-import 'package:registro_prestamos/utils/loaders/loaders.dart';
-import 'package:registro_prestamos/utils/local_storage/storage_utility.dart';
+import 'package:prestapp/data/repositories/user/user_repository.dart';
+import 'package:prestapp/model/capital.dart';
+import 'package:prestapp/model/user.dart';
+import 'package:prestapp/provider/notification_provider.dart';
+import 'package:prestapp/utils/constants/constants.dart';
+import 'package:prestapp/utils/loaders/loaders.dart';
+import 'package:prestapp/utils/local_storage/storage_utility.dart';
 
 class AuthenticateProvider with ChangeNotifier { 
   

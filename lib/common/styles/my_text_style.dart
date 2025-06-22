@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
 
 class MyTextStyle {
   static TextStyle get headlineLarge => GoogleFonts.aDLaMDisplay(

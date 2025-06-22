@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
 
 class OSettingsMenuTitle extends StatelessWidget {
  final IconData? icon;

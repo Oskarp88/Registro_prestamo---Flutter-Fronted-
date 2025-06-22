@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:registro_prestamos/utils/constants/enums.dart';
+import 'package:prestapp/utils/constants/enums.dart';
 
 class BrandTitleText extends StatelessWidget {
   const BrandTitleText({

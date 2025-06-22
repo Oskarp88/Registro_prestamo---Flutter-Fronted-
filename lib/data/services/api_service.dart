@@ -1,14 +1,13 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:registro_prestamos/model/capital.dart';
-import 'package:registro_prestamos/model/client.dart';
-import 'package:registro_prestamos/model/history_capital.dart';
-import 'package:registro_prestamos/model/loan.dart';
-import 'package:registro_prestamos/provider/auth_provider.dart';
-import 'package:registro_prestamos/utils/classes/search_result.dart';
-import 'package:registro_prestamos/utils/constants/constants.dart';
- 
+import 'package:prestapp/model/capital.dart';
+import 'package:prestapp/model/client.dart';
+import 'package:prestapp/model/history_capital.dart';
+import 'package:prestapp/model/loan.dart';
+import 'package:prestapp/provider/auth_provider.dart';
+import 'package:prestapp/utils/classes/search_result.dart';
+import 'package:prestapp/utils/constants/constants.dart';
 
 class ApiService {
 
@@ -22,7 +21,6 @@ class ApiService {
           'Content-Type': 'application/json',
         },
       );
-      print('response.statusCode ${response.statusCode} ${jsonDecode(response.body)}');
       if (response.statusCode == 200) {
         List<dynamic> jsonList = jsonDecode(response.body);
       
@@ -30,8 +28,7 @@ class ApiService {
 
         return clients;
       } else {
-        print('lista vacia');
-        return []; // Retorna una lista vacía si la respuesta no es exitosa
+        return []; 
       }
     } catch (e) {
       throw 'Something went wrong while fetching and sorting users. Please try again. Error: $e';
@@ -119,7 +116,6 @@ class ApiService {
           'Content-Type': 'application/json',
         },
       );
-      print('response.statusCode ${response.statusCode} ${jsonDecode(response.body)}');
       if (response.statusCode == 200) {
         final authProvider = AuthenticateProvider.instance;
         final jsonList = jsonDecode(response.body);
@@ -128,7 +124,6 @@ class ApiService {
         authProvider.setCapital(capital);
         return capital;
       } else {
-        print('lista vacia');
         return CapitalModel.empty(); 
       }
     } catch (e) {

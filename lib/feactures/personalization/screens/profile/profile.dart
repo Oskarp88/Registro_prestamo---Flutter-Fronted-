@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:prestapp/common/widgets/appbar/appbar.dart';
+import 'package:prestapp/common/widgets/texts/section_headig.dart';
+import 'package:prestapp/feactures/personalization/screens/profile/widgets/profile_menu.dart';
+import 'package:prestapp/provider/auth_provider.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
 import 'package:provider/provider.dart';
-import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
-import 'package:registro_prestamos/common/widgets/texts/section_headig.dart';
-import 'package:registro_prestamos/feactures/personalization/screens/profile/widgets/profile_menu.dart';
-import 'package:registro_prestamos/provider/auth_provider.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

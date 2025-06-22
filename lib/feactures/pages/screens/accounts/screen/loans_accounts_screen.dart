@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:registro_prestamos/common/styles/my_text_style.dart';
-import 'package:registro_prestamos/common/widgets/appbar/appbar.dart';
-import 'package:registro_prestamos/common/widgets/custom_shapes/container/primary_headers_container.dart';
-import 'package:registro_prestamos/data/services/api_service.dart';
-import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/details_accounts_client.dart';
-import 'package:registro_prestamos/model/loan.dart';
-import 'package:registro_prestamos/utils/constants/dimensions.dart';
-import 'package:registro_prestamos/utils/helpers/methods.dart';
+import 'package:prestapp/common/styles/my_text_style.dart';
+import 'package:prestapp/common/widgets/appbar/appbar.dart';
+import 'package:prestapp/common/widgets/custom_shapes/container/primary_headers_container.dart';
+import 'package:prestapp/data/services/api_service.dart';
+import 'package:prestapp/feactures/pages/screens/accounts/screen/details_accounts_client.dart';
+import 'package:prestapp/model/loan.dart';
+import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/helpers/methods.dart';
 
 class LoansAccountsScreen extends StatefulWidget {
   const LoansAccountsScreen({

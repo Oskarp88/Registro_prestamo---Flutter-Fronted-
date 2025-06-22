@@ -2,15 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:prestapp/feactures/pages/screens/accounts/screen/gestion_de_fondos.dart';
+import 'package:prestapp/feactures/pages/screens/home/home.dart';
+import 'package:prestapp/feactures/pages/screens/notifications/notifications_screen.dart';
+import 'package:prestapp/feactures/personalization/screens/settings/settings.dart';
+import 'package:prestapp/provider/auth_provider.dart';
+import 'package:prestapp/provider/notification_provider.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
+import 'package:prestapp/utils/helpers/helper_funtions.dart';
 import 'package:provider/provider.dart';
-import 'package:registro_prestamos/feactures/pages/screens/accounts/screen/gestion_de_fondos.dart';
-import 'package:registro_prestamos/feactures/pages/screens/home/home.dart';
-import 'package:registro_prestamos/feactures/pages/screens/notifications/notifications_screen.dart';
-import 'package:registro_prestamos/feactures/personalization/screens/settings/settings.dart';
-import 'package:registro_prestamos/provider/auth_provider.dart';
-import 'package:registro_prestamos/provider/notification_provider.dart';
-import 'package:registro_prestamos/utils/constants/my_colors.dart';
-import 'package:registro_prestamos/utils/helpers/helper_funtions.dart';
+
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
