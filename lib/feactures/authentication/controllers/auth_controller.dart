@@ -15,7 +15,7 @@ import 'package:prestapp/utils/manager/assets_manager.dart';
 class AuthControllers {
   
   Future<void> singIn(String usernameOrEmail, String password) async{
-    OFullScreenLoader.openLoadingDialog('Loggin you in...', AssetsManager.clashcycle);
+    OFullScreenLoader.openLoadingDialog('Loggin you in...', AssetsManager.clashcycleDark);
     final isConnected = await NetworkManager.instance.isConnected();
 
     if (!isConnected) {
@@ -93,7 +93,7 @@ class AuthControllers {
     required String usernameOrEmail,
     required Function(String usernameOrEmail) onSuccess,
   }) async {
-    OFullScreenLoader.openLoadingDialog('Validando información...', AssetsManager.clashcycle);
+    OFullScreenLoader.openLoadingDialog('Validando información...', AssetsManager.clashcycleDark);
     final isConnected = await NetworkManager.instance.isConnected();
 
     if (!isConnected) {
@@ -132,7 +132,7 @@ class AuthControllers {
     required String code,
     required Function(String userId) onSuccess,
   }) async {
-    OFullScreenLoader.openLoadingDialog('Verificando código...', AssetsManager.clashcycle);
+    OFullScreenLoader.openLoadingDialog('Verificando código...', AssetsManager.clashcycleDark);
     final isConnected = await NetworkManager.instance.isConnected();
 
     if (!isConnected) {
@@ -174,7 +174,7 @@ class AuthControllers {
   required String newPassword,
   required VoidCallback onSuccess,
   }) async {
-    OFullScreenLoader.openLoadingDialog('Restableciendo contraseña...', AssetsManager.clashcycle);
+    OFullScreenLoader.openLoadingDialog('Restableciendo contraseña...', AssetsManager.clashcycleDark);
     final isConnected = await NetworkManager.instance.isConnected();
 
     if (!isConnected) {

@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prestapp/common/widgets/succes_screen/success_screen.dart';
 import 'package:prestapp/feactures/authentication/screens/login/login.dart';
 import 'package:prestapp/utils/constants/dimensions.dart';
-import 'package:prestapp/utils/helpers/helper_funtions.dart';
-import 'package:prestapp/utils/manager/assets_manager.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
   const VerifyEmailScreen

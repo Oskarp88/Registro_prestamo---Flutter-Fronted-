@@ -6,7 +6,6 @@ import 'package:prestapp/feactures/pages/screens/home/home.dart';
 import 'package:prestapp/feactures/pages/screens/notifications/notifications_screen.dart';
 import 'package:prestapp/feactures/personalization/screens/settings/settings.dart';
 import 'package:prestapp/provider/auth_provider.dart';
-import 'package:prestapp/provider/notification_provider.dart';
 import 'package:prestapp/utils/constants/my_colors.dart';
 import 'package:prestapp/utils/helpers/helper_funtions.dart';
 import 'package:provider/provider.dart';

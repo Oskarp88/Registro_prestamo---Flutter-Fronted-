@@ -7,7 +7,6 @@ import 'package:prestapp/feactures/authentication/screens/login/login.dart';
 import 'package:prestapp/utils/constants/dimensions.dart';
 import 'package:prestapp/utils/helpers/helper_funtions.dart';
 import 'package:prestapp/utils/loaders/loaders.dart';
-import 'package:prestapp/utils/manager/assets_manager.dart';
 
 class ResetPassword extends StatefulWidget {
   final String userId;
