@@ -1,4 +1,3 @@
-// lib/feactures/pages/navigation_menu.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -11,7 +10,6 @@ import 'package:prestapp/provider/notification_provider.dart';
 import 'package:prestapp/utils/constants/my_colors.dart';
 import 'package:prestapp/utils/helpers/helper_funtions.dart';
 import 'package:provider/provider.dart';
-
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -27,14 +25,85 @@ class NavigationMenu extends StatelessWidget {
   }
 }
 
-class NavigationMenuContent extends StatelessWidget {
+class NavigationMenuContent extends StatefulWidget {
   const NavigationMenuContent({super.key});
 
   @override
+  State<NavigationMenuContent> createState() => _NavigationMenuContentState();
+}
+
+class _NavigationMenuContentState extends State<NavigationMenuContent> {
+  late final bool isAdmin;
+  late final NavigationController controller;
+  late final List<NavigationDestination> navDestinations;
+  late final List<Widget> screens;
+
+  @override
+  void initState() {
+    super.initState();
+    isAdmin = context.read<AuthenticateProvider>().user!.isAdmin;
+
+    // Crear lista de pantallas y menús sincronizados
+    screens = [
+      const HomeScreen(),
+      if (isAdmin) const GestionDeFondos(),
+      const NotificationScreen(),
+      const SettingsScreen(),
+    ];
+
+    navDestinations = [
+      const NavigationDestination(
+        icon: Icon(Iconsax.home),
+        label: 'Home',
+      ),
+      if (isAdmin)
+        const NavigationDestination(
+          icon: Icon(Iconsax.money_send),
+          label: 'Gestión',
+        ),
+      NavigationDestination(
+        icon: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            const Icon(Iconsax.notification),
+            if (AuthenticateProvider.instance.notificationsProvider!.unreadCount > 0)
+              Positioned(
+                right: -2,
+                top: -2,
+                child: Container(
+                  padding: const EdgeInsets.all(3),
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
+                  constraints: const BoxConstraints(minWidth: 18, minHeight: 18),
+                  child: Text(
+                    '${AuthenticateProvider.instance.notificationsProvider!.unreadCount}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        label: 'Notificaciones',
+      ),
+      const NavigationDestination(
+        icon: Icon(Iconsax.user),
+        label: 'Perfil',
+      ),
+    ];
+
+    controller = Get.put(NavigationController(screens));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NavigationController());
     final darkMode = THelperFuntions.isDarkMode(context);
-    final notifProvider = Provider.of<ProviderNotifications>(context);
 
     return Scaffold(
       bottomNavigationBar: Obx(
@@ -45,51 +114,7 @@ class NavigationMenuContent extends StatelessWidget {
           elevation: 0,
           selectedIndex: controller.selectedIndex.value,
           onDestinationSelected: (index) => controller.selectedIndex.value = index,
-          destinations: [
-            const NavigationDestination(
-              icon: Icon(Iconsax.home),
-              label: 'Home',
-            ),
-            const NavigationDestination(
-              icon: Icon(Iconsax.money_send),
-              label: 'Gestión',
-            ),
-            NavigationDestination(
-              icon: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  const Icon(Iconsax.notification),
-                  if (notifProvider.unreadCount > 0)
-                    Positioned(
-                      right: -2,
-                      top: -2,
-                      child: Container(
-                        padding: const EdgeInsets.all(3),
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
-                        constraints: const BoxConstraints(minWidth: 18, minHeight: 18),
-                        child: Text(
-                          '${notifProvider.unreadCount}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              label: 'Notificaciones',
-            ),
-            const NavigationDestination(
-              icon: Icon(Iconsax.user),
-              label: 'Profile',
-            ),
-          ],
+          destinations: navDestinations,
         ),
       ),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
@@ -98,11 +123,8 @@ class NavigationMenuContent extends StatelessWidget {
 }
 
 class NavigationController extends GetxController {
-  final Rx<int> selectedIndex = 0.obs;
-  final screens = [
-    const HomeScreen(),
-    const GestionDeFondos(),
-    const NotificationScreen(),
-    const SettingsScreen(),
-  ];
+  final RxInt selectedIndex = 0.obs;
+  final List<Widget> screens;
+
+  NavigationController(this.screens);
 }

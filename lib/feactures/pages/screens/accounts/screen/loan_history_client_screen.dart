@@ -59,7 +59,15 @@ class LoanHistoryClientScreen extends StatelessWidget {
 
           /// Historial
           Expanded(
-            child:  ListView.builder(
+            child: historyList.isEmpty
+                ? Center(
+                    child: Text(
+                      'Este cliente no tiene historial aún.',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                : ListView.builder(
                     padding: const EdgeInsets.all(Dimensions.defaultSpace),
                     itemCount: historyList.length,
                     itemBuilder: (context, index) {
@@ -68,7 +76,6 @@ class LoanHistoryClientScreen extends StatelessWidget {
                       final dateFormatted = DateFormat('d \'de\' MMMM', 'es_ES').format(creationDate);
                       final timeFormatted = DateFormat('HH:mm:ss').format(creationDate);
 
-                      // Si la fecha cambia, la mostramos
                       final showDate = lastDate != dateFormatted;
                       if (showDate) lastDate = dateFormatted;
 
@@ -83,7 +90,6 @@ class LoanHistoryClientScreen extends StatelessWidget {
                                 style: MyTextStyle.titleMedium.copyWith(color: Colors.grey[700]),
                               ),
                             ),
-
                           Card(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             elevation: 2,
@@ -94,43 +100,42 @@ class LoanHistoryClientScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     history[Constants.status] == Constants.deudafinalizada
-                                      ? 'Deuda finalizada.'
-                                      : history[Constants.status] == Constants.interesPagado
-                                        ? 'Interés pagado'
-                                        :  history[Constants.status] == Constants.deudaCompletaPagada
-                                          ? 'Deuda finalizada'
-                                          : history[Constants.status] == Constants.abono
-                                            ? "Abono a la deuda"
-                                            : '',
+                                        ? 'Deuda finalizada.'
+                                        : history[Constants.status] == Constants.interesPagado
+                                            ? 'Interés pagado'
+                                            : history[Constants.status] == Constants.deudaCompletaPagada
+                                                ? 'Deuda finalizada'
+                                                : history[Constants.status] == Constants.abono
+                                                    ? "Abono a la deuda"
+                                                    : '',
                                     style: Theme.of(context).textTheme.bodyLarge,
                                   ),
                                   Text(
                                     history[Constants.status] == Constants.deudafinalizada
-                                      ? 'Debia ${formatCurrency(history['total_loan'])}. Pagó ${formatCurrency(history['interestPayment'])} de interés y Abono${formatCurrency(history['paymentAmount'])}.'
-                                      : history[Constants.status] == Constants.interesPagado
-                                        ? 'Debe ${formatCurrency(history['total_loan'])} Pagó ${formatCurrency(history['interestPayment'])} de interés Abono${formatCurrency(history['paymentAmount'])}.'
-                                        : history[Constants.status] == Constants.deudaCompletaPagada
-                                          ? 'Pago durante los primeros 15 dias el prestamo de ${formatCurrency(history['total_loan'])} y el interés de ${formatCurrency(history['interestPayment'])} Un total de ${formatCurrency(history['paymentAmount']+history['interestPayment'])}\n'
-                                          : history[Constants.status] == Constants.abono
-                                            ? 'Abono ${formatCurrency(history['paymentAmount'])} a la deuda\n'
-                                              'Su deuda se redujo a ${formatCurrency(history['total_loan'])}.'
-                                            : '',
+                                        ? 'Debía ${formatCurrency(history['total_loan'])}. Pagó ${formatCurrency(history['interestPayment'])} de interés y abono ${formatCurrency(history['paymentAmount'])}.'
+                                        : history[Constants.status] == Constants.interesPagado
+                                            ? 'Debe ${formatCurrency(history['total_loan'])}. Pagó ${formatCurrency(history['interestPayment'])} de interés.'
+                                            : history[Constants.status] == Constants.deudaCompletaPagada
+                                                ? 'Pagó durante los primeros 15 días el préstamo de ${formatCurrency(history['total_loan'])} y el interés de ${formatCurrency(history['interestPayment'])}. Un total de ${formatCurrency(history['paymentAmount'] + history['interestPayment'])}.'
+                                                : history[Constants.status] == Constants.abono
+                                                    ? 'Abonó ${formatCurrency(history['paymentAmount'])} a la deuda.\n'
+                                                        'Su deuda se redujo a ${formatCurrency(history['total_loan'])}.'
+                                                    : '',
                                     style: Theme.of(context).textTheme.bodyMedium,
                                   )
                                 ],
                               ),
                               subtitle: Text(
-                                timeFormatted.substring(0,5),
+                                timeFormatted.substring(0, 5),
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
-
                             ),
                           ),
                         ],
                       );
                     },
-                  )
-          ),
+                  ),
+          )
         ],
       ),
     );

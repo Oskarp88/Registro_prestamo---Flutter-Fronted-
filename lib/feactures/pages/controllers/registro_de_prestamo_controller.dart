@@ -3,8 +3,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:prestapp/common/screen/full_screen_loader.dart';
+import 'package:prestapp/model/capital.dart';
 import 'package:prestapp/model/loan.dart';
 import 'package:prestapp/navigation_menu.dart';
+import 'package:prestapp/provider/auth_provider.dart';
 import 'package:prestapp/provider/client_provider.dart';
 import 'package:prestapp/utils/connects/network_manager.dart';
 import 'package:prestapp/utils/constants/constants.dart';
@@ -44,6 +46,11 @@ class RegistroDePrestamoController {
     );
     
     if(response.statusCode == 200){
+      final capitalProvider = AuthenticateProvider.instance;
+      final capital = capitalProvider.capital!.copyWith(
+        capital: capitalProvider.capital!.capital - totalLoan
+      );
+      capitalProvider.setCapital(capital);
       OFullScreenLoader.stopLoading();
       Loaders.successSnackBar(
         title: 'Prestamo registrado exitosamente',
@@ -94,6 +101,11 @@ class RegistroDePrestamoController {
     );
     
     if(response.statusCode == 200){
+      final capitalProvider = AuthenticateProvider.instance;
+      final capital = capitalProvider.capital!.copyWith(
+        capital: capitalProvider.capital!.capital - totalLoan
+      );
+      capitalProvider.setCapital(capital);
       OFullScreenLoader.stopLoading();
       Loaders.successSnackBar(
         title: 'Prestamo registrado exitosamente',
@@ -142,12 +154,17 @@ class RegistroDePrestamoController {
     
     if(response.statusCode == 200){
       final loanProvider = ClientProvider.instance;
+      final capitalProvider = AuthenticateProvider.instance;
       final Map<String, dynamic> data = jsonDecode(response.body);
       final updatedLoan = loanProvider.loanModel!.copyWith(
         dueDate: data['new_due_date'],
         status: data['status']
       );
       loanProvider.setLoan(updatedLoan);
+      final capital = capitalProvider.capital!.copyWith(
+        ganancias: capitalProvider.capital!.ganancias + interest
+      );
+      capitalProvider.setCapital(capital);
       OFullScreenLoader.stopLoading();
       Loaders.successSnackBar(
         title: 'Pago registrado exitosamente',
@@ -195,6 +212,7 @@ class RegistroDePrestamoController {
     
     if(response.statusCode == 200){
       final loanProvider = ClientProvider.instance;
+      final capitalProvider = AuthenticateProvider.instance;
       final Map<String, dynamic> data = jsonDecode(response.body);
       final updatedLoan = loanProvider.loanModel!.copyWith(
         totalLoan: data['total_loan'],
@@ -203,6 +221,10 @@ class RegistroDePrestamoController {
         status: data['status']
       );
       loanProvider.setLoan(updatedLoan);
+      final capital = capitalProvider.capital!.copyWith(
+        capital: capitalProvider.capital!.ganancias + paymentAmount
+      );
+      capitalProvider.setCapital(capital);
       OFullScreenLoader.stopLoading();
       Loaders.successSnackBar(
         title: 'Pago registrado exitosamente',

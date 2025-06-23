@@ -15,6 +15,7 @@ import 'package:prestapp/feactures/personalization/screens/profile/widgets/profi
 import 'package:prestapp/model/loan.dart';
 import 'package:prestapp/provider/auth_provider.dart';
 import 'package:prestapp/utils/constants/dimensions.dart';
+import 'package:prestapp/utils/constants/my_colors.dart';
 import 'package:prestapp/utils/helpers/helper_funtions.dart';
 import 'package:prestapp/utils/helpers/methods.dart';
 import 'package:provider/provider.dart';
@@ -183,21 +184,28 @@ class _AccountsScreenState extends State<AccountsScreen> {
                                     value: capitalModel.capital.toDouble(),
                                     title: formatCurrency(capitalModel.capital),
                                     radius: 100,
-                                    titleStyle: MyTextStyle.labelMedium,
+                                    titleStyle: MyTextStyle.labelMedium.apply(color: MyColors.zafiro6),
                                   ),
                                   PieChartSectionData(
                                     color: Colors.green,
                                     value: capitalModel.totalInterest.toDouble(),
                                     title: formatCurrency(capitalModel.totalInterest),
                                     radius: 100,
-                                    titleStyle: MyTextStyle.labelMedium,
+                                    titleStyle: MyTextStyle.labelMedium.apply(color: MyColors.greebAccentDark7),
                                   ),
                                   PieChartSectionData(
                                     color: Colors.orange,
                                     value: capitalModel.totalLoan.toDouble(),
                                     title: formatCurrency(capitalModel.totalLoan),
                                     radius: 100,
-                                    titleStyle: MyTextStyle.labelMedium,
+                                    titleStyle: MyTextStyle.labelMedium.apply(color: MyColors.orangeDark7),
+                                  ),
+                                  PieChartSectionData(
+                                    color: Colors.yellow,
+                                    value: capitalModel.totalLoan.toDouble(),
+                                    title: formatCurrency(capitalModel.ganancias),
+                                    radius: 100,
+                                    titleStyle: MyTextStyle.labelMedium.apply(color: MyColors.yellow7),
                                   ),
                                 ],
                                 sectionsSpace: 2,
@@ -215,6 +223,7 @@ class _AccountsScreenState extends State<AccountsScreen> {
                                 _buildLegendItem(Colors.blue, 'Capital'),
                                 _buildLegendItem(Colors.green, 'Interés'),
                                 _buildLegendItem(Colors.orange, 'Prestado'),
+                                _buildLegendItem(Colors.yellow, 'Ganancias'),
                               ],
                             ),
                                       

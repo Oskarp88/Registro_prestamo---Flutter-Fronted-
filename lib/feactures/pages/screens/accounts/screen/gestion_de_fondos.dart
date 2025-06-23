@@ -5,6 +5,7 @@ import 'package:prestapp/common/widgets/appbar/appbar.dart';
 import 'package:prestapp/common/widgets/custom_shapes/container/primary_headers_container.dart';
 import 'package:prestapp/feactures/pages/controllers/capital_controller.dart';
 import 'package:prestapp/feactures/pages/screens/accounts/widgets/show_update_capital.dart';
+import 'package:prestapp/feactures/pages/screens/home/home.dart';
 import 'package:prestapp/provider/auth_provider.dart';
 import 'package:prestapp/utils/constants/dimensions.dart';
 import 'package:prestapp/utils/constants/my_colors.dart';
@@ -50,6 +51,28 @@ class _GestionDeFondosState extends State<GestionDeFondos> {
     final capitalModel = context.watch<AuthenticateProvider>().capital!;
     final maxRetiro =   capitalModel.ganancias;
     final capitalController = Get.find<CapitalController>();
+     final isAdmin = context.read<AuthenticateProvider>().user!.isAdmin;
+
+     if (!isAdmin) {
+      Future.microtask(() => Get.offAll(() => const HomeScreen()));
+      return const Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16),
+              Text(
+                'Redireccionando...',
+                style: TextStyle(fontSize: 16, color: Colors.black54),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
