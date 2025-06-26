@@ -1,3 +1,5 @@
+import 'package:prestapp/utils/constants/constants.dart';
+
 class LoanModel {
   final String id;
   final String clientId;
@@ -5,6 +7,8 @@ class LoanModel {
   final double totalLoan;
   final double interest;
   final double paymentAmount;
+  final double totalInterestHistory;
+  final double totalLoanHistory;
   final String status;
   final List<dynamic> history;
   final String? dueDate;  
@@ -15,6 +19,8 @@ class LoanModel {
     required this.clientId,
     required this.totalLoan,
     required this.interest,
+    required this.totalInterestHistory,
+    required this.totalLoanHistory,
     required this.paymentAmount,
     required this.status,
     required this.history,
@@ -30,6 +36,8 @@ class LoanModel {
     interest: 0,
     paymentAmount: 0,
     totalLoan: 0,
+    totalInterestHistory: 0,
+    totalLoanHistory: 0,
     dueDate: '',
     history: [],
     status: '',
@@ -51,6 +59,8 @@ class LoanModel {
       totalLoan: (json['total_loan'] as num).toDouble(),
       interest: (json['interest'] as num).toDouble(),
       paymentAmount: (json['payment_amount'] as num).toDouble(),
+      totalInterestHistory: (json[Constants.totalInterestHistory] as num).toDouble(),
+      totalLoanHistory: (json[Constants.totalLoanHistory] as num).toDouble(),
       status: json['status'] ?? 'pendiente',
       history: json['history'] ?? [],
       dueDate: json['due_date'], 
@@ -66,6 +76,8 @@ class LoanModel {
       'total_loan': totalLoan,
       'interest': interest,
       'payment_amount': paymentAmount,
+      Constants.totalInterestHistory: totalInterestHistory,
+      Constants.totalLoanHistory: totalLoanHistory,
       'status': status,
       'history': history,
       'due_date': dueDate,
@@ -82,6 +94,8 @@ extension LoanModelCopy on LoanModel {
     double? totalLoan,
     double? interest,
     double? paymentAmount,
+    double? totalInterestHistory,
+    double? totalLoanHistory,
     String? status,
     List<dynamic>? history,
     String? dueDate, 
@@ -94,6 +108,8 @@ extension LoanModelCopy on LoanModel {
       totalLoan: totalLoan ?? this.totalLoan,
       interest: interest ?? this.interest,
       paymentAmount: paymentAmount ?? this.paymentAmount,
+      totalInterestHistory: totalInterestHistory ?? this.totalInterestHistory,
+      totalLoanHistory: totalLoanHistory ?? this.totalLoanHistory,
       status: status ?? this.status,
       history: history ?? this.history,
       dueDate: dueDate ?? this.dueDate,

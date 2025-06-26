@@ -71,7 +71,7 @@ class RegistroDePrestamoController {
         }
       } 
   }
-  
+    
   Future<void>updatePrestamo({
     required String id,
     required int totalLoan,

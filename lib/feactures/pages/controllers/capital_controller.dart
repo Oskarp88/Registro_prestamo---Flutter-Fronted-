@@ -40,7 +40,8 @@ class CapitalController {
       final capitalProvider = AuthenticateProvider.instance;
       final Map<String, dynamic> capitalResponse = jsonDecode(response.body);
       final capital = capitalProvider.capital!.copyWith(
-        capital: capitalResponse[Constants.capital]
+        capital: capitalResponse[Constants.capital],
+        historyCapital: capitalResponse[Constants.capitalHistory]
       );
       capitalProvider.setCapital(capital);
       OFullScreenLoader.stopLoading();

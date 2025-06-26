@@ -1,4 +1,3 @@
-
 import 'package:prestapp/utils/constants/constants.dart';
 
 class CapitalModel {
@@ -7,12 +6,15 @@ class CapitalModel {
   final double totalInterest;
   final double totalLoan;
   final double ganancias;
-  CapitalModel({
+  final double historyCapital;
+
+  CapitalModel( {
     required this.capital,
     required this.admin,
     required this.totalInterest,
     required this.totalLoan,
-    required this.ganancias
+    required this.ganancias,
+    required this.historyCapital,
   });
 
   static CapitalModel empty () => CapitalModel(
@@ -20,6 +22,7 @@ class CapitalModel {
     totalInterest: 0.0,
     totalLoan: 0.0,
     ganancias: 0.0,
+    historyCapital: 0.0,
     admin: '',
   );
   
@@ -37,6 +40,7 @@ class CapitalModel {
       admin: json['admin'] ?? '',
       totalInterest: json['total_interest'] ?? 0.0,
       totalLoan: json[Constants.totalLoan] ?? 0.0,
+      historyCapital: json[Constants.capitalHistory] ?? 0.0,
       ganancias: json[Constants.ganancias] ?? 0.0
     );
   }
@@ -47,7 +51,8 @@ class CapitalModel {
       Constants.admin: admin,
       Constants.totalInterest: totalInterest,
       Constants.totalLoan : totalLoan,
-      Constants.ganancias: ganancias
+      Constants.ganancias: ganancias,
+      Constants.capitalHistory: historyCapital
     };
   }
 }
@@ -59,6 +64,7 @@ extension CapitalModelCopy on CapitalModel {
     double? totalInterest,
     double? totalLoan,
     double? ganancias,
+    double? historyCapital
   }) {
     return CapitalModel(
       capital: capital ?? this.capital,
@@ -66,6 +72,7 @@ extension CapitalModelCopy on CapitalModel {
       totalInterest: totalInterest ?? this.totalInterest,
       totalLoan: totalLoan ?? this.totalLoan,
       ganancias: ganancias ?? this.ganancias,
+      historyCapital: historyCapital ?? this.historyCapital
     );
   }
 }

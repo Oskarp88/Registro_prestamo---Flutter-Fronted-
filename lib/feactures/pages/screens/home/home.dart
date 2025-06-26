@@ -60,6 +60,8 @@ class HomeScreen extends StatelessWidget {
                             ),
                             child: Column(
                               children: [
+                                _infoRow(Iconsax.wallet, 'Capital Historico:', formatCurrency(capitalModel.historyCapital)),
+                                const SizedBox(height: 10),
                                 _infoRow(Iconsax.wallet, 'Capital disponible:', formatCurrency(capitalModel.capital)),
                                 const SizedBox(height: 10),
                                 _infoRow(Iconsax.trend_up, 'Ganancias acumuladas:', formatCurrency(capitalModel.ganancias)),

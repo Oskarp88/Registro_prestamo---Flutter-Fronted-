@@ -20,7 +20,11 @@ class Constants {
 
   ///loan
   static const String totalLoan = 'total_loan';
+  static const String totalLoanHistory = 'total_loan_history';
+  static const String totalInterestHistory = 'total_interest_history';
+  
   static const String capital = 'capital';
+  static const String capitalHistory = 'history_capital';
   static const String ganancias = 'ganancias';
   static const String dueDate = 'due_date';
   static const String status = 'status';
