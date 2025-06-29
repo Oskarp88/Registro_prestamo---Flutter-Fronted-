@@ -284,7 +284,7 @@ class RegistroDePrestamoController {
         history: data['history']
       );
       final updateCapital = capitalProvider.capital!.copyWith(
-        capital: capitalProvider.capital!.capital + data['history'][Constants.totalLoan],
+        capital: capitalProvider.capital!.capital + data[Constants.totalLoan],
         ganancias: capitalProvider.capital!.ganancias + data["interestPayment"],
         totalInterest: capitalProvider.capital!.ganancias + data["interestPayment"],
       );
