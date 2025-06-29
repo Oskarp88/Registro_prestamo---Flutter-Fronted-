@@ -134,7 +134,7 @@ class _RegistrarPrestamoState extends State<RegistrarPrestamo> {
                       showRegisterLoan(
                         context, 
                         widget.isCreate, 
-                        widget.isCreate ? clientProvider.clientModel!.id :  widget.clientId, 
+                        clientProvider.clientModel!.id, 
                         clientProvider.clientModel!.name,
                         dueDate.text.toString(),
                         int.parse(totalLoan.text),

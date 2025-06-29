@@ -38,7 +38,7 @@ class CapitalModel {
     return CapitalModel(
       capital: json['capital'] ?? 0.0,
       admin: json['admin'] ?? '',
-      totalInterest: json['total_interest'] ?? 0.0,
+      totalInterest: json['history_interest'] ?? 0.0,
       totalLoan: json[Constants.totalLoan] ?? 0.0,
       historyCapital: json[Constants.capitalHistory] ?? 0.0,
       ganancias: json[Constants.ganancias] ?? 0.0
@@ -49,7 +49,7 @@ class CapitalModel {
     return {
       Constants.capital: capital,
       Constants.admin: admin,
-      Constants.totalInterest: totalInterest,
+     'history_interest': totalInterest,
       Constants.totalLoan : totalLoan,
       Constants.ganancias: ganancias,
       Constants.capitalHistory: historyCapital

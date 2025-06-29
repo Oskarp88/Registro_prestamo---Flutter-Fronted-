@@ -76,6 +76,7 @@ class RegistroDePrestamoController {
     required String id,
     required int totalLoan,
     required String dueDate,
+    required String name,
   })async{
     
     OFullScreenLoader.openLoadingDialog('Registrando prestamo...', AssetsManager.clashcycle);
@@ -97,6 +98,7 @@ class RegistroDePrestamoController {
         Constants.clientId: id,
         Constants.totalLoan: totalLoan,
         Constants.dueDate: dueDate,
+        Constants.name: name,
       })
     );
     
@@ -126,7 +128,7 @@ class RegistroDePrestamoController {
         }
       } 
   }
-    
+     
   Future<void>payInterest({
     required String id,
     required double interest,
@@ -162,7 +164,8 @@ class RegistroDePrestamoController {
       );
       loanProvider.setLoan(updatedLoan);
       final capital = capitalProvider.capital!.copyWith(
-        ganancias: capitalProvider.capital!.ganancias + interest
+        ganancias: capitalProvider.capital!.ganancias + interest,
+        totalInterest: capitalProvider.capital!.totalInterest + interest
       );
       capitalProvider.setCapital(capital);
       OFullScreenLoader.stopLoading();
@@ -272,6 +275,7 @@ class RegistroDePrestamoController {
     
     if(response.statusCode == 200){
       final loanProvider = ClientProvider.instance;
+      final capitalProvider = AuthenticateProvider.instance;
       final Map<String, dynamic> data = jsonDecode(response.body);
        final updatedLoan = loanProvider.loanModel!.copyWith(
         totalLoan: 0,
@@ -279,7 +283,13 @@ class RegistroDePrestamoController {
         status: data['status'],
         history: data['history']
       );
+      final updateCapital = capitalProvider.capital!.copyWith(
+        capital: capitalProvider.capital!.capital + data['history'][Constants.totalLoan],
+        ganancias: capitalProvider.capital!.ganancias + data["interestPayment"],
+        totalInterest: capitalProvider.capital!.ganancias + data["interestPayment"],
+      );
       loanProvider.setLoan(updatedLoan);
+      capitalProvider.setCapital(updateCapital);
       OFullScreenLoader.stopLoading();
       Loaders.successSnackBar(
         title: data['message'],

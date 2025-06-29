@@ -76,6 +76,7 @@ void showRegisterLoan(
                     id: clientId,
                     totalLoan: totalLoan,
                     dueDate: dueDate,
+                    name: name
                   );
               Navigator.pop(context);
             },

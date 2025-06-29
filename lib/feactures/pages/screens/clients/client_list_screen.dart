@@ -8,9 +8,11 @@ import 'package:prestapp/common/widgets/custom_shapes/container/search_container
 import 'package:prestapp/data/services/api_service.dart';
 import 'package:prestapp/feactures/pages/screens/clients/client_details.dart';
 import 'package:prestapp/model/client.dart';
+import 'package:prestapp/provider/client_provider.dart';
 import 'package:prestapp/utils/constants/constants.dart';
 import 'package:prestapp/utils/constants/dimensions.dart';
 import 'package:prestapp/utils/helpers/methods.dart';
+import 'package:provider/provider.dart';
 
 class ClientListScreen extends StatefulWidget {
   const ClientListScreen({super.key});
@@ -81,6 +83,7 @@ class _ClientListScreenState extends State<ClientListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final setClient = context.read<ClientProvider>().setClient;
     return Scaffold(
       body: Column(
         children: [
@@ -209,16 +212,9 @@ class _ClientListScreenState extends State<ClientListScreen> {
                           leading: const Icon(Icons.person),
                           trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                           onTap: () {
-                            final ClientModel client = item.client.copyWith(
-                              name: item.client.name,
-                              lastname: item.client.lastname,
-                              cedula: item.client.cedula,
-                            );
+                            setClient(item.client);
                             Get.to(() => ClientDetails(
-                                  client: client,
                                   clientId: item.client.id,
-                                  name: item.client.name,
-                                  lastname: item.client.lastname,
                                 ));
                           },
                         ),

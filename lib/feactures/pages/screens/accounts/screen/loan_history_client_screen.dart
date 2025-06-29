@@ -19,7 +19,7 @@ class LoanHistoryClientScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? lastDate; 
-   
+    final reversedList = historyList.reversed.toList();
     return Scaffold(
       body: Column(
         children: [
@@ -69,9 +69,9 @@ class LoanHistoryClientScreen extends StatelessWidget {
                   )
                 : ListView.builder(
                     padding: const EdgeInsets.all(Dimensions.defaultSpace),
-                    itemCount: historyList.length,
+                    itemCount: reversedList.length,
                     itemBuilder: (context, index) {
-                      final history = historyList[index];
+                      final history = reversedList[index];
                       final creationDate = DateTime.parse(history['date'].toString()).subtract(const Duration(hours: 5));
                       final dateFormatted = DateFormat('d \'de\' MMMM', 'es_ES').format(creationDate);
                       final timeFormatted = DateFormat('HH:mm:ss').format(creationDate);
@@ -112,7 +112,7 @@ class LoanHistoryClientScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     history[Constants.status] == Constants.deudafinalizada
-                                        ? 'Debía ${formatCurrency(history['total_loan'])}. Pagó ${formatCurrency(history['interestPayment'])} de interés y abono ${formatCurrency(history['paymentAmount'])}.'
+                                        ? "El cliente tenía una deuda de ${formatCurrency(history['total_loan'])}. Con los intereses al día, realizó un abono de ${formatCurrency(history['paymentAmount'])}."
                                         : history[Constants.status] == Constants.interesPagado
                                             ? 'Debe ${formatCurrency(history['total_loan'])}. Pagó ${formatCurrency(history['interestPayment'])} de interés.'
                                             : history[Constants.status] == Constants.deudaCompletaPagada

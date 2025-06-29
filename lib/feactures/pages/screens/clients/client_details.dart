@@ -28,14 +28,11 @@ class ClientDetails extends StatefulWidget {
   const ClientDetails({
     super.key,
     required this.clientId,
-    required this.name,
-    required this.lastname, required this.client,
   });
  
-  final ClientModel client;
+ 
   final String clientId;
-  final String name;
-  final String lastname;
+ 
 
   @override
   State<ClientDetails> createState() => _ClientDetailsState();
@@ -59,7 +56,10 @@ class _ClientDetailsState extends State<ClientDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final loanModel = context.watch<ClientProvider>().loanModel!;
+    final clientProvider = context.watch<ClientProvider>();
+    final loanModel = clientProvider.loanModel!;
+    final client = clientProvider.clientModel!;
+
     final isAdmin = context.read<AuthenticateProvider>().user!.isAdmin;
     List<dynamic>? time = loanModel.isNotEmpty() ? loanModel.dueDate?.split('-') : [];
 
@@ -83,7 +83,7 @@ class _ClientDetailsState extends State<ClientDetails> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 80),
                           child: Text(
-                            '${widget.name[0].toUpperCase()}${widget.name.substring(1)} ${widget.lastname[0].toUpperCase()}${widget.lastname.substring(1)}',
+                            '${client.name[0].toUpperCase()}${client.name.substring(1)} ${client.lastname[0].toUpperCase()}${client.lastname.substring(1)}',
                             style: MyTextStyle.titleLarge.copyWith(fontWeight: FontWeight.w600),
                           ),
                         ),
@@ -112,7 +112,7 @@ class _ClientDetailsState extends State<ClientDetails> {
                                     text: 'Crear nuevo préstamo',
                                     onTap: () => Get.to(() => RegistrarPrestamo(
                                       isCreate: false,
-                                      clientId: widget.clientId,
+                                      clientId: loanModel.clientId,
                                     )),
                                   ),
                               ],
@@ -263,7 +263,7 @@ class _ClientDetailsState extends State<ClientDetails> {
                               onPressed: () {
                                 Get.to(() => LoanHistoryClientScreen(
                                   historyList: loanModel.history,
-                                  client: widget.client,
+                                  client: client,
                                 ));
                               },
                               style: ElevatedButton.styleFrom(
